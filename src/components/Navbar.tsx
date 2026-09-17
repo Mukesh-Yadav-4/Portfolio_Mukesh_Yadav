@@ -57,7 +57,7 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="hover:text-emerald-400 transition-colors"
             >
-              CERN Zenodo DOI: 10.5281/zenodo.22806710 ↗
+              Zenodo DOI: 10.5281/zenodo.22806710 ↗
             </a>
           </div>
         </div>

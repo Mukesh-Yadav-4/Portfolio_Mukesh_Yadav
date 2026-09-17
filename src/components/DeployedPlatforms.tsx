@@ -46,7 +46,7 @@ export default function DeployedPlatforms() {
                 TypeScript • Next.js • Tailwind CSS • Vercel Edge
               </p>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                Decentralized career pathway and skill credential verification platform designed for national scale, connecting vocational talent with verified industry apprenticeships.
+                Employment and skilling intelligence dashboard developed for a Smart India Hackathon project, connecting training, employment, and outcome data through an interactive Next.js interface.
               </p>
 
               <div className="grid grid-cols-2 gap-3 mb-6 text-xs font-mono">

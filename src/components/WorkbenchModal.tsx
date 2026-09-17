@@ -265,7 +265,7 @@ function EcgStressWorkbench() {
       }
       ctx.stroke();
 
-      // Pan-Tompkins Peak Annotations on authentic recorded peaks
+      // Detected R-Peaks on authentic recorded peaks
       ctx.shadowBlur = 0;
       peaks.forEach((pIdx) => {
         const dist = (pIdx - offset + len) % len;
@@ -322,7 +322,7 @@ function EcgStressWorkbench() {
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-semibold rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-volt-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-all"
           >
-            <span>CERN DOI</span>
+            <span>Zenodo DOI</span>
             <ExternalLink className="w-3 h-3" />
           </a>
           <a
@@ -435,7 +435,7 @@ function EcgStressWorkbench() {
                 <strong className="text-emerald-600 dark:text-volt-400">AUTHENTIC CLINICAL RECORDING:</strong> Rendering actual 700 Hz Lead-II RespiBAN chest telemetry from the WESAD benchmark (Subject {subject}, 10-second continuous cyclic window).
               </div>
               <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                Peak labels (▼ R) are derived directly from the verified Pan-Tompkins QRS algorithm. To inspect the full raw continuous NumPy arrays, run LOSO scripts, or test with your own signals, switch to Tab 2 (Figures) or launch the Python Streamlit Studio.
+                Peak labels (▼ R) show Detected R-Peaks. To inspect the full raw continuous NumPy arrays, run LOSO scripts, or test with your own signals, switch to Tab 2 (Figures) or launch the Python Streamlit Studio.
               </div>
             </div>
           </div>
@@ -498,7 +498,7 @@ function EcgStressWorkbench() {
           <div className="rounded-xl overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-[#070A10] relative">
             <canvas ref={canvasRef} className="w-full block" />
             <div className="absolute top-3 left-3 text-[11px] font-mono text-slate-400 bg-black/60 px-2 py-0.5 rounded border border-white/10">
-              Authentic WESAD Lead-II • Subject {subject} • {state === "stress" ? "Acute TSST Induced" : "Calm Baseline"}
+              Recorded WESAD Lead-II Telemetry • Subject {subject} • {state === "stress" ? "Acute TSST Induced" : "Calm Baseline"}
             </div>
             <div className="absolute top-3 right-3 text-[11px] font-mono font-bold px-2 py-0.5 rounded flex items-center gap-1.5 bg-black/70 border border-white/10">
               <span
@@ -573,7 +573,7 @@ function EcgStressWorkbench() {
       {subView === "gallery" && (
         <div className="space-y-6">
           <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-xs font-mono text-slate-600 dark:text-slate-300">
-            High-resolution validation figures directly exported from our Python pipeline (`matplotlib` / `seaborn`). These plots validate the Leave-One-Subject-Out (LOSO) cross-validation results published in CERN Zenodo (DOI: 10.5281/zenodo.22806710).
+            High-resolution validation figures directly exported from our Python pipeline (`matplotlib` / `seaborn`). These plots validate the Leave-One-Subject-Out (LOSO) cross-validation results published in Zenodo Preprint (DOI: 10.5281/zenodo.22806710).
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -583,13 +583,13 @@ function EcgStressWorkbench() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/images/ecg/DEMO_Pan_Tompkins_QRS_Detection.png"
-                  alt="Pan-Tompkins QRS Detection Pipeline"
+                  alt="Detected R-Peaks"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 1: Pan-Tompkins QRS Complex Detection
+                  Fig. 1: Detected R-Peaks & QRS Feature Extraction
                 </div>
                 <p className="text-xs text-slate-500">
                   Bandpass filtering (0.5–40 Hz), 5-point derivative, squaring, moving window integration, and adaptive dual-threshold R-peak detection.

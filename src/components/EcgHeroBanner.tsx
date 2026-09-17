@@ -104,7 +104,7 @@ export default function EcgHeroBanner() {
       }
       ctx.stroke();
 
-      // Pan-Tompkins Peak Annotations
+      // Detected R-Peaks
       ctx.shadowBlur = 0;
       peaks.forEach((pIdx) => {
         const dist = (pIdx - offset + len) % len;
@@ -157,7 +157,7 @@ export default function EcgHeroBanner() {
         {/* Verification Pill */}
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-xs font-mono text-emerald-600 dark:text-volt-400 mb-6 shadow-sm">
           <Award className="w-3.5 h-3.5" />
-          <span>Published on CERN Zenodo (DOI: 10.5281/zenodo.22806710)</span>
+          <span>Zenodo Preprint (DOI: 10.5281/zenodo.22806710)</span>
         </div>
 
         {/* Hero Headline */}
@@ -169,8 +169,7 @@ export default function EcgHeroBanner() {
             Biosignal Processing & Neuromorphic Hardware
           </p>
           <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl">
-            Electronics & Communication Engineering undergraduate at JSSATEN, Noida. Developing physiological telemetry,
-            relative baseline transforms for stress detection, and analog memristor circuit emulators.
+            Electronics & Communication Engineering undergraduate at JSSATEN, Noida. Developing physiological signal-processing pipelines, relative baseline methods for stress detection, and analog memristor circuit emulators.
           </p>
 
           {/* Action CTAs */}
@@ -212,8 +211,8 @@ export default function EcgHeroBanner() {
               <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping ml-1" />
             </div>
             <div className="flex items-center gap-4 text-xs font-mono text-slate-600 dark:text-slate-400">
-              <span className="hidden sm:inline">Source: <b className="text-emerald-600 dark:text-volt-400">WESAD S2 Recorded</b></span>
-              <span>Bandpass: <b className="text-emerald-600 dark:text-volt-400">0.5 – 40 Hz</b></span>
+              <span className="hidden sm:inline">Source: <b className="text-emerald-600 dark:text-volt-400">Recorded WESAD Lead-II Telemetry</b></span>
+              <span>Playback: <b className="text-emerald-600 dark:text-volt-400">350 Hz waveform playback</b></span>
               <span>Rhythm: <b className="text-emerald-600 dark:text-volt-400">Normal Sinus</b></span>
               <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-slate-100 dark:bg-[#0B0F17] border border-slate-200 dark:border-[#1F293D]">
                 <span className="text-slate-500">HR:</span>
@@ -227,7 +226,7 @@ export default function EcgHeroBanner() {
             <canvas ref={canvasRef} className="w-full block" />
             <div className="absolute bottom-2 left-3 text-[11px] font-mono text-slate-500 pointer-events-none flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-              <span>Authentic Human Lead-II Telemetry Stream (WESAD Subject S2, 700 Hz RespiBAN Chest Acquisition)</span>
+              <span>Recorded WESAD Lead-II Telemetry (Subject S2, 700 Hz RespiBAN Chest Acquisition, 350 Hz waveform playback)</span>
             </div>
           </div>
         </div>

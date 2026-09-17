@@ -125,7 +125,7 @@ export default function ProjectsGallery() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-xs font-mono font-medium text-sky-600 dark:text-cyan-400 hover:underline"
                     >
-                      <span>CERN Record</span>
+                      <span>Zenodo Record</span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
                   ) : proj.demoUrl ? (

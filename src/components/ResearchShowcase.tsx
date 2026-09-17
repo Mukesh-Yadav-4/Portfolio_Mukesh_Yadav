@@ -39,11 +39,11 @@ export default function ResearchShowcase() {
               <span>01 // FLAGSHIP RESEARCH BENCHMARKS</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              Clinical Signals & Neuromorphic Hardware
+              Physiological Signals & Neuromorphic Hardware
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-slate-500 max-w-md">
-            Peer-reviewed and validated experimental systems with authentic recorded waveforms, physical circuit prototypes, and open datasets.
+            Reproducible research systems spanning physiological signal processing, circuit emulation, numerical dynamical systems, authentic recorded waveforms, and open datasets.
           </p>
         </div>
 
@@ -54,7 +54,7 @@ export default function ResearchShowcase() {
             <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
               <div className="flex items-center gap-2">
                 <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-volt-400 border border-emerald-500/30 text-xs font-mono font-bold">
-                  OFFICIAL CERN PUBLICATION
+                  ZENODO PREPRINT
                 </span>
                 <span className="text-xs font-mono text-slate-400 hidden sm:inline">
                   DOI: 10.5281/zenodo.22806710
@@ -107,11 +107,11 @@ export default function ResearchShowcase() {
                     Personalized ECG & HRV Dynamics for Acute Stress Detection
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mt-1">
-                    Solved inter-subject baseline heterogeneity across 15 WESAD benchmark subjects using relative baseline normalization:{" "}
+                    Mitigated inter-subject baseline variability across 15 WESAD benchmark subjects using relative baseline calibration:{" "}
                     <span className="font-mono text-emerald-600 dark:text-volt-400 font-semibold">
                       X* = (X - Bs) / |Bs|
                     </span>
-                    . Evaluated with Leave-One-Subject-Out (LOSO) stratified cross-validation on authentic 700 Hz Lead-II chest telemetry.
+                    . Evaluated with Leave-One-Subject-Out (LOSO) validation on authentic 700 Hz Lead-II chest telemetry.
                   </p>
                 </div>
 
@@ -125,11 +125,11 @@ export default function ResearchShowcase() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src="/images/ecg/DEMO_Pan_Tompkins_QRS_Detection.png"
-                      alt="Pan-Tompkins QRS Complex Detection"
+                      alt="Detected R-Peaks"
                       className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
-                      QRS Detection
+                      Detected R-Peaks
                     </div>
                   </div>
                   <div
@@ -188,12 +188,15 @@ export default function ResearchShowcase() {
                     <div className="text-[10px] font-mono text-slate-500">Separation score</div>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
-                    <div className="text-[10px] font-mono text-slate-400 uppercase">Latency / RAM</div>
+                    <div className="text-[10px] font-mono text-slate-400 uppercase">Feature Extraction</div>
                     <div className="text-xl sm:text-2xl font-bold font-mono text-slate-900 dark:text-white mt-0.5">
-                      &lt;0.85 ms
+                      &lt;0.85 ms*
                     </div>
-                    <div className="text-[10px] font-mono text-slate-500">&lt;5 KB (Wearable)</div>
+                    <div className="text-[10px] font-mono text-slate-500">Benchmark platform</div>
                   </div>
+                </div>
+                <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 pt-1">
+                  *Measured on development machine; MCU deployment not yet validated.
                 </div>
               </div>
 
@@ -207,7 +210,7 @@ export default function ResearchShowcase() {
                     Live Telemetry Simulator
                   </div>
                   <div className="text-xs text-slate-500 mt-0.5">
-                    Stream authentic WESAD subjects S2, S3, S17 with live Pan-Tompkins R-peak detector
+                    Stream authentic WESAD subjects S2, S3, and S17 with detected R-peak visualization.
                   </div>
                 </div>
 
@@ -239,13 +242,13 @@ export default function ResearchShowcase() {
             <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
               <div className="flex items-center gap-2">
                 <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30 text-xs font-mono font-bold">
-                  IEEE TCAS-I HARDWARE REPRODUCTION
+                  IEEE TCAS-I 2026 PAPER REPRODUCTION
                 </span>
                 <span className="text-xs font-mono text-slate-400 hidden sm:inline">
                   DOI: 10.1109/TCSI.2026.3663432
                 </span>
                 <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-[10px] font-mono text-blue-500 dark:text-blue-400">
-                  ● Breadboard & MATLAB ODE45
+                  ● LTspice & MATLAB Numerical Simulation
                 </span>
               </div>
               <a
@@ -266,7 +269,7 @@ export default function ResearchShowcase() {
                     Second-Order Memristor Circuit Emulator & Hopfield Dynamics
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mt-1">
-                    Analog LTspice circuit emulation and MATLAB numerical solver reproducing second-order memristive dynamics. Emulated pinched hysteresis fingerprint across frequency sweeps and coupled to a 5D Hopfield Neural Network generating multi-scroll chaotic attractors.
+                    Emulated a dual-state active memristor in LTspice using CFA/multiplier stages and verified frequency-dependent pinched hysteresis from 5–80 kHz; modeled a 5D memristive Hopfield network in MATLAB, reproducing a 4-butterfly chaotic attractor (M = 2).
                   </p>
                 </div>
 

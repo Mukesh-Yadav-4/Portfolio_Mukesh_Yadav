@@ -55,7 +55,7 @@ export default function ResearchSpotlight() {
           {/* Top Metadata Badges */}
           <div className="flex flex-wrap items-center gap-2 mb-4">
             <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-sky-100 dark:bg-cyan-500/15 text-sky-800 dark:text-cyan-300 border border-sky-300 dark:border-cyan-500/30">
-              CERN Zenodo Verified Preprint
+              Zenodo Verified Preprint
             </span>
             <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-purple-100 dark:bg-purple-500/15 text-purple-800 dark:text-purple-300 border border-purple-300 dark:border-purple-500/30">
               15-Fold Leave-One-Subject-Out (LOSO-CV)
@@ -117,7 +117,7 @@ export default function ResearchSpotlight() {
                   <span>The Mathematical Breakthrough: Relative Baseline Transform</span>
                 </h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  Overcoming inter-individual baseline heterogeneity across unseen subjects.
+                  Mitigating inter-subject baseline variability across unseen subjects.
                 </p>
               </div>
 
@@ -222,7 +222,7 @@ export default function ResearchSpotlight() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-2.5 text-xs font-mono text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-cyan-400 transition-colors"
               >
-                <span>CERN Zenodo Record</span>
+                <span>Zenodo Record</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>

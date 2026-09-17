@@ -66,7 +66,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-emerald-600 dark:hover:text-volt-400 flex items-center gap-1.5 transition-colors"
                 >
-                  <span>Zenodo CERN Publication (DOI: 10.5281/zenodo.22806710)</span>
+                  <span>Zenodo Preprint (DOI: 10.5281/zenodo.22806710)</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
