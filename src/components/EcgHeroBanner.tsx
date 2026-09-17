@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { ArrowRight, Download, Github, Award, Activity, FileText } from "lucide-react";
+import { ArrowRight, Download, Github, Award, Activity, Gamepad2, ExternalLink, CheckCircle2 } from "lucide-react";
+import wesadRawData from "@/data/wesad_ecg_samples.json";
 
 export default function EcgHeroBanner() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -32,49 +33,33 @@ export default function EcgHeroBanner() {
     };
     window.addEventListener("resize", handleResize);
 
-    // Realistic P-Q-R-S-T waveform template
-    // Normalized time 0 to 1
-    function getEcgSample(t: number): number {
-      const phase = (t % 1 + 1) % 1;
-      const baseline = 0;
-
-      // P wave (at phase 0.15 - 0.25)
-      if (phase >= 0.15 && phase <= 0.25) {
-        return baseline + 0.18 * Math.sin(((phase - 0.15) / 0.10) * Math.PI);
-      }
-      // Q wave (dip at phase 0.33)
-      if (phase > 0.30 && phase <= 0.35) {
-        return baseline - 0.15 * Math.sin(((phase - 0.30) / 0.05) * Math.PI);
-      }
-      // R peak (tall sharp spike at phase 0.38)
-      if (phase > 0.35 && phase <= 0.42) {
-        const p = (phase - 0.35) / 0.07;
-        return baseline + 1.0 * Math.sin(p * Math.PI);
-      }
-      // S wave (deep valley right after R at phase 0.43 - 0.48)
-      if (phase > 0.42 && phase <= 0.48) {
-        const p = (phase - 0.42) / 0.06;
-        return baseline - 0.35 * Math.sin(p * Math.PI);
-      }
-      // T wave (gentle broad wave at phase 0.60 - 0.78)
-      if (phase >= 0.60 && phase <= 0.78) {
-        return baseline + 0.32 * Math.sin(((phase - 0.60) / 0.18) * Math.PI);
-      }
-
-      return baseline;
-    }
+    // Authentic recorded WESAD Subject S2 baseline signal
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const s2Data = (wesadRawData as any).S2.baseline;
+    const sig: number[] = s2Data.signal;
+    const peaks: number[] = s2Data.peaks;
+    const len = sig.length;
 
     let offset = 0;
-    const speed = 0.0035;
+    const speed = 5.83; // 350 Hz real-time playback (350 samples/sec at 60 FPS)
+    const visiblePoints = 1050; // 3.0-second clinical monitoring window
 
     const render = () => {
-      offset += speed;
+      offset = (offset + speed) % len;
       ctx.clearRect(0, 0, width, height);
 
-      // Subtle background grid
+      const isDarkMode = document.documentElement.classList.contains("dark");
+
+      // Grid colors
+      const gridColor = isDarkMode ? "rgba(31, 41, 61, 0.45)" : "rgba(226, 232, 240, 0.85)";
+      const lineColor = isDarkMode ? "#00E676" : "#059669";
+      const shadowColor = isDarkMode ? "rgba(0, 230, 118, 0.6)" : "rgba(5, 150, 105, 0.3)";
+
+      // Draw coordinate grid
       const gridSize = 25;
-      ctx.strokeStyle = "rgba(28, 38, 64, 0.45)";
+      ctx.strokeStyle = gridColor;
       ctx.lineWidth = 0.5;
+
       for (let x = 0; x < width; x += gridSize) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
@@ -88,36 +73,68 @@ export default function EcgHeroBanner() {
         ctx.stroke();
       }
 
-      // Draw active ECG waveform line
-      const centerY = height * 0.55;
-      const amp = height * 0.38;
+      // Isoelectric Centerline
+      const centerY = height * 0.60;
+      ctx.strokeStyle = isDarkMode ? "rgba(100, 116, 139, 0.25)" : "rgba(203, 213, 225, 0.6)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, centerY);
+      ctx.lineTo(width, centerY);
+      ctx.stroke();
+
+      // Render Authentic ECG Waveform
+      const amp = height * 0.44;
 
       ctx.beginPath();
-      ctx.lineWidth = 2.2;
-      ctx.strokeStyle = "#00F0FF";
-      ctx.shadowColor = "rgba(0, 240, 255, 0.6)";
-      ctx.shadowBlur = 8;
+      ctx.lineWidth = 2.4;
+      ctx.strokeStyle = lineColor;
+      ctx.shadowColor = shadowColor;
+      ctx.shadowBlur = isDarkMode ? 8 : 4;
 
-      const totalBeats = width / 260; // Spread pulses naturally across width
       for (let x = 0; x < width; x++) {
-        const t = (x / width) * totalBeats - offset;
-        const val = getEcgSample(t);
+        const samplePos = (offset + (x / width) * visiblePoints) % len;
+        const i0 = Math.floor(samplePos);
+        const i1 = (i0 + 1) % len;
+        const frac = samplePos - i0;
+        const val = sig[i0] * (1 - frac) + sig[i1] * frac;
+
         const y = centerY - val * amp;
         if (x === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
       ctx.stroke();
 
-      // Glowing scan dot at the leading edge
-      const scanX = width - 15;
-      const scanT = (scanX / width) * totalBeats - offset;
-      const scanY = centerY - getEcgSample(scanT) * amp;
+      // Pan-Tompkins Peak Annotations
+      ctx.shadowBlur = 0;
+      peaks.forEach((pIdx) => {
+        const dist = (pIdx - offset + len) % len;
+        if (dist >= 0 && dist < visiblePoints) {
+          const px = (dist / visiblePoints) * width;
+          const py = centerY - sig[pIdx] * amp;
+
+          ctx.fillStyle = isDarkMode ? "#4ADE80" : "#059669";
+          ctx.beginPath();
+          ctx.arc(px, py, 3, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.font = "bold 9px monospace";
+          ctx.fillText("▼ R", px - 7, py - 7);
+        }
+      });
+
+      // Leading scan indicator dot
+      const lastX = width - 8;
+      const scanPos = (offset + (lastX / width) * visiblePoints) % len;
+      const s0 = Math.floor(scanPos);
+      const s1 = (s0 + 1) % len;
+      const sVal = sig[s0] * (1 - (scanPos - s0)) + sig[s1] * (scanPos - s0);
+      const scanY = centerY - sVal * amp;
 
       ctx.beginPath();
-      ctx.arc(scanX, scanY, 4, 0, Math.PI * 2);
-      ctx.fillStyle = "#FF3366";
-      ctx.shadowColor = "rgba(255, 51, 102, 0.9)";
-      ctx.shadowBlur = 12;
+      ctx.arc(lastX, scanY, 4, 0, Math.PI * 2);
+      ctx.fillStyle = "#EF4444";
+      ctx.shadowColor = "rgba(239, 68, 68, 0.9)";
+      ctx.shadowBlur = 8;
       ctx.fill();
 
       animationFrameId = requestAnimationFrame(render);
@@ -132,87 +149,85 @@ export default function EcgHeroBanner() {
   }, []);
 
   return (
-    <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden border-b border-border/60">
-      {/* Ambient background glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/3 right-1/4 w-[400px] h-[250px] bg-ruby-500/5 rounded-full blur-3xl pointer-events-none" />
+    <section className="relative pt-28 pb-16 md:pt-36 md:pb-20 overflow-hidden border-b border-slate-200 dark:border-[#1F293D] bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-[#0B0F17] dark:via-[#0E131F] dark:to-[#0B0F17]">
+      {/* Ambient glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-emerald-500/10 dark:bg-volt-400/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Verification / Publication Pill */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-card border border-border text-xs font-mono text-cyan-400 mb-6 shadow-sm">
-          <Award className="w-3.5 h-3.5 text-cyan-400" />
-          <span>Published Author on Zenodo (CERN) • DOI: 10.5281/zenodo.22806710</span>
+        {/* Verification Pill */}
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-xs font-mono text-emerald-600 dark:text-volt-400 mb-6 shadow-sm">
+          <Award className="w-3.5 h-3.5" />
+          <span>Published on CERN Zenodo (DOI: 10.5281/zenodo.22806710)</span>
         </div>
 
         {/* Hero Headline */}
         <div className="max-w-3xl">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4">
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-3">
             Mukesh Yadav
           </h1>
-          <p className="text-lg sm:text-2xl font-semibold text-cyan-400 tracking-tight mb-4">
-            Biosignal Processing & Wearable AI Researcher
+          <p className="text-xl sm:text-2xl font-bold text-emerald-600 dark:text-volt-400 tracking-tight mb-4">
+            Biosignal Processing & Neuromorphic Hardware
           </p>
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-8">
-            Undergraduate in <span className="text-white font-medium">Electronics & Communication Engineering (ECE)</span> at{" "}
-            <span className="text-white font-medium">JSS Academy of Technical Education, Noida</span>. Engineering
-            physiological computing algorithms, baseline-relative autonomic transforms, and low-latency machine learning
-            models for wearable cardiovascular telemetry.
+          <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl">
+            Electronics & Communication Engineering undergraduate at JSSATEN, Noida. Developing physiological telemetry,
+            relative baseline transforms for stress detection, and analog memristor circuit emulators.
           </p>
 
           {/* Action CTAs */}
-          <div className="flex flex-wrap items-center gap-3.5 mb-12">
+          <div className="flex flex-wrap items-center gap-3.5 mb-10">
             <a
               href="#research"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-cyan-500/20"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-volt-400 dark:hover:bg-emerald-400 text-white dark:text-slate-950 font-bold text-sm transition-all shadow-md"
             >
-              <span>Explore Featured Research</span>
+              <span>Explore 3 Research Benchmarks</span>
               <ArrowRight className="w-4 h-4" />
             </a>
             <a
-              href="https://github.com/Mukesh-Yadav-4/ECG_STRESS_DETECTION"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-card hover:bg-surface-hover text-white border border-border hover:border-cyan-500/50 text-sm font-semibold transition-all"
+              href="#games"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white dark:bg-[#111726] hover:bg-slate-50 dark:hover:bg-[#161E30] text-slate-800 dark:text-white border border-slate-200 dark:border-[#1F293D] text-sm font-semibold transition-all shadow-sm"
             >
-              <Github className="w-4 h-4" />
-              <span>View GitHub Repo</span>
+              <Gamepad2 className="w-4 h-4 text-emerald-500" />
+              <span>Play Games (Arcade)</span>
             </a>
             <a
-              href="/ECG_Stress_Detection_WESAD_Benchmark_Paper.pdf"
-              download
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-transparent hover:bg-surface-card text-slate-300 hover:text-white text-sm font-medium transition-all"
+              href="https://doi.org/10.5281/zenodo.22806710"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-[#111726] text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white text-sm font-medium transition-all"
             >
-              <Download className="w-4 h-4 text-slate-400" />
-              <span>Download 6-Page Paper (PDF)</span>
+              <span>DOI Citation</span>
+              <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
         </div>
 
         {/* Live Canvas Cardiac Telemetry Visualizer */}
-        <div className="glass-panel p-4 sm:p-5 border-border shadow-2xl relative">
+        <div className="titanium-panel p-4 sm:p-5 relative bg-white dark:bg-[#111726]">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-2 px-1">
             <div className="flex items-center gap-2">
-              <Activity className="w-4 h-4 text-ruby-500 animate-pulse" />
-              <span className="text-xs font-mono font-bold tracking-wider uppercase text-slate-300">
-                Lead-II ECG Telemetry Stream
+              <Activity className="w-4 h-4 text-emerald-500 animate-pulse" />
+              <span className="text-xs font-mono font-bold tracking-wider uppercase text-slate-800 dark:text-slate-300">
+                Lead-II ECG Telemetry
               </span>
               <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping ml-1" />
             </div>
-            <div className="flex items-center gap-4 text-xs font-mono text-slate-400">
-              <span>Bandpass: <b className="text-cyan-400">0.5 – 40 Hz</b></span>
-              <span>Rhythm: <b className="text-emerald-400">Normal Sinus</b></span>
-              <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-surface border border-border">
-                <span className="text-slate-400">HR:</span>
-                <span className="text-ruby-400 font-bold text-sm">{bpm}</span>
-                <span className="text-slate-500 text-[10px]">BPM</span>
+            <div className="flex items-center gap-4 text-xs font-mono text-slate-600 dark:text-slate-400">
+              <span className="hidden sm:inline">Source: <b className="text-emerald-600 dark:text-volt-400">WESAD S2 Recorded</b></span>
+              <span>Bandpass: <b className="text-emerald-600 dark:text-volt-400">0.5 – 40 Hz</b></span>
+              <span>Rhythm: <b className="text-emerald-600 dark:text-volt-400">Normal Sinus</b></span>
+              <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-slate-100 dark:bg-[#0B0F17] border border-slate-200 dark:border-[#1F293D]">
+                <span className="text-slate-500">HR:</span>
+                <span className="text-emerald-600 dark:text-volt-400 font-bold text-sm">{bpm}</span>
+                <span className="text-slate-400 text-[10px]">BPM</span>
               </span>
             </div>
           </div>
 
-          <div className="w-full bg-[#050811] rounded-lg overflow-hidden border border-border/70 relative">
+          <div className="w-full bg-slate-50 dark:bg-[#070A10] rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] relative">
             <canvas ref={canvasRef} className="w-full block" />
-            <div className="absolute bottom-2 left-3 text-[11px] font-mono text-slate-500 pointer-events-none">
-              RespiBAN 700 Hz Chest Acquisition Model • Pan-Tompkins Adaptive Prominence
+            <div className="absolute bottom-2 left-3 text-[11px] font-mono text-slate-500 pointer-events-none flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+              <span>Authentic Human Lead-II Telemetry Stream (WESAD Subject S2, 700 Hz RespiBAN Chest Acquisition)</span>
             </div>
           </div>
         </div>

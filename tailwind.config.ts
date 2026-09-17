@@ -10,12 +10,32 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#070A13",
-        surface: "#0D1322",
-        "surface-card": "#11182B",
-        "surface-hover": "#172138",
-        border: "#1C2640",
-        "border-focus": "#2E3D66",
+        background: "var(--background)",
+        surface: "var(--surface)",
+        "surface-card": "var(--card)",
+        "surface-hover": "var(--surface-hover)",
+        border: "var(--card-border)",
+        "border-focus": "var(--border-focus)",
+        volt: {
+          300: "#4ADE80",
+          400: "#00E676",
+          500: "#10B981",
+          600: "#059669",
+        },
+        titanium: {
+          50: "#F4F6F9",
+          100: "#E2E8F0",
+          200: "#CBD5E1",
+          700: "#1F293D",
+          800: "#111726",
+          900: "#0B0F17",
+          950: "#060910",
+        },
+        crimson: {
+          400: "#F87171",
+          500: "#EF4444",
+          600: "#DC2626",
+        },
         cyan: {
           400: "#22D3EE",
           500: "#00F0FF",

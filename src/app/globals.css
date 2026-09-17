@@ -4,43 +4,71 @@
 
 @layer base {
   :root {
-    --background: #070A13;
+    --background: #F4F6F9;
+    --foreground: #0F172A;
+    --surface: #FFFFFF;
+    --card: #FFFFFF;
+    --surface-hover: #F8FAFC;
+    --card-border: #E2E8F0;
+    --border-focus: #CBD5E1;
+    --muted: #64748B;
+  }
+
+  .dark {
+    --background: #0B0F17;
     --foreground: #F8FAFC;
+    --surface: #0E131F;
+    --card: #111726;
+    --surface-hover: #161E30;
+    --card-border: #1F293D;
+    --border-focus: #2E3D59;
+    --muted: #94A3B8;
   }
   
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
   }
   
   body {
-    background-color: #070A13;
-    color: #F8FAFC;
+    background-color: var(--background);
+    color: var(--foreground);
     font-feature-settings: "rlig" 1, "calt" 1;
     overflow-x: hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   ::selection {
-    background-color: rgba(0, 240, 255, 0.25);
+    background-color: rgba(0, 230, 118, 0.25);
+    color: #0F172A;
+  }
+  .dark ::selection {
+    background-color: rgba(0, 230, 118, 0.3);
     color: #FFFFFF;
   }
 }
 
-/* Custom telemetry card styling */
-.glass-panel {
-  background: rgba(13, 19, 34, 0.75);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(28, 38, 64, 0.85);
+/* Titanium panel styling */
+.titanium-panel, .glass-panel {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
   border-radius: 1rem;
-}
-
-.glass-panel-hover {
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.glass-panel-hover:hover {
-  border-color: rgba(0, 240, 255, 0.4);
+.dark .titanium-panel, .dark .glass-panel {
+  background-color: #111726;
+  border: 1px solid #1F293D;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.titanium-panel-hover:hover, .glass-panel-hover:hover {
+  border-color: #10B981;
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.15);
+  box-shadow: 0 12px 30px -8px rgba(16, 185, 129, 0.15);
+}
+.dark .titanium-panel-hover:hover, .dark .glass-panel-hover:hover {
+  border-color: #00E676;
+  box-shadow: 0 10px 30px -10px rgba(0, 230, 118, 0.25);
 }
 
 /* Custom Scrollbar */
@@ -48,12 +76,21 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+.dark ::-webkit-scrollbar-track {
   background: #070A13;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1C2640;
+  background: #CBD5E1;
   border-radius: 4px;
 }
+.dark ::-webkit-scrollbar-thumb {
+  background: #1C2640;
+}
 ::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
   background: #2E3D66;
 }
