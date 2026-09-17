@@ -19,7 +19,7 @@ export interface Project {
   id: string;
   title: string;
   subtitle: string;
-  category: "Research & Biosignals" | "Data Science & ML" | "Hardware & Embedded" | "Game Dev & Creative";
+  category: "Research & Biosignals" | "Hardware & Embedded" | "Data Science & ML" | "Game Dev & Creative";
   featured: boolean;
   statusBadge: string;
   badgeColor: "cyan" | "ruby" | "emerald" | "amber" | "violet";
@@ -34,6 +34,7 @@ export interface Project {
 }
 
 export const PROJECTS_DATA: Project[] = [
+  // 1. ECG STRESS DETECTION (Flagship Paper)
   {
     id: "ecg-stress-detection-wesad",
     title: "Personalized ECG & HRV Dynamics for Acute Stress Detection",
@@ -80,6 +81,64 @@ export const PROJECTS_DATA: Project[] = [
       "Built interactive Streamlit clinical telemetry web app with live ECG visualizer and dynamic threshold slider.",
     ],
   },
+
+  // 2. SECOND-ORDER MEMRISTOR EMULATOR & HOPFIELD NETWORK
+  {
+    id: "second-order-memristor-emulator",
+    title: "Second-Order Memristor Circuit Emulator & Hopfield Dynamics",
+    subtitle: "Analog SPICE Circuit Emulation & 5D Chaotic Attractor Synthesis in MATLAB",
+    category: "Hardware & Embedded",
+    featured: true,
+    statusBadge: "IEEE TCAS-I Hardware Reproduction",
+    badgeColor: "ruby",
+    date: "2026",
+    summary:
+      "A complete hardware circuit emulator (LTspice) and numerical simulation suite (MATLAB) for the Second-Order Memristor (SOM) and its application to Memristive Hopfield Neural Networks (SOM-HNN), reproducing findings from the 2026 IEEE TCAS-I benchmark paper.",
+    metrics: [
+      { label: "Pinched Hysteresis", value: "5 – 80 kHz", subtext: "Frequency sweep verified", highlight: true },
+      { label: "Attractor Topology", value: "4-Butterfly", subtext: "Multi-scroll chaos", highlight: true },
+      { label: "System Dimension", value: "5D Nonlinear", subtext: "Dual internal state variables" },
+    ],
+    techStack: ["LTspice XVII/24", "Analog Multipliers", "Operational Amplifiers", "MATLAB R2022b+", "Nonlinear Dynamics", "ODE45"],
+    githubUrl: "https://github.com/Mukesh-Yadav-4/second-order-memristor-emulator",
+    demoUrl: "https://doi.org/10.1109/TCSI.2026.3663432",
+    keyContributions: [
+      "Designed analog equivalent circuit schematic in LTspice using off-the-shelf op-amps and analog multipliers.",
+      "Engineered custom hyperbolic saturation macro-model (UniversalOpAmp1.lib) preventing SPICE singular matrix traps.",
+      "Verified fingerprint pinched hysteresis loops across wide frequency sweeps (5 kHz to 80 kHz).",
+      "Synthesized a 5D memristively coupled Hopfield neural network exhibiting multi-butterfly chaotic attractors.",
+    ],
+  },
+
+  // 3. ECG FILTER PROJECT (FIR vs IIR Comparative Study)
+  {
+    id: "ecg-signal-denoising-fir-iir",
+    title: "ECG Signal Denoising: Comparative Study of FIR vs. IIR Filtering",
+    subtitle: "Clinical Telemetry Noise Modeling & Benchmark on PhysioNet MIT-BIH Database",
+    category: "Research & Biosignals",
+    featured: true,
+    statusBadge: "PhysioNet MIT-BIH Validated",
+    badgeColor: "emerald",
+    date: "2026",
+    summary:
+      "Biomedical digital signal processing (DSP) investigation evaluating the fundamental trade-offs between Infinite Impulse Response (IIR) and Finite Impulse Response (FIR) bandpass filtering for ECG denoising, validated on authentic clinical telemetry from MIT-BIH Record 100.",
+    metrics: [
+      { label: "IIR SNR Improvement", value: "+6.17 dB", subtext: "3.95 dB → 10.12 dB SNR", highlight: true },
+      { label: "FIR Beat Alignment", value: "100.00%", subtext: "2,274 / 2,274 clinical beats", highlight: true },
+      { label: "IIR Efficiency", value: "12.5× Boost", subtext: "8 coefficients vs 100 taps" },
+    ],
+    techStack: ["MATLAB", "PhysioNet MIT-BIH", "Format 212 Decoding", "4th-Order Butterworth", "100-Tap Equiripple", "Zero-Phase Filtfilt"],
+    githubUrl: "https://github.com/Mukesh-Yadav-4/ECG-FIR-IIR-filter-comparison",
+    demoUrl: "https://physionet.org/content/mitdb/1.0.0/",
+    keyContributions: [
+      "Decoded raw MIT-BIH Format 212 12-bit packed binary telemetry directly without third-party toolboxes.",
+      "Simulated composite physiological noise: 50 Hz powerline interference, 0.3 Hz baseline wander, and EMG tremor.",
+      "Demonstrated that 4th-order Butterworth IIR provides superior noise suppression with 12.5× lower computational complexity.",
+      "Showed that 100-tap Equiripple FIR achieves 100% morphology alignment with exact linear phase stability.",
+    ],
+  },
+
+  // 4. CUSTOMER SEGMENTATION & RFM
   {
     id: "customer-segmentation-rfm",
     title: "Customer Lifetime Value & RFM Segmentation Pipeline",
@@ -87,7 +146,7 @@ export const PROJECTS_DATA: Project[] = [
     category: "Data Science & ML",
     featured: false,
     statusBadge: "Machine Learning / Analytics",
-    badgeColor: "emerald",
+    badgeColor: "amber",
     date: "2026",
     summary:
       "End-to-end data analytics and unsupervised customer segmentation framework on the UCI Online Retail II dataset. Combines Recency, Frequency, and Monetary (RFM) clustering with K-Means and time-series revenue forecasting.",
@@ -104,6 +163,8 @@ export const PROJECTS_DATA: Project[] = [
       "Formulated targeted marketing cohort recommendations based on high-value customer churn risk.",
     ],
   },
+
+  // 5. ULTRASONIC ARDUINO TELEMETRY
   {
     id: "ultrasonic-arduino-telemetry",
     title: "Ultrasonic Embedded Distance & Spatial Telemetry System",
@@ -128,6 +189,8 @@ export const PROJECTS_DATA: Project[] = [
       "Designed serial telemetry protocol for streaming real-time distance metrics to desktop monitoring tools.",
     ],
   },
+
+  // 6. SPELLSEED GAME ENGINE
   {
     id: "spellseed-godot-exploration",
     title: "Spellseed: 2D Procedural Action & Exploration Engine",
@@ -156,7 +219,7 @@ export const PROJECTS_DATA: Project[] = [
 export const CATEGORIES = [
   "All",
   "Research & Biosignals",
-  "Data Science & ML",
   "Hardware & Embedded",
+  "Data Science & ML",
   "Game Dev & Creative",
 ] as const;
