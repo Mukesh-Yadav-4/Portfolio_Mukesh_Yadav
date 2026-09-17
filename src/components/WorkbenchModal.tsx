@@ -940,7 +940,7 @@ function MemristorWorkbench() {
           >
             <div className="flex items-center gap-2">
               <ImageIcon className={`w-4 h-4 ${subView === "gallery" ? "text-slate-950" : "text-blue-500 dark:text-blue-400"}`} />
-              <span>2. Hardware Breadboard & Chaotic Plots</span>
+              <span>2. Circuit Emulator & Chaotic Plots</span>
             </div>
             <span
               className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
@@ -961,7 +961,7 @@ function MemristorWorkbench() {
           <div className="flex items-start gap-2.5 p-3 rounded-xl bg-blue-500/10 border border-blue-500/25 text-xs font-mono text-slate-700 dark:text-slate-300">
             <CheckCircle2 className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
             <div>
-              <strong className="text-blue-500 dark:text-blue-400">HARDWARE EMULATOR BENCHMARK:</strong> The interactive Lissajous plot below computes the authentic pinched hysteresis loop passing strictly through (0V, 0mA). As frequency increases toward 80 kHz, the loop degenerates into a single-valued resistor. Switch to Tab 2 to inspect physical breadboard photos and multi-butterfly attractors.
+              <strong className="text-blue-500 dark:text-blue-400">CIRCUIT EMULATOR BENCHMARK:</strong> The interactive Lissajous plot below computes the authentic pinched hysteresis loop passing strictly through (0V, 0mA). As frequency increases toward 80 kHz, the loop degenerates into a single-valued resistor. Switch to Tab 2 to inspect circuit emulation figures and multi-butterfly attractors.
             </div>
           </div>
 
@@ -1098,30 +1098,30 @@ function MemristorWorkbench() {
         </div>
       )}
 
-      {/* SUBVIEW 2: SCIENTIFIC FIGURES & HARDWARE GALLERY */}
+      {/* SUBVIEW 2: SCIENTIFIC FIGURES & CIRCUIT EMULATION GALLERY */}
       {subView === "gallery" && (
         <div className="space-y-6">
           <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-xs font-mono text-slate-600 dark:text-slate-300">
-            Experimental hardware artifacts, oscilloscope frequency sweeps, and MATLAB numerical simulations reproducing IEEE TCAS-I (2026).
+            Circuit emulation artifacts, frequency sweeps, and MATLAB numerical simulations reproducing IEEE TCAS-I (2026).
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Fig 1: Breadboard */}
+            {/* Fig 1: Circuit Emulator */}
             <div className="titanium-panel p-4 space-y-3 bg-white dark:bg-[#0E131F]">
               <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/images/memristor/second_order_mem_regestier.png"
-                  alt="Second-Order Memristor Breadboard Prototype"
+                  alt="Second-Order Memristor Circuit Emulator"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 1: Analog Hardware Prototype on Solderless Breadboard
+                  Fig. 1: Analog Circuit Emulator Implementation
                 </div>
                 <p className="text-xs text-slate-500">
-                  Constructed using AD844 Current Feedback Amplifiers (CFAs), AD633 four-quadrant analog multiplier, and dual capacitor state variables.
+                  Implemented using AD844 Current Feedback Amplifiers (CFAs), AD633 four-quadrant analog multiplier, and dual capacitor state variables.
                 </p>
               </div>
             </div>

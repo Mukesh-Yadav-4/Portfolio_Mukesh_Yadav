@@ -293,16 +293,16 @@ export default function ResearchShowcase() {
                   <div
                     onClick={() => openWorkbench("memristor")}
                     className="group/fig cursor-pointer rounded-xl overflow-hidden border border-slate-200 dark:border-[#222E46] bg-slate-950 relative shadow-sm hover:border-blue-500/60 dark:hover:border-blue-400/60 transition-all"
-                    title="Click to expand Breadboard Prototype in Workbench"
+                    title="Click to expand Circuit Emulator in Workbench"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src="/images/memristor/second_order_mem_regestier.png"
-                      alt="Breadboard Hardware"
+                      alt="Circuit Emulator Schematic"
                       className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
-                      Breadboard Hardware
+                      Circuit Emulation
                     </div>
                   </div>
                   <div
