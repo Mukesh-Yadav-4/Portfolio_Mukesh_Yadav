@@ -7,7 +7,7 @@ import { Github, ExternalLink, Menu, X, Activity, Sun, Moon } from "lucide-react
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,13 +15,13 @@ export default function Navbar() {
     };
     window.addEventListener("scroll", handleScroll);
 
-    // Default to clean bright theme unless user explicitly chose dark mode
-    if (localStorage.theme === "dark") {
-      document.documentElement.classList.add("dark");
-      setIsDark(true);
-    } else {
+    // Default to dark mode unless user explicitly chose light theme
+    if (localStorage.theme === "light") {
       document.documentElement.classList.remove("dark");
       setIsDark(false);
+    } else {
+      document.documentElement.classList.add("dark");
+      setIsDark(true);
     }
 
     return () => window.removeEventListener("scroll", handleScroll);
