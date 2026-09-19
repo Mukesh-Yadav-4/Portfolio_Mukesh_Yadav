@@ -126,6 +126,8 @@ export default function ResearchShowcase() {
                     <img
                       src="/images/ecg/DEMO_Pan_Tompkins_QRS_Detection.png"
                       alt="Detected R-Peaks"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
@@ -141,6 +143,8 @@ export default function ResearchShowcase() {
                     <img
                       src="/images/ecg/FINAL_ROC_Curve.png"
                       alt="LOSO ROC Curve"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
@@ -156,6 +160,8 @@ export default function ResearchShowcase() {
                     <img
                       src="/images/ecg/FINAL_Confusion_Matrix.png"
                       alt="Confusion Matrix"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
@@ -284,6 +290,8 @@ export default function ResearchShowcase() {
                     <img
                       src="/images/memristor/SOM_HNN_4Butterfly_Attractor.png"
                       alt="4-Butterfly Attractor"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
@@ -299,6 +307,8 @@ export default function ResearchShowcase() {
                     <img
                       src="/images/memristor/second_order_mem_regestier.png"
                       alt="Circuit Emulator Schematic"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
@@ -314,6 +324,8 @@ export default function ResearchShowcase() {
                     <img
                       src="/images/memristor/SOM_HNN_3D_State_Space.png"
                       alt="3D State Space"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
@@ -418,6 +430,8 @@ export default function ResearchShowcase() {
                     <img
                       src="/images/filter/Fig2_Filter_Comparison_Centered.png"
                       alt="Filter Comparison Centered"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
@@ -433,6 +447,8 @@ export default function ResearchShowcase() {
                     <img
                       src="/images/filter/Fig4_RPeak_Alignment.png"
                       alt="R-Peak Alignment"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
@@ -448,6 +464,8 @@ export default function ResearchShowcase() {
                     <img
                       src="/images/filter/Fig5_Performance_Dashboard.png"
                       alt="Performance Dashboard"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">

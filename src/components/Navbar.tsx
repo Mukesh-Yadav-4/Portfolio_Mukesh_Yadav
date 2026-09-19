@@ -92,14 +92,14 @@ export default function Navbar() {
             <a href="#research" className="hover:text-emerald-600 dark:hover:text-volt-400 transition-colors font-semibold">
               Research
             </a>
+            <a href="#systems" className="hover:text-emerald-600 dark:hover:text-volt-400 transition-colors font-semibold">
+              Systems
+            </a>
             <a href="#games" className="hover:text-emerald-600 dark:hover:text-volt-400 transition-colors font-semibold">
               Playable Games
             </a>
             <a href="#platforms" className="hover:text-emerald-600 dark:hover:text-volt-400 transition-colors font-semibold">
               Platforms
-            </a>
-            <a href="#systems" className="hover:text-emerald-600 dark:hover:text-volt-400 transition-colors font-semibold">
-              Systems
             </a>
             <a href="#contact" className="hover:text-emerald-600 dark:hover:text-volt-400 transition-colors font-semibold">
               Contact
@@ -159,25 +159,25 @@ export default function Navbar() {
               01 // Research Benchmarks
             </a>
             <a
+              href="#systems"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block hover:text-emerald-600 dark:hover:text-volt-400 py-1"
+            >
+              02 // Hardware & Systems
+            </a>
+            <a
               href="#games"
               onClick={() => setMobileMenuOpen(false)}
               className="block hover:text-emerald-600 dark:hover:text-volt-400 py-1"
             >
-              02 // Playable Games
+              03 // Playable Games
             </a>
             <a
               href="#platforms"
               onClick={() => setMobileMenuOpen(false)}
               className="block hover:text-emerald-600 dark:hover:text-volt-400 py-1"
             >
-              03 // Full-Stack Platforms
-            </a>
-            <a
-              href="#systems"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block hover:text-emerald-600 dark:hover:text-volt-400 py-1"
-            >
-              04 // Hardware & Systems
+              04 // Full-Stack Platforms
             </a>
             <a
               href="#contact"

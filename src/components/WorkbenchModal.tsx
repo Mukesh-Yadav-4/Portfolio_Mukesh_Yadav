@@ -584,6 +584,8 @@ function EcgStressWorkbench() {
                 <img
                   src="/images/ecg/DEMO_Pan_Tompkins_QRS_Detection.png"
                   alt="Detected R-Peaks"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -604,6 +606,8 @@ function EcgStressWorkbench() {
                 <img
                   src="/images/ecg/FINAL_ROC_Curve.png"
                   alt="Leave-One-Subject-Out ROC Curve"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -624,6 +628,8 @@ function EcgStressWorkbench() {
                 <img
                   src="/images/ecg/FINAL_Confusion_Matrix.png"
                   alt="Confusion Matrix"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -644,6 +650,8 @@ function EcgStressWorkbench() {
                 <img
                   src="/images/ecg/FINAL_Project_Dashboard.png"
                   alt="Full Pipeline Dashboard"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -664,6 +672,8 @@ function EcgStressWorkbench() {
                 <img
                   src="/images/ecg/FINAL_Personalized_Feature_Ablation.png"
                   alt="Personalized Feature Ablation Study"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -684,6 +694,8 @@ function EcgStressWorkbench() {
                 <img
                   src="/images/ecg/DEMO_Raw_ECG_LeadII.png"
                   alt="Continuous Raw Lead-II ECG"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -1038,6 +1050,8 @@ function MemristorWorkbench() {
                 <img
                   src="/images/memristor/SOM_HNN_4Butterfly_Attractor.png"
                   alt="SOM-HNN 4-Butterfly Attractor (k = 0.4, M = 2)"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto max-h-[360px] object-contain rounded"
                 />
               </div>
@@ -1054,6 +1068,8 @@ function MemristorWorkbench() {
                 <img
                   src="/images/memristor/SOM_HNN_3D_State_Space.png"
                   alt="SOM-HNN 3D State Space Trajectory"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto max-h-[360px] object-contain rounded"
                 />
               </div>
@@ -1113,6 +1129,8 @@ function MemristorWorkbench() {
                 <img
                   src="/images/memristor/second_order_mem_regestier.png"
                   alt="Second-Order Memristor Circuit Emulator"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -1133,6 +1151,8 @@ function MemristorWorkbench() {
                 <img
                   src="/images/memristor/SOM_HNN_4Butterfly_Attractor.png"
                   alt="SOM-HNN 4-Butterfly Attractor"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -1153,6 +1173,8 @@ function MemristorWorkbench() {
                 <img
                   src="/images/memristor/SOM_HNN_3D_State_Space.png"
                   alt="3D State Space"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -1173,6 +1195,8 @@ function MemristorWorkbench() {
                 <img
                   src="/images/memristor/Fig2d_Pinched_Hysteresis_Frequency.png"
                   alt="Frequency-Dependent Pinched Hysteresis"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -1193,6 +1217,8 @@ function MemristorWorkbench() {
                 <img
                   src="/images/memristor/Fig2c_Pinched_Hysteresis_Amplitude.png"
                   alt="Amplitude-Dependent Pinched Hysteresis"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -1213,6 +1239,8 @@ function MemristorWorkbench() {
                 <img
                   src="/images/memristor/SOM_HNN_State_Variables.png"
                   alt="Internal State Variables"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -1556,6 +1584,8 @@ function FilterWorkbench() {
                 <img
                   src="/images/filter/Fig2_Filter_Comparison_Centered.png"
                   alt="Filter Comparison Centered"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -1576,6 +1606,8 @@ function FilterWorkbench() {
                 <img
                   src="/images/filter/Fig4_RPeak_Alignment.png"
                   alt="R-Peak Alignment"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -1596,6 +1628,8 @@ function FilterWorkbench() {
                 <img
                   src="/images/filter/Fig5_Performance_Dashboard.png"
                   alt="Performance Dashboard"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -1616,6 +1650,8 @@ function FilterWorkbench() {
                 <img
                   src="/images/filter/Fig3_IIR_Frequency_Response.png"
                   alt="IIR Frequency Response"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
                 />
               </div>
@@ -1636,6 +1672,8 @@ function FilterWorkbench() {
                 <img
                   src="/images/filter/Fig1_Raw_and_Noisy_Signals.png"
                   alt="Raw and Noisy Signals"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto max-h-[300px] object-contain hover:scale-105 transition-transform"
                 />
               </div>

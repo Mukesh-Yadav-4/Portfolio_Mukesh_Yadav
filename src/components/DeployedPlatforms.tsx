@@ -12,7 +12,7 @@ export default function DeployedPlatforms() {
           <div>
             <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-volt-400 uppercase mb-2">
               <Globe className="w-4 h-4" />
-              <span>03 // FULL-STACK PLATFORMS</span>
+              <span>04 // FULL-STACK PLATFORMS</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Live Deployed Web Applications

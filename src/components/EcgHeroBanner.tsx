@@ -23,6 +23,7 @@ export default function EcgHeroBanner() {
     if (!ctx) return;
 
     let animationFrameId: number;
+    let isVisible = true;
     let width = (canvas.width = canvas.parentElement?.clientWidth || 800);
     let height = (canvas.height = 140);
 
@@ -32,6 +33,19 @@ export default function EcgHeroBanner() {
       height = canvas.height = 140;
     };
     window.addEventListener("resize", handleResize);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const prevVisible = isVisible;
+        isVisible = entry.isIntersecting;
+        if (isVisible && !prevVisible) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = requestAnimationFrame(render);
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(canvas);
 
     // Authentic recorded WESAD Subject S2 baseline signal
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,6 +59,7 @@ export default function EcgHeroBanner() {
     const visiblePoints = 1050; // 3.0-second clinical monitoring window
 
     const render = () => {
+      if (!isVisible) return;
       offset = (offset + speed) % len;
       ctx.clearRect(0, 0, width, height);
 
@@ -144,6 +159,7 @@ export default function EcgHeroBanner() {
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      observer.disconnect();
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -154,49 +170,71 @@ export default function EcgHeroBanner() {
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-emerald-500/10 dark:bg-volt-400/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Verification Pill */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-xs font-mono text-emerald-600 dark:text-volt-400 mb-6 shadow-sm">
-          <Award className="w-3.5 h-3.5" />
-          <span>Zenodo Preprint (DOI: 10.5281/zenodo.22806710)</span>
-        </div>
+        {/* Hero Grid: Left Content + Right Master Headshot */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center mb-10">
+          {/* Left Column: Headline, Bio & CTAs */}
+          <div className="lg:col-span-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-xs font-mono text-emerald-600 dark:text-volt-400 mb-6 shadow-sm">
+              <Award className="w-3.5 h-3.5" />
+              <span>Zenodo Preprint (DOI: 10.5281/zenodo.22806710)</span>
+            </div>
 
-        {/* Hero Headline */}
-        <div className="max-w-3xl">
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-3">
-            Mukesh Yadav
-          </h1>
-          <p className="text-xl sm:text-2xl font-bold text-emerald-600 dark:text-volt-400 tracking-tight mb-4">
-            Biosignal Processing & Neuromorphic Hardware
-          </p>
-          <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl">
-            Electronics & Communication Engineering undergraduate at JSSATEN, Noida. Developing physiological signal-processing pipelines, relative baseline methods for stress detection, and analog memristor circuit emulators.
-          </p>
+            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-3">
+              Mukesh Yadav
+            </h1>
+            <p className="text-xl sm:text-2xl font-bold text-emerald-600 dark:text-volt-400 tracking-tight mb-4">
+              Biosignal Processing & Neuromorphic Hardware
+            </p>
+            <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl">
+              Electronics & Communication Engineering undergraduate at JSSATEN, Noida. Developing physiological signal-processing pipelines, relative baseline methods for stress detection, and analog memristor circuit emulators.
+            </p>
 
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center gap-3.5 mb-10">
-            <a
-              href="#research"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-volt-400 dark:hover:bg-emerald-400 text-white dark:text-slate-950 font-bold text-sm transition-all shadow-md"
-            >
-              <span>Explore 3 Research Benchmarks</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <a
-              href="#games"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white dark:bg-[#111726] hover:bg-slate-50 dark:hover:bg-[#161E30] text-slate-800 dark:text-white border border-slate-200 dark:border-[#1F293D] text-sm font-semibold transition-all shadow-sm"
-            >
-              <Gamepad2 className="w-4 h-4 text-emerald-500" />
-              <span>Play Games (Arcade)</span>
-            </a>
-            <a
-              href="https://doi.org/10.5281/zenodo.22806710"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-[#111726] text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white text-sm font-medium transition-all"
-            >
-              <span>DOI Citation</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+            {/* Action CTAs */}
+            <div className="flex flex-wrap items-center gap-3.5">
+              <a
+                href="#research"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-volt-400 dark:hover:bg-emerald-400 text-white dark:text-slate-950 font-bold text-sm transition-all shadow-md"
+              >
+                <span>Explore 3 Research Benchmarks</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <a
+                href="#games"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white dark:bg-[#111726] hover:bg-slate-50 dark:hover:bg-[#161E30] text-slate-800 dark:text-white border border-slate-200 dark:border-[#1F293D] text-sm font-semibold transition-all shadow-sm"
+              >
+                <Gamepad2 className="w-4 h-4 text-emerald-500" />
+                <span>Play Games (Arcade)</span>
+              </a>
+              <a
+                href="https://doi.org/10.5281/zenodo.22806710"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-[#111726] text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white text-sm font-medium transition-all"
+              >
+                <span>DOI Citation</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column: Master Portrait */}
+          <div className="lg:col-span-4 flex justify-center lg:justify-end mt-4 lg:mt-0">
+            <div className="relative group">
+              {/* Subtle ambient backlight glow */}
+              <div className="absolute -inset-1 bg-gradient-to-tr from-emerald-500/20 via-volt-400/15 to-blue-500/20 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition duration-500 pointer-events-none" />
+              
+              <div className="relative w-60 sm:w-64 lg:w-72 max-w-[280px] rounded-2xl overflow-hidden border-2 border-slate-200/80 dark:border-[#1F293D] bg-slate-900 shadow-2xl">
+                <img
+                  src="/images/mukesh_headshot_master.jpg"
+                  alt="Mukesh Yadav - Biosignal Processing Researcher"
+                  width={280}
+                  height={370}
+                  loading="eager"
+                  decoding="async"
+                  className="w-full h-auto object-cover aspect-[3/4] transform group-hover:scale-[1.02] transition duration-500"
+                />
+              </div>
+            </div>
           </div>
         </div>
 

@@ -55,7 +55,7 @@ export default function PlayableArcade() {
           <div>
             <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-volt-400 uppercase mb-2">
               <Gamepad2 className="w-4 h-4" />
-              <span>02 // PLAYABLE ARCADE</span>
+              <span>03 // PLAYABLE ARCADE</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Interactive In-Browser Games
@@ -100,6 +100,8 @@ export default function PlayableArcade() {
                     <img
                       src={game.image}
                       alt={game.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">

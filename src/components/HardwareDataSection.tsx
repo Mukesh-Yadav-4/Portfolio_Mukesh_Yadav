@@ -55,7 +55,7 @@ export default function HardwareDataSection() {
           <div>
             <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-volt-400 uppercase mb-2">
               <Cpu className="w-4 h-4" />
-              <span>04 // HARDWARE & DATA SYSTEMS</span>
+              <span>02 // HARDWARE & DATA SYSTEMS</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Embedded Sensors & Machine Learning Systems
