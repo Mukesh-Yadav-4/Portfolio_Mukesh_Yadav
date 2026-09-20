@@ -15,6 +15,8 @@ import {
   Info
 } from "lucide-react";
 import wesadRawData from "@/data/wesad_ecg_samples.json";
+import mitbihFilterData from "@/data/mitbih_filter_samples.json";
+import ButterflyChaosTelemetry from "./ButterflyChaosTelemetry";
 
 interface WesadCondition {
   signal: number[];
@@ -166,20 +168,28 @@ function EcgStressWorkbench() {
   const [subject, setSubject] = useState<"S2" | "S3" | "S17">("S2");
   const [state, setState] = useState<"baseline" | "stress">("baseline");
   const [subView, setSubView] = useState<"simulator" | "gallery" | "streamlit">("simulator");
+  const [sweepSpeed, setSweepSpeed] = useState<"25" | "50">("25");
+  const sweepSpeedRef = useRef<"25" | "50">("25");
+  const [instantBpm, setInstantBpm] = useState<number>(75);
+  const [instantRr, setInstantRr] = useState<number>(800);
 
-  // Telemetry metrics based on state and subject
+  useEffect(() => {
+    sweepSpeedRef.current = sweepSpeed;
+  }, [sweepSpeed]);
+
+  // Clinical telemetry metrics computed directly from WESAD dataset (export_demo_samples.py / samples_meta.json)
   const metrics = {
     S2: {
-      baseline: { hr: 68, rr: 882, rmssd: 44.2, pnn50: 21.5, prob: 7 },
-      stress: { hr: 94, rr: 638, rmssd: 18.1, pnn50: 4.2, prob: 96 },
+      baseline: { hr: 75.0, rr: 800, rmssd: 67.5, pnn50: 31.5, prob: 16 },
+      stress: { hr: 80.1, rr: 749, rmssd: 43.1, pnn50: 23.1, prob: 22 },
     },
     S3: {
-      baseline: { hr: 72, rr: 833, rmssd: 39.8, pnn50: 17.0, prob: 9 },
-      stress: { hr: 99, rr: 606, rmssd: 16.4, pnn50: 2.8, prob: 98 },
+      baseline: { hr: 55.7, rr: 1077, rmssd: 107.4, pnn50: 67.9, prob: 7 },
+      stress: { hr: 102.8, rr: 584, rmssd: 25.9, pnn50: 3.0, prob: 61 },
     },
     S17: {
-      baseline: { hr: 65, rr: 923, rmssd: 48.5, pnn50: 25.1, prob: 4 },
-      stress: { hr: 88, rr: 681, rmssd: 21.9, pnn50: 6.5, prob: 91 },
+      baseline: { hr: 65.2, rr: 920, rmssd: 106.2, pnn50: 63.5, prob: 26 },
+      stress: { hr: 107.7, rr: 557, rmssd: 22.4, pnn50: 4.0, prob: 88 },
     },
   }[subject][state];
 
@@ -207,16 +217,35 @@ function EcgStressWorkbench() {
     const sig = currentSample.signal;
     const peaks = currentSample.peaks;
     const len = sig.length;
+    const fs = 350;
 
+    // Precompute authentic beat-by-beat RR-intervals and instantaneous HR from detected peaks
+    const hrTable = peaks.map((p: number, i: number) => {
+      const prevP = i === 0 ? peaks[peaks.length - 1] - len : peaks[i - 1];
+      const rrSec = (p - prevP) / fs;
+      return {
+        peak: p,
+        rrMs: Math.round(rrSec * 1000),
+        hr: Math.round(60 / rrSec),
+      };
+    });
+
+    let lastActivePeakIdx = -1;
     let offset = 0;
-    // 350 Hz real-time playback: ~5.83 samples/frame (350 samples/sec at 60 FPS)
-    const speed = 5.83;
-    // Standard clinical monitor window: 3.0 seconds displayed across screen (1050 samples)
-    const visiblePoints = 1050;
+    let lastTime = performance.now();
 
-    const render = () => {
-      offset = (offset + speed) % len;
+    const render = (currentTime?: number) => {
+      const now = currentTime || performance.now();
+      const dt = Math.min(Math.max((now - lastTime) / 1000, 0), 0.1);
+      lastTime = now;
+
+      // Real physical clock advance (350 samples/second)
+      offset = (offset + dt * fs) % len;
       ctx.clearRect(0, 0, width, height);
+
+      // Clinical 25 mm/s standard: 6.0s window (2100 samples)
+      // Detail 50 mm/s morphology: 3.0s window (1050 samples)
+      const visiblePoints = sweepSpeedRef.current === "25" ? 2100 : 1050;
 
       // Coordinate Grid
       ctx.strokeStyle = "rgba(31, 41, 61, 0.4)";
@@ -283,10 +312,43 @@ function EcgStressWorkbench() {
         }
       });
 
+      // Leading scan indicator dot
+      const lastX = width - 10;
+      const scanPos = (offset + (lastX / width) * visiblePoints) % len;
+      const s0 = Math.floor(scanPos);
+      const s1 = (s0 + 1) % len;
+      const sVal = sig[s0] * (1 - (scanPos - s0)) + sig[s1] * (scanPos - s0);
+      const scanY = centerY - sVal * amp;
+
+      // Track instantaneous HR from the most recent detected R-peak crossed by the scanhead
+      let bestPeakIdx = 0;
+      let minDistance = Infinity;
+      for (let i = 0; i < peaks.length; i++) {
+        const dist = (scanPos - peaks[i] + len) % len;
+        if (dist < minDistance) {
+          minDistance = dist;
+          bestPeakIdx = i;
+        }
+      }
+
+      if (bestPeakIdx !== lastActivePeakIdx) {
+        lastActivePeakIdx = bestPeakIdx;
+        const currentMetric = hrTable[bestPeakIdx];
+        setInstantBpm(currentMetric.hr);
+        setInstantRr(currentMetric.rrMs);
+      }
+
+      ctx.beginPath();
+      ctx.arc(lastX, scanY, 4, 0, Math.PI * 2);
+      ctx.fillStyle = state === "stress" ? "#EF4444" : "#10B981";
+      ctx.shadowColor = state === "stress" ? "rgba(239, 68, 68, 0.9)" : "rgba(16, 185, 129, 0.9)";
+      ctx.shadowBlur = 8;
+      ctx.fill();
+
       animId = requestAnimationFrame(render);
     };
 
-    render();
+    animId = requestAnimationFrame(render);
     return () => {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animId);
@@ -497,15 +559,59 @@ function EcgStressWorkbench() {
           {/* Live Waveform Canvas */}
           <div className="rounded-xl overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-[#070A10] relative">
             <canvas ref={canvasRef} className="w-full block" />
-            <div className="absolute top-3 left-3 text-[11px] font-mono text-slate-400 bg-black/60 px-2 py-0.5 rounded border border-white/10">
-              Recorded WESAD Lead-II Telemetry • Subject {subject} • {state === "stress" ? "Acute TSST Induced" : "Calm Baseline"}
+            
+            {/* Top Left Status & Clinical Speed Selector */}
+            <div className="absolute top-3 left-3 flex flex-wrap items-center gap-2">
+              <div className="text-[11px] font-mono text-slate-300 bg-black/75 px-2.5 py-1 rounded-lg border border-white/10 backdrop-blur-sm">
+                Subject {subject} • {state === "stress" ? "Acute TSST Induced" : "Calm Baseline"} (350 Hz)
+              </div>
+              <div className="flex items-center gap-1 p-0.5 rounded-lg bg-black/75 border border-white/10 text-[10px] font-mono backdrop-blur-sm">
+                <button
+                  type="button"
+                  onClick={() => setSweepSpeed("25")}
+                  className={`px-2 py-0.5 rounded font-semibold transition-all ${
+                    sweepSpeed === "25"
+                      ? "bg-emerald-500 dark:bg-volt-400 text-slate-950 font-bold shadow-sm"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                  title="Standard Clinical Monitor Speed (25 mm/s, 6.0s window)"
+                >
+                  25 mm/s (Standard)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSweepSpeed("50")}
+                  className={`px-2 py-0.5 rounded font-semibold transition-all ${
+                    sweepSpeed === "50"
+                      ? "bg-emerald-500 dark:bg-volt-400 text-slate-950 font-bold shadow-sm"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                  title="High-Resolution Morphology Speed (50 mm/s, 3.0s window)"
+                >
+                  50 mm/s (Detail)
+                </button>
+              </div>
             </div>
-            <div className="absolute top-3 right-3 text-[11px] font-mono font-bold px-2 py-0.5 rounded flex items-center gap-1.5 bg-black/70 border border-white/10">
-              <span
-                className={`w-2 h-2 rounded-full ${state === "stress" ? "bg-red-400 animate-ping" : "bg-emerald-400"}`}
-              />
-              <span className={state === "stress" ? "text-red-400" : "text-emerald-400"}>
-                {state === "stress" ? "SYMPATHETIC DOMINANCE" : "PARASYMPATHETIC NORMAL"}
+
+            {/* Top Right Live Telemetry Badge */}
+            <div className="absolute top-3 right-3 flex items-center gap-2">
+              <div className="text-[11px] font-mono font-bold px-2.5 py-1 rounded-lg flex items-center gap-2 bg-black/80 border border-white/10 backdrop-blur-sm">
+                <span className="text-slate-400 font-normal">RR: <b className="text-white font-mono">{instantRr} ms</b></span>
+                <span className="text-slate-600">|</span>
+                <span
+                  className={`w-2 h-2 rounded-full ${state === "stress" ? "bg-red-400 animate-ping" : "bg-emerald-400"}`}
+                />
+                <span className={state === "stress" ? "text-red-400" : "text-emerald-400"}>
+                  {instantBpm} BPM ({state === "stress" ? "SYMPATHETIC" : "PARASYMPATHETIC"})
+                </span>
+              </div>
+            </div>
+
+            {/* Bottom Caption */}
+            <div className="absolute bottom-2 left-3 text-[10px] font-mono text-slate-400 pointer-events-none flex items-center gap-1.5 bg-black/60 px-2 py-0.5 rounded border border-white/10">
+              <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+              <span>
+                {sweepSpeed === "25" ? "25 mm/s Standard Clinical Window (6.0s • ~7-8 beats)" : "50 mm/s High-Detail Morphology Window (3.0s)"} • Clock Δt Normalized
               </span>
             </div>
           </div>
@@ -782,7 +888,8 @@ function MemristorWorkbench() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [freq, setFreq] = useState(25); // 5 to 80 kHz
   const [subView, setSubView] = useState<"simulator" | "gallery">("simulator");
-  const [mode, setMode] = useState<"hysteresis" | "butterfly" | "statespace">("hysteresis");
+  const [mode, setMode] = useState<"hysteresis" | "butterfly" | "statespace">("butterfly");
+  const [butterflyViewType, setButterflyViewType] = useState<"live" | "figure">("live");
 
   useEffect(() => {
     if (subView !== "simulator" || mode !== "hysteresis") return;
@@ -890,7 +997,7 @@ function MemristorWorkbench() {
             Second-Order Memristor Analog Circuit Emulation
           </h3>
           <p className="text-xs text-slate-500 font-mono mt-1">
-            IEEE TCAS-I (2026) Hardware Reproduction • Dual Internal State Variables • Pinched Hysteresis Fingerprint
+            Hardware Reproduction • Based on Lin et al., IEEE TCAS-I (2026) • Dual Internal State Variables
           </p>
         </div>
         <a
@@ -928,7 +1035,7 @@ function MemristorWorkbench() {
           >
             <div className="flex items-center gap-2">
               <Cpu className={`w-4 h-4 ${subView === "simulator" ? "text-slate-950" : "text-emerald-500 dark:text-volt-400"}`} />
-              <span>1. Dynamic Circuit Simulator</span>
+              <span>Dynamic Circuit Simulator</span>
             </div>
             <span
               className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
@@ -952,7 +1059,7 @@ function MemristorWorkbench() {
           >
             <div className="flex items-center gap-2">
               <ImageIcon className={`w-4 h-4 ${subView === "gallery" ? "text-slate-950" : "text-blue-500 dark:text-blue-400"}`} />
-              <span>2. Circuit Emulator & Chaotic Plots</span>
+              <span>Circuit Emulator & Chaotic Plots</span>
             </div>
             <span
               className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
@@ -980,6 +1087,17 @@ function MemristorWorkbench() {
           {/* Mode Buttons */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 bg-slate-50 dark:bg-[#111726] p-2 rounded-xl border border-slate-200 dark:border-[#1F293D]">
             <button
+              onClick={() => setMode("butterfly")}
+              className={`py-2 px-3 text-xs font-mono font-bold rounded-lg border flex items-center justify-center gap-1.5 transition-all ${
+                mode === "butterfly"
+                  ? "bg-rose-500 text-white border-transparent shadow-sm shadow-rose-500/25"
+                  : "bg-white dark:bg-[#161E30] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-[#1F293D]"
+              }`}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-ping" />
+              <span>4-Butterfly Chaos (Live RK4)</span>
+            </button>
+            <button
               onClick={() => setMode("hysteresis")}
               className={`py-2 px-3 text-xs font-mono font-bold rounded-lg border transition-all ${
                 mode === "hysteresis"
@@ -987,17 +1105,7 @@ function MemristorWorkbench() {
                   : "bg-white dark:bg-[#161E30] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-[#1F293D]"
               }`}
             >
-              1. v-i Pinched Hysteresis (5-80 kHz)
-            </button>
-            <button
-              onClick={() => setMode("butterfly")}
-              className={`py-2 px-3 text-xs font-mono font-bold rounded-lg border transition-all ${
-                mode === "butterfly"
-                  ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-transparent shadow-sm"
-                  : "bg-white dark:bg-[#161E30] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-[#1F293D]"
-              }`}
-            >
-              2. 4-Butterfly Attractor (Fig 9c)
+              v-i Pinched Hysteresis (5-80 kHz)
             </button>
             <button
               onClick={() => setMode("statespace")}
@@ -1007,7 +1115,7 @@ function MemristorWorkbench() {
                   : "bg-white dark:bg-[#161E30] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-[#1F293D]"
               }`}
             >
-              3. 3D State Space (x1-x2-x3)
+              3D State Space (x1-x2-x3)
             </button>
           </div>
 
@@ -1044,20 +1152,58 @@ function MemristorWorkbench() {
           )}
 
           {mode === "butterfly" && (
-            <div className="rounded-xl overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-white dark:bg-[#070A10] p-3 text-center">
-              <div className="relative rounded-lg overflow-hidden bg-white max-h-[380px] flex items-center justify-center">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/memristor/SOM_HNN_4Butterfly_Attractor.png"
-                  alt="SOM-HNN 4-Butterfly Attractor (k = 0.4, M = 2)"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-auto max-h-[360px] object-contain rounded"
-                />
+            <div className="space-y-4">
+              {/* Telemetry View Switcher Toggle */}
+              <div className="flex flex-wrap items-center justify-between gap-2 p-2 rounded-xl bg-slate-100 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
+                <div className="flex items-center gap-2 px-1">
+                  <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
+                  <span className="text-xs font-mono font-bold text-slate-800 dark:text-white">
+                    4-Butterfly Phase-Space Dynamics (M = 2, k = 0.40)
+                  </span>
+                </div>
+                <div className="flex items-center gap-1 bg-white dark:bg-[#161E30] p-1 rounded-lg border border-slate-200 dark:border-[#222E46]">
+                  <button
+                    onClick={() => setButterflyViewType("live")}
+                    className={`px-3 py-1 text-xs font-mono font-bold rounded-md transition-all ${
+                      butterflyViewType === "live"
+                        ? "bg-rose-500 text-white shadow-sm"
+                        : "text-slate-600 dark:text-slate-400 hover:text-white"
+                    }`}
+                  >
+                    ⚡ Real-Time RK4 Simulation
+                  </button>
+                  <button
+                    onClick={() => setButterflyViewType("figure")}
+                    className={`px-3 py-1 text-xs font-mono font-bold rounded-md transition-all ${
+                      butterflyViewType === "figure"
+                        ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-sm"
+                        : "text-slate-600 dark:text-slate-400 hover:text-white"
+                    }`}
+                  >
+                    📄 Paper Fig. 9(c) (MATLAB)
+                  </button>
+                </div>
               </div>
-              <div className="text-xs font-mono text-slate-500 mt-2">
-                Fig. 9(c): Authentic MATLAB ode23 steady-state simulation (k = 0.4, M = 2, φ₂ vs φ₁) showcasing 4 distinct dual-lobe chaotic butterfly wings.
-              </div>
+
+              {butterflyViewType === "live" ? (
+                <ButterflyChaosTelemetry />
+              ) : (
+                <div className="rounded-xl overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-white dark:bg-[#070A10] p-3 text-center">
+                  <div className="relative rounded-lg overflow-hidden bg-white max-h-[380px] flex items-center justify-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/images/memristor/SOM_HNN_4Butterfly_Attractor.png"
+                      alt="SOM-HNN 4-Butterfly Attractor (k = 0.4, M = 2)"
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-auto max-h-[360px] object-contain rounded"
+                    />
+                  </div>
+                  <div className="text-xs font-mono text-slate-500 mt-2">
+                    Fig. 9(c): Authentic MATLAB ode23 steady-state simulation (k = 0.4, M = 2, φ₂ vs φ₁) showcasing 4 distinct dual-lobe chaotic butterfly wings.
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
@@ -1265,9 +1411,7 @@ function MemristorWorkbench() {
 // --------------------------------------------------------------------------
 function FilterWorkbench() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [filterType, setFilterType] = useState<"raw" | "iir" | "fir">("iir");
-  const [noise50Hz, setNoise50Hz] = useState(true);
-  const [noiseBaseline, setNoiseBaseline] = useState(true);
+  const [filterType, setFilterType] = useState<"raw" | "iir" | "fir" | "overlay">("overlay");
   const [subView, setSubView] = useState<"simulator" | "gallery">("simulator");
 
   useEffect(() => {
@@ -1279,13 +1423,37 @@ function FilterWorkbench() {
     if (!ctx) return;
 
     let animId: number;
-    const width = (canvas.width = canvas.parentElement?.clientWidth || 700);
-    const height = (canvas.height = 180);
+    let width = (canvas.width = canvas.parentElement?.clientWidth || 700);
+    let height = (canvas.height = 180);
+
+    const handleResize = () => {
+      if (!canvas.parentElement) return;
+      width = canvas.width = canvas.parentElement.clientWidth;
+      height = canvas.height = 180;
+    };
+    window.addEventListener("resize", handleResize);
+
+    const rawData: number[] = mitbihFilterData.noisy;
+    const iirData: number[] = mitbihFilterData.iir;
+    const firData: number[] = mitbihFilterData.fir;
+    const len = mitbihFilterData.length; // 3600 samples
+    const fs = mitbihFilterData.fs; // 360 Hz
 
     let offset = 0;
-    const render = () => {
-      offset += 0.003;
+    let lastTime = performance.now();
+    const visiblePoints = 1440; // 4.0s clinical window at 360 Hz
+
+    const render = (currentTime?: number) => {
+      const now = currentTime || performance.now();
+      const dt = Math.min(Math.max((now - lastTime) / 1000, 0), 0.1);
+      lastTime = now;
+
+      offset = (offset + dt * fs) % len;
       ctx.clearRect(0, 0, width, height);
+
+      // CRT Dark Background
+      ctx.fillStyle = "#070A10";
+      ctx.fillRect(0, 0, width, height);
 
       // Grid
       ctx.strokeStyle = "rgba(31, 41, 61, 0.4)";
@@ -1306,61 +1474,51 @@ function FilterWorkbench() {
 
       const centerY = height * 0.55;
       const amp = height * 0.35;
-      const totalBeats = width / 260;
 
-      ctx.beginPath();
-      ctx.lineWidth = 2.0;
+      const drawSignal = (data: number[], color: string, glow: string, widthPx: number) => {
+        ctx.beginPath();
+        ctx.lineWidth = widthPx;
+        ctx.strokeStyle = color;
+        ctx.shadowColor = glow;
+        ctx.shadowBlur = widthPx > 1.5 ? 6 : 3;
+        ctx.lineJoin = "round";
+
+        for (let x = 0; x < width; x++) {
+          const samplePos = (offset + (x / width) * visiblePoints) % len;
+          const i0 = Math.floor(samplePos);
+          const i1 = (i0 + 1) % len;
+          const frac = samplePos - i0;
+          const val = data[i0] * (1 - frac) + data[i1] * frac;
+
+          const y = centerY - val * amp;
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      };
 
       if (filterType === "raw") {
-        ctx.strokeStyle = "#F59E0B"; // Amber
-        ctx.shadowColor = "rgba(245, 158, 11, 0.5)";
+        drawSignal(rawData, "#F43F5E", "rgba(244, 63, 94, 0.6)", 1.5);
       } else if (filterType === "iir") {
-        ctx.strokeStyle = "#00E676"; // Volt Emerald
-        ctx.shadowColor = "rgba(0, 230, 118, 0.6)";
+        drawSignal(iirData, "#10B981", "rgba(16, 185, 129, 0.7)", 2.0);
+      } else if (filterType === "fir") {
+        drawSignal(firData, "#C084FC", "rgba(192, 132, 252, 0.8)", 2.0);
       } else {
-        ctx.strokeStyle = "#22D3EE"; // Cyan
-        ctx.shadowColor = "rgba(34, 211, 238, 0.6)";
+        // Overlay Mode: Noisy in Reddish + IIR in Purple/Green
+        drawSignal(rawData, "rgba(244, 63, 94, 0.75)", "rgba(244, 63, 94, 0.3)", 1.2);
+        drawSignal(iirData, "#C084FC", "rgba(192, 132, 252, 0.85)", 2.2);
       }
-      ctx.shadowBlur = 5;
 
-      for (let x = 0; x < width; x++) {
-        const t = (x / width) * totalBeats - offset;
-        const phase = ((t % 1) + 1) % 1;
-
-        // Clean ECG
-        let clean = 0;
-        if (phase >= 0.15 && phase <= 0.25) clean += 0.18 * Math.sin(((phase - 0.15) / 0.1) * Math.PI);
-        if (phase > 0.30 && phase <= 0.35) clean -= 0.15 * Math.sin(((phase - 0.3) / 0.05) * Math.PI);
-        if (phase > 0.35 && phase <= 0.42) clean += 1.0 * Math.sin(((phase - 0.35) / 0.07) * Math.PI);
-        if (phase > 0.42 && phase <= 0.48) clean -= 0.35 * Math.sin(((phase - 0.42) / 0.06) * Math.PI);
-        if (phase >= 0.60 && phase <= 0.78) clean += 0.32 * Math.sin(((phase - 0.6) / 0.18) * Math.PI);
-
-        // Noise
-        let noise = 0;
-        if (noise50Hz) noise += 0.18 * Math.sin(x * 0.45);
-        if (noiseBaseline) noise += 0.35 * Math.sin(x * 0.015);
-
-        let yVal = clean;
-        if (filterType === "raw") {
-          yVal = clean + noise;
-        } else if (filterType === "iir") {
-          yVal = clean + noise * 0.05;
-        } else {
-          yVal = clean + noise * 0.08;
-        }
-
-        const y = centerY - yVal * amp;
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-
+      ctx.shadowBlur = 0;
       animId = requestAnimationFrame(render);
     };
 
-    render();
-    return () => cancelAnimationFrame(animId);
-  }, [filterType, noise50Hz, noiseBaseline, subView]);
+    animId = requestAnimationFrame(render);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(animId);
+    };
+  }, [filterType, subView]);
 
   return (
     <div className="space-y-6">
@@ -1461,65 +1619,66 @@ function FilterWorkbench() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 dark:bg-[#111726] p-4 rounded-xl border border-slate-200 dark:border-[#1F293D]">
             <div>
               <div className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-2">
-                1. Select Filter Architecture
+                1. Select Filter Mode
               </div>
-              <div className="flex gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 <button
-                  onClick={() => setFilterType("raw")}
-                  className={`flex-1 py-2 text-xs font-mono font-bold rounded-lg border transition-all ${
-                    filterType === "raw"
-                      ? "bg-amber-500 text-white border-transparent"
+                  onClick={() => setFilterType("overlay")}
+                  className={`py-2 px-2 text-xs font-mono font-bold rounded-lg border transition-all ${
+                    filterType === "overlay"
+                      ? "bg-purple-600 text-white border-transparent shadow-sm"
                       : "bg-white dark:bg-[#161E30] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-[#1F293D]"
                   }`}
                 >
-                  Raw Noisy Signal
+                  Dual Overlay
+                </button>
+                <button
+                  onClick={() => setFilterType("raw")}
+                  className={`py-2 px-2 text-xs font-mono font-bold rounded-lg border transition-all ${
+                    filterType === "raw"
+                      ? "bg-rose-500 text-white border-transparent shadow-sm"
+                      : "bg-white dark:bg-[#161E30] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-[#1F293D]"
+                  }`}
+                >
+                  Raw Noisy
                 </button>
                 <button
                   onClick={() => setFilterType("iir")}
-                  className={`flex-1 py-2 text-xs font-mono font-bold rounded-lg border transition-all ${
+                  className={`py-2 px-2 text-xs font-mono font-bold rounded-lg border transition-all ${
                     filterType === "iir"
-                      ? "bg-emerald-500 text-white border-transparent"
+                      ? "bg-emerald-500 text-white border-transparent shadow-sm"
                       : "bg-white dark:bg-[#161E30] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-[#1F293D]"
                   }`}
                 >
-                  4th-Order IIR (0.5-40Hz)
+                  IIR Butterworth
                 </button>
                 <button
                   onClick={() => setFilterType("fir")}
-                  className={`flex-1 py-2 text-xs font-mono font-bold rounded-lg border transition-all ${
+                  className={`py-2 px-2 text-xs font-mono font-bold rounded-lg border transition-all ${
                     filterType === "fir"
-                      ? "bg-cyan-500 text-white border-transparent"
+                      ? "bg-purple-500 text-white border-transparent shadow-sm"
                       : "bg-white dark:bg-[#161E30] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-[#1F293D]"
                   }`}
                 >
-                  100-Tap FIR (Equiripple)
+                  FIR Equiripple
                 </button>
               </div>
             </div>
 
             <div>
               <div className="text-xs font-mono font-semibold text-slate-500 uppercase tracking-wider mb-2">
-                2. Inject Physiological Noise Artifacts
+                2. MIT-BIH Record 100 Signal Specs
               </div>
-              <div className="flex gap-3 pt-1">
-                <label className="flex items-center gap-2 text-xs font-mono text-slate-700 dark:text-slate-300 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={noise50Hz}
-                    onChange={(e) => setNoise50Hz(e.target.checked)}
-                    className="w-4 h-4 accent-emerald-500 rounded"
-                  />
-                  <span>50 Hz Powerline Hum</span>
-                </label>
-                <label className="flex items-center gap-2 text-xs font-mono text-slate-700 dark:text-slate-300 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={noiseBaseline}
-                    onChange={(e) => setNoiseBaseline(e.target.checked)}
-                    className="w-4 h-4 accent-emerald-500 rounded"
-                  />
-                  <span>0.3 Hz Baseline Wander</span>
-                </label>
+              <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] font-mono text-slate-700 dark:text-slate-300">
+                <span className="px-2 py-1 rounded bg-slate-200/80 dark:bg-black/50 border border-slate-300 dark:border-white/10">
+                  Fs = 360 Hz
+                </span>
+                <span className="px-2 py-1 rounded bg-slate-200/80 dark:bg-black/50 border border-slate-300 dark:border-white/10">
+                  Lead-MLII (2,274 Beats)
+                </span>
+                <span className="px-2 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 font-bold">
+                  Zero-Phase filtfilt
+                </span>
               </div>
             </div>
           </div>
@@ -1527,10 +1686,11 @@ function FilterWorkbench() {
           {/* Canvas */}
           <div className="rounded-xl overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-[#070A10] relative">
             <canvas ref={canvasRef} className="w-full block" />
-            <div className="absolute top-3 left-3 text-[11px] font-mono text-slate-400 bg-black/60 px-2.5 py-1 rounded border border-white/10">
-              {filterType === "raw" && "Corrupted Lead-MLII • SNR = 3.95 dB"}
-              {filterType === "iir" && "Butterworth IIR • SNR = 10.12 dB (+6.17 dB Gain) • 8 Coefficients"}
-              {filterType === "fir" && "Equiripple FIR • 100% Linear Phase Alignment (2,274 Beats) • 100 Taps"}
+            <div className="absolute top-3 left-3 text-[11px] font-mono text-slate-200 bg-black/80 backdrop-blur px-2.5 py-1 rounded border border-white/15">
+              {filterType === "overlay" && "Dual Overlay: Reddish Noisy (3.96 dB) vs Purplish IIR Butterworth (10.11 dB)"}
+              {filterType === "raw" && "Corrupted MIT-BIH Lead-MLII (+50Hz Hum & 0.3Hz Wander) • Input SNR = 3.96 dB"}
+              {filterType === "iir" && "4th-Order Butterworth IIR Bandpass (0.5–40 Hz) • Output SNR = 10.11 dB (+6.17 dB Gain)"}
+              {filterType === "fir" && "100-Tap Equiripple FIR Bandpass (0.5–40 Hz) • Output SNR = 7.01 dB (Zero Phase Distortion)"}
             </div>
           </div>
 

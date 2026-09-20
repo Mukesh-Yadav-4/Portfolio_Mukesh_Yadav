@@ -3,6 +3,9 @@
 import React, { useState } from "react";
 import { Activity, Cpu, Sliders, ExternalLink, Download, Copy, Check, Sparkles, Award, Image as ImageIcon, Terminal } from "lucide-react";
 import WorkbenchModal from "./WorkbenchModal";
+import MiniButterflyWidget from "./MiniButterflyWidget";
+import MiniEcgWidget from "./MiniEcgWidget";
+import MiniFilterWidget from "./MiniFilterWidget";
 
 export default function ResearchShowcase() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -207,13 +210,13 @@ export default function ResearchShowcase() {
               </div>
 
               {/* Workbench Launch Card */}
-              <div className="flex flex-col justify-center items-stretch p-5 rounded-2xl bg-slate-50 dark:bg-[#0E131F] border border-slate-200 dark:border-[#1F293D] space-y-4">
-                <div className="text-center">
-                  <div className="inline-flex p-3 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-volt-400 mb-2">
-                    <Activity className="w-6 h-6 animate-pulse" />
-                  </div>
+              <div className="flex flex-col justify-center items-stretch p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-[#0E131F] border border-slate-200 dark:border-[#1F293D] space-y-3.5">
+                {/* Live Red Acute Stress ECG Telemetry Widget */}
+                <MiniEcgWidget onClick={() => openWorkbench("ecg")} />
+
+                <div>
                   <div className="font-bold text-sm text-slate-900 dark:text-white">
-                    Live Telemetry Simulator
+                    Live ECG Stress Telemetry
                   </div>
                   <div className="text-xs text-slate-500 mt-0.5">
                     Stream authentic WESAD subjects S2, S3, and S17 with detected R-peak visualization.
@@ -226,7 +229,7 @@ export default function ResearchShowcase() {
                     className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-volt-400 dark:hover:bg-emerald-400 text-white dark:text-slate-950 font-bold text-xs sm:text-sm font-mono shadow-md flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
                   >
                     <Sparkles className="w-4 h-4" />
-                    <span>Launch Live Workbench & Figures</span>
+                    <span>Launch Full ECG Workbench</span>
                   </button>
 
                   <a
@@ -248,14 +251,18 @@ export default function ResearchShowcase() {
             <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
               <div className="flex items-center gap-2">
                 <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30 text-xs font-mono font-bold">
-                  IEEE TCAS-I 2026 PAPER REPRODUCTION
+                  HARDWARE REPRODUCTION STUDY
                 </span>
                 <span className="text-xs font-mono text-slate-400 hidden sm:inline">
-                  DOI: 10.1109/TCSI.2026.3663432
+                  Based on: IEEE TCAS-I (Lin et al., 2026)
                 </span>
-                <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-[10px] font-mono text-blue-500 dark:text-blue-400">
-                  ● LTspice & MATLAB Numerical Simulation
-                </span>
+                <button
+                  onClick={() => openWorkbench("memristor")}
+                  className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-[10px] font-mono font-bold text-rose-500 dark:text-rose-400 transition-all cursor-pointer"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping" />
+                  <span>Live 4-Butterfly Telemetry ↗</span>
+                </button>
               </div>
               <a
                 href="https://github.com/Mukesh-Yadav-4/second-order-memristor-emulator"
@@ -277,6 +284,9 @@ export default function ResearchShowcase() {
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mt-1">
                     Emulated a dual-state active memristor in LTspice using CFA/multiplier stages and verified frequency-dependent pinched hysteresis from 5–80 kHz; modeled a 5D memristive Hopfield network in MATLAB, reproducing a 4-butterfly chaotic attractor (M = 2).
                   </p>
+                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1.5">
+                    <span className="font-semibold text-slate-600 dark:text-slate-300">Reference:</span> Lin et al., &quot;A Second-Order Memristor Method to Construct Memristive Neural Networks With Multi-Butterfly and Multi-Scroll Dynamics&quot;, <em>IEEE Trans. Circuits Syst. I (2026)</em>
+                  </div>
                 </div>
 
                 {/* Visual Scientific Figure Previews */}
@@ -288,7 +298,7 @@ export default function ResearchShowcase() {
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src="/images/memristor/SOM_HNN_4Butterfly_Attractor.png"
+                      src="/images/memristor/SOM_HNN_Transient_vs_Steady.png"
                       alt="4-Butterfly Attractor"
                       loading="lazy"
                       decoding="async"
@@ -359,26 +369,36 @@ export default function ResearchShowcase() {
                 </div>
               </div>
 
-              <div className="flex flex-col justify-center items-stretch p-5 rounded-2xl bg-slate-50 dark:bg-[#0E131F] border border-slate-200 dark:border-[#1F293D] space-y-4">
-                <div className="text-center">
-                  <div className="inline-flex p-3 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 mb-2">
-                    <Cpu className="w-6 h-6" />
-                  </div>
+              <div className="flex flex-col justify-center items-stretch p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-[#0E131F] border border-slate-200 dark:border-[#1F293D] space-y-3.5">
+                {/* Real-time High-Speed 4-Butterfly Widget */}
+                <MiniButterflyWidget onClick={() => openWorkbench("memristor")} />
+
+                <div>
                   <div className="font-bold text-sm text-slate-900 dark:text-white">
-                    Frequency Sweep Emulator
+                    4-Butterfly Chaos Telemetry
                   </div>
                   <div className="text-xs text-slate-500 mt-0.5">
-                    Slide from 5 kHz to 80 kHz and watch the v-i pinched loop collapse live
+                    Real-time 60 FPS numerical RK4 solver tracing the 4 chaotic wings and memductance dynamics live.
                   </div>
                 </div>
 
-                <button
-                  onClick={() => openWorkbench("memristor")}
-                  className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-volt-400 dark:hover:bg-emerald-400 text-white dark:text-slate-950 font-bold text-xs sm:text-sm font-mono shadow-md flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
-                >
-                  <Sparkles className="w-4 h-4" />
-                  <span>Launch Live Workbench & Figures</span>
-                </button>
+                <div className="flex flex-col gap-2">
+                  <button
+                    onClick={() => openWorkbench("memristor")}
+                    className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-volt-400 dark:hover:bg-emerald-400 text-white dark:text-slate-950 font-bold text-xs sm:text-sm font-mono shadow-md flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
+                  >
+                    <Sparkles className="w-4 h-4" />
+                    <span>Launch Full Telemetry Workbench</span>
+                  </button>
+
+                  <button
+                    onClick={() => openWorkbench("memristor")}
+                    className="w-full py-2.5 px-3 rounded-xl bg-white dark:bg-[#161E30] hover:bg-slate-50 dark:hover:bg-[#1F293D] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-[#1F293D] text-xs font-mono font-semibold flex items-center justify-center gap-1.5 transition-all"
+                  >
+                    <Sliders className="w-3.5 h-3.5 text-blue-500" />
+                    <span>Open Pinched Hysteresis & Figures</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -499,26 +519,36 @@ export default function ResearchShowcase() {
                 </div>
               </div>
 
-              <div className="flex flex-col justify-center items-stretch p-5 rounded-2xl bg-slate-50 dark:bg-[#0E131F] border border-slate-200 dark:border-[#1F293D] space-y-4">
-                <div className="text-center">
-                  <div className="inline-flex p-3 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 mb-2">
-                    <Sliders className="w-6 h-6" />
-                  </div>
+              <div className="flex flex-col justify-center items-stretch p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-[#0E131F] border border-slate-200 dark:border-[#1F293D] space-y-3.5">
+                {/* Real-time Dual-Trace DSP Filter Widget (Reddish Raw vs Purplish Clean) */}
+                <MiniFilterWidget onClick={() => openWorkbench("filter")} />
+
+                <div>
                   <div className="font-bold text-sm text-slate-900 dark:text-white">
-                    Noise & Filter Comparator
+                    Real-Time Noise & Filter Telemetry
                   </div>
                   <div className="text-xs text-slate-500 mt-0.5">
-                    Inject 50 Hz powerline hum and compare IIR vs FIR clean outputs live
+                    Dual-trace oscilloscope: Reddish raw (+50 Hz hum) vs. Purplish 4th-order IIR Butterworth clean output (+6.17 dB SNR).
                   </div>
                 </div>
 
-                <button
-                  onClick={() => openWorkbench("filter")}
-                  className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-volt-400 dark:hover:bg-emerald-400 text-white dark:text-slate-950 font-bold text-xs sm:text-sm font-mono shadow-md flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
-                >
-                  <Sparkles className="w-4 h-4" />
-                  <span>Launch Live Workbench & Figures</span>
-                </button>
+                <div className="flex flex-col gap-2">
+                  <button
+                    onClick={() => openWorkbench("filter")}
+                    className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-volt-400 dark:hover:bg-emerald-400 text-white dark:text-slate-950 font-bold text-xs sm:text-sm font-mono shadow-md flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
+                  >
+                    <Sparkles className="w-4 h-4" />
+                    <span>Launch Filter Lab & Gallery</span>
+                  </button>
+
+                  <button
+                    onClick={() => openWorkbench("filter")}
+                    className="w-full py-2.5 px-3 rounded-xl bg-white dark:bg-[#161E30] hover:bg-slate-50 dark:hover:bg-[#1F293D] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-[#1F293D] text-xs font-mono font-semibold flex items-center justify-center gap-1.5 transition-all"
+                  >
+                    <Sliders className="w-3.5 h-3.5 text-purple-400" />
+                    <span>Open Interactive Filter Workbench</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

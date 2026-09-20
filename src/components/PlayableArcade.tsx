@@ -62,7 +62,7 @@ export default function PlayableArcade() {
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-slate-500 max-w-md">
-            Built from scratch with pure HTML5 Canvas, responsive physics, and state management. Ready to play instantly.
+            Built from scratch with pure HTML5 Canvas, WebGL, responsive physics, and state management. Ready to play instantly.
           </p>
         </div>
 

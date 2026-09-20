@@ -6,15 +6,14 @@ import wesadRawData from "@/data/wesad_ecg_samples.json";
 
 export default function EcgHeroBanner() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [bpm, setBpm] = useState(72);
+  const [bpm, setBpm] = useState(76);
+  const [rrInterval, setRrInterval] = useState(786);
+  const [sweepSpeed, setSweepSpeed] = useState<"25" | "50">("25");
+  const sweepSpeedRef = useRef<"25" | "50">("25");
 
   useEffect(() => {
-    // Subtle realistic natural sinus rhythm jitter (70 - 74 BPM)
-    const interval = setInterval(() => {
-      setBpm(Math.floor(71 + Math.sin(Date.now() / 3000) * 3));
-    }, 1500);
-    return () => clearInterval(interval);
-  }, []);
+    sweepSpeedRef.current = sweepSpeed;
+  }, [sweepSpeed]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -53,15 +52,40 @@ export default function EcgHeroBanner() {
     const sig: number[] = s2Data.signal;
     const peaks: number[] = s2Data.peaks;
     const len = sig.length;
+    const fs = 350;
 
+    // Precompute authentic beat-by-beat RR-intervals and instantaneous HR from detected peaks
+    const hrTable = peaks.map((p: number, i: number) => {
+      const prevP = i === 0 ? peaks[peaks.length - 1] - len : peaks[i - 1];
+      const rrSec = (p - prevP) / fs;
+      return {
+        peak: p,
+        rrMs: Math.round(rrSec * 1000),
+        hr: Math.round(60 / rrSec),
+      };
+    });
+
+    let lastActivePeakIdx = -1;
     let offset = 0;
-    const speed = 5.83; // 350 Hz real-time playback (350 samples/sec at 60 FPS)
-    const visiblePoints = 1050; // 3.0-second clinical monitoring window
+    let lastTime = performance.now();
 
-    const render = () => {
-      if (!isVisible) return;
-      offset = (offset + speed) % len;
+    const render = (currentTime?: number) => {
+      if (!isVisible) {
+        lastTime = currentTime || performance.now();
+        return;
+      }
+
+      // Delta-time (dt) normalization: strictly 350 samples/sec regardless of monitor refresh rate (60/120/144 Hz)
+      const now = currentTime || performance.now();
+      const dt = Math.min(Math.max((now - lastTime) / 1000, 0), 0.1);
+      lastTime = now;
+
+      offset = (offset + dt * fs) % len;
       ctx.clearRect(0, 0, width, height);
+
+      // Clinical 25 mm/s standard: 6.0-second clinical diagnostic window (2100 samples, ~7-8 beats visible)
+      // High-detail 50 mm/s morphology: 3.0-second electrophysiology window (1050 samples)
+      const visiblePoints = sweepSpeedRef.current === "25" ? 2100 : 1050;
 
       const isDarkMode = document.documentElement.classList.contains("dark");
 
@@ -144,6 +168,24 @@ export default function EcgHeroBanner() {
       const s1 = (s0 + 1) % len;
       const sVal = sig[s0] * (1 - (scanPos - s0)) + sig[s1] * (scanPos - s0);
       const scanY = centerY - sVal * amp;
+
+      // Dynamically calculate instantaneous HR from the most recent detected R-peak crossed by the scanhead
+      let bestPeakIdx = 0;
+      let minDistance = Infinity;
+      for (let i = 0; i < peaks.length; i++) {
+        const dist = (scanPos - peaks[i] + len) % len;
+        if (dist < minDistance) {
+          minDistance = dist;
+          bestPeakIdx = i;
+        }
+      }
+
+      if (bestPeakIdx !== lastActivePeakIdx) {
+        lastActivePeakIdx = bestPeakIdx;
+        const currentMetric = hrTable[bestPeakIdx];
+        setBpm(currentMetric.hr);
+        setRrInterval(currentMetric.rrMs);
+      }
 
       ctx.beginPath();
       ctx.arc(lastX, scanY, 4, 0, Math.PI * 2);
@@ -248,15 +290,49 @@ export default function EcgHeroBanner() {
               </span>
               <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping ml-1" />
             </div>
-            <div className="flex items-center gap-4 text-xs font-mono text-slate-600 dark:text-slate-400">
-              <span className="hidden sm:inline">Source: <b className="text-emerald-600 dark:text-volt-400">Recorded WESAD Lead-II Telemetry</b></span>
-              <span>Playback: <b className="text-emerald-600 dark:text-volt-400">350 Hz waveform playback</b></span>
-              <span>Rhythm: <b className="text-emerald-600 dark:text-volt-400">Normal Sinus</b></span>
-              <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-slate-100 dark:bg-[#0B0F17] border border-slate-200 dark:border-[#1F293D]">
-                <span className="text-slate-500">HR:</span>
-                <span className="text-emerald-600 dark:text-volt-400 font-bold text-sm">{bpm}</span>
-                <span className="text-slate-400 text-[10px]">BPM</span>
-              </span>
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-mono text-slate-600 dark:text-slate-400">
+              <span className="hidden sm:inline">Source: <b className="text-emerald-600 dark:text-volt-400">Recorded WESAD Lead-II</b></span>
+
+              {/* Clinical Speed Selector */}
+              <div className="flex items-center gap-1 p-0.5 rounded-lg bg-slate-100 dark:bg-[#0B0F17] border border-slate-200 dark:border-[#1F293D] text-[10px]">
+                <button
+                  type="button"
+                  onClick={() => setSweepSpeed("25")}
+                  className={`px-2 py-0.5 rounded font-semibold transition-all ${
+                    sweepSpeed === "25"
+                      ? "bg-emerald-500 dark:bg-volt-400 text-slate-950 font-bold shadow-sm"
+                      : "text-slate-500 hover:text-slate-900 dark:hover:text-white"
+                  }`}
+                  title="Standard Clinical Monitor Speed (25 mm/s, 6.0s window)"
+                >
+                  25 mm/s (Standard)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSweepSpeed("50")}
+                  className={`px-2 py-0.5 rounded font-semibold transition-all ${
+                    sweepSpeed === "50"
+                      ? "bg-emerald-500 dark:bg-volt-400 text-slate-950 font-bold shadow-sm"
+                      : "text-slate-500 hover:text-slate-900 dark:hover:text-white"
+                  }`}
+                  title="High-Resolution Morphology Speed (50 mm/s, 3.0s window)"
+                >
+                  50 mm/s (Detail)
+                </button>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="hidden sm:flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-[#0B0F17] border border-slate-200 dark:border-[#1F293D] text-[11px]">
+                  <span className="text-slate-500">RR:</span>
+                  <span className="text-emerald-600 dark:text-volt-400 font-bold">{rrInterval}</span>
+                  <span className="text-slate-400 text-[10px]">ms</span>
+                </span>
+                <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-slate-100 dark:bg-[#0B0F17] border border-slate-200 dark:border-[#1F293D]">
+                  <span className="text-slate-500">HR:</span>
+                  <span className="text-emerald-600 dark:text-volt-400 font-bold text-sm">{bpm}</span>
+                  <span className="text-slate-400 text-[10px]">BPM</span>
+                </span>
+              </div>
             </div>
           </div>
 
@@ -264,7 +340,9 @@ export default function EcgHeroBanner() {
             <canvas ref={canvasRef} className="w-full block" />
             <div className="absolute bottom-2 left-3 text-[11px] font-mono text-slate-500 pointer-events-none flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-              <span>Recorded WESAD Lead-II Telemetry (Subject S2, 700 Hz RespiBAN Chest Acquisition, 350 Hz waveform playback)</span>
+              <span>
+                Recorded WESAD Lead-II Telemetry (Subject S2, 700 Hz RespiBAN, 350 Hz playback • {sweepSpeed === "25" ? "25 mm/s Standard Clinical Window (6.0s)" : "50 mm/s Morphology Zoom Window (3.0s)"})
+              </span>
             </div>
           </div>
         </div>

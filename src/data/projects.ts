@@ -89,7 +89,7 @@ export const PROJECTS_DATA: Project[] = [
     subtitle: "LTspice & MATLAB Numerical Simulation",
     category: "Hardware & Embedded",
     featured: true,
-    statusBadge: "IEEE TCAS-I 2026 Paper Reproduction",
+    statusBadge: "Hardware Reproduction Study",
     badgeColor: "ruby",
     date: "2026",
     summary:
@@ -101,7 +101,7 @@ export const PROJECTS_DATA: Project[] = [
     ],
     techStack: ["LTspice XVII/24", "Analog Multipliers", "Operational Amplifiers", "MATLAB R2022b+", "Nonlinear Dynamics", "ODE45"],
     githubUrl: "https://github.com/Mukesh-Yadav-4/second-order-memristor-emulator",
-    demoUrl: "https://doi.org/10.1109/TCSI.2026.3663432",
+    demoUrl: "https://github.com/Mukesh-Yadav-4/second-order-memristor-emulator",
     keyContributions: [
       "Designed analog equivalent circuit schematic in LTspice using off-the-shelf op-amps and analog multipliers.",
       "Engineered custom hyperbolic saturation macro-model (UniversalOpAmp1.lib) preventing SPICE singular matrix traps.",
