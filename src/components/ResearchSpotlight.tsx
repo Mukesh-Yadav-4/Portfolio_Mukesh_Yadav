@@ -201,11 +201,11 @@ export default function ResearchSpotlight() {
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href={pub.pdfUrl}
-                download="ECG_Stress_Detection_WESAD_Benchmark_Paper.pdf"
+                download="Personalized_ECG_Stress_Detection_WESAD_Benchmark_and_STM32_Edge_IoMT.pdf"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs sm:text-sm transition-all shadow-sm"
               >
                 <Download className="w-4 h-4" />
-                <span>Download Full 6-Page Paper (PDF)</span>
+                <span>Download Full Preprint (9-Page PDF)</span>
               </a>
               <a
                 href={paper.githubUrl}

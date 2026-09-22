@@ -18,8 +18,8 @@ export default function ResearchShowcase() {
   };
 
   const copyBibtex = () => {
-    const bibtex = `@article{yadav2026ecg,
-  title     = {Personalized Electrocardiographic and HRV Dynamics for Acute Stress Detection: A Leave-One-Subject-Out Benchmark on WESAD},
+    const bibtex = `@article{yadav2026personalized,
+  title     = {Personalized Electrocardiographic and HRV Dynamics for Acute Stress Detection: A Leave-One-Subject-Out Benchmark and Bare-Metal Edge IoMT Implementation},
   author    = {Yadav, Mukesh},
   journal   = {Zenodo},
   year      = {2026},
@@ -93,12 +93,12 @@ export default function ResearchShowcase() {
                   )}
                 </button>
                 <a
-                  href="/ECG_Stress_Detection_WESAD_Benchmark_Paper.pdf"
+                  href="/Personalized_ECG_Stress_Detection_WESAD_Benchmark_and_STM32_Edge_IoMT.pdf"
                   download
                   className="flex items-center gap-1.5 px-3 py-1 text-xs font-mono rounded-lg bg-slate-100 dark:bg-[#161E30] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-[#1F293D] transition-all"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>PDF (6-Page)</span>
+                  <span>PDF (9-Page IEEE)</span>
                 </a>
               </div>
             </div>
