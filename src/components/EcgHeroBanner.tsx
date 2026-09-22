@@ -218,7 +218,7 @@ export default function EcgHeroBanner() {
           <div className="lg:col-span-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-xs font-mono text-emerald-600 dark:text-volt-400 mb-6 shadow-sm">
               <Award className="w-3.5 h-3.5" />
-              <span>Zenodo Preprint (DOI: 10.5281/zenodo.22806710)</span>
+              <span>Zenodo Preprint (DOI: 10.5281/zenodo.22895173)</span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-3">
@@ -248,7 +248,7 @@ export default function EcgHeroBanner() {
                 <span>Play Games (Arcade)</span>
               </a>
               <a
-                href="https://doi.org/10.5281/zenodo.22806710"
+                href="https://doi.org/10.5281/zenodo.22895173"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-[#111726] text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white text-sm font-medium transition-all"

@@ -52,12 +52,12 @@ export default function Navbar() {
           </div>
           <div className="flex items-center gap-3 text-slate-400 text-[10px] sm:text-[11px]">
             <a
-              href="https://doi.org/10.5281/zenodo.22806710"
+              href="https://doi.org/10.5281/zenodo.22895173"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-emerald-400 transition-colors"
             >
-              Zenodo DOI: 10.5281/zenodo.22806710 ↗
+              Zenodo DOI: 10.5281/zenodo.22895173 ↗
             </a>
           </div>
         </div>

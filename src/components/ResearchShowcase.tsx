@@ -23,8 +23,8 @@ export default function ResearchShowcase() {
   author    = {Yadav, Mukesh},
   journal   = {Zenodo},
   year      = {2026},
-  doi       = {10.5281/zenodo.22806710},
-  url       = {https://doi.org/10.5281/zenodo.22806710}
+  doi       = {10.5281/zenodo.22895173},
+  url       = {https://doi.org/10.5281/zenodo.22895173}
 }`;
     navigator.clipboard.writeText(bibtex);
     setCopiedBibtex(true);
@@ -60,7 +60,7 @@ export default function ResearchShowcase() {
                   ZENODO PREPRINT
                 </span>
                 <span className="text-xs font-mono text-slate-400 hidden sm:inline">
-                  DOI: 10.5281/zenodo.22806710
+                  DOI: 10.5281/zenodo.22895173
                 </span>
                 <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-[10px] font-mono text-emerald-600 dark:text-volt-400">
                   ● Authentic WESAD Dataset
@@ -107,34 +107,54 @@ export default function ResearchShowcase() {
               <div className="lg:col-span-2 space-y-4">
                 <div>
                   <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-snug">
-                    Personalized ECG & HRV Dynamics for Acute Stress Detection
+                    Personalized Electrocardiographic and HRV Dynamics for Acute Stress Detection
                   </h3>
+                  <div className="text-xs font-mono font-semibold text-emerald-600 dark:text-volt-400 mt-1">
+                    A Leave-One-Subject-Out (LOSO) Benchmark and Bare-Metal Edge IoMT Implementation
+                  </div>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mt-1">
                     Mitigated inter-subject baseline variability across 15 WESAD benchmark subjects using relative baseline calibration:{" "}
                     <span className="font-mono text-emerald-600 dark:text-volt-400 font-semibold">
                       X* = (X - Bs) / |Bs|
                     </span>
-                    . Evaluated with Leave-One-Subject-Out (LOSO) validation on authentic 700 Hz Lead-II chest telemetry.
+                    . Validated with bare-metal STM32G474RE ARM Cortex-M4 edge DSP and real-time chaotic telemetry scrambler.
                   </p>
                 </div>
 
-                {/* Visual Scientific Figure Previews */}
-                <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+                {/* Visual Scientific & Hardware Figure Previews */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
                   <div
                     onClick={() => openWorkbench("ecg")}
                     className="group/fig cursor-pointer rounded-xl overflow-hidden border border-slate-200 dark:border-[#222E46] bg-slate-950 relative shadow-sm hover:border-emerald-500/60 dark:hover:border-volt-400/60 transition-all"
-                    title="Click to expand QRS Detection Figure in Workbench"
+                    title="Click to expand STM32 Hardware Testbed in Workbench"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src="/images/ecg/DEMO_Pan_Tompkins_QRS_Detection.png"
-                      alt="Detected R-Peaks"
+                      src="/images/ecg/FIG_Hardware_Testbed_Composite.png"
+                      alt="STM32G474RE Hardware Testbed"
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
+                      className="w-full h-28 sm:h-36 md:h-44 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
-                      Detected R-Peaks
+                    <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
+                      STM32G474RE Testbed
+                    </div>
+                  </div>
+                  <div
+                    onClick={() => openWorkbench("ecg")}
+                    className="group/fig cursor-pointer rounded-xl overflow-hidden border border-slate-200 dark:border-[#222E46] bg-slate-950 relative shadow-sm hover:border-emerald-500/60 dark:hover:border-volt-400/60 transition-all"
+                    title="Click to expand Live Decrypted Telemetry in Workbench"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/images/ecg/Physical_Usb_com_port_continuous_decrypted_telemetery.png"
+                      alt="Live Continuous Telemetry"
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-28 sm:h-36 md:h-44 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
+                      Live Telemetry (0 Drops)
                     </div>
                   </div>
                   <div
@@ -148,9 +168,9 @@ export default function ResearchShowcase() {
                       alt="LOSO ROC Curve"
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
+                      className="w-full h-28 sm:h-36 md:h-44 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
+                    <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
                       ROC (AUC 0.949)
                     </div>
                   </div>
@@ -165,9 +185,9 @@ export default function ResearchShowcase() {
                       alt="Confusion Matrix"
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-32 sm:h-44 md:h-52 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
+                      className="w-full h-28 sm:h-36 md:h-44 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 sm:p-2 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
+                    <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
                       Confusion Matrix
                     </div>
                   </div>
@@ -197,15 +217,15 @@ export default function ResearchShowcase() {
                     <div className="text-[10px] font-mono text-slate-500">Separation score</div>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
-                    <div className="text-[10px] font-mono text-slate-400 uppercase">Feature Extraction</div>
+                    <div className="text-[10px] font-mono text-slate-400 uppercase">STM32 DSP Latency</div>
                     <div className="text-xl sm:text-2xl font-bold font-mono text-slate-900 dark:text-white mt-0.5">
-                      &lt;0.85 ms*
+                      1.87 μs
                     </div>
-                    <div className="text-[10px] font-mono text-slate-500">Benchmark platform</div>
+                    <div className="text-[10px] font-mono text-slate-500">5-stage Biquad (&lt;0.1% CPU)</div>
                   </div>
                 </div>
                 <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 pt-1">
-                  *Measured on development machine; MCU deployment not yet validated.
+                  *Validated on bare-metal ARM Cortex-M4 (STM32G474RE): 1.87 μs DSP latency (0.065% CPU load @ 16 MHz) &amp; 2.0 μs 32-bit chaotic scrambler.
                 </div>
               </div>
 

@@ -10,6 +10,7 @@ import {
   Copy,
   TrendingUp,
   ShieldCheck,
+  Cpu,
 } from "lucide-react";
 import { PROJECTS_DATA } from "../data/projects";
 
@@ -45,7 +46,7 @@ export default function ResearchSpotlight() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-slate-50 dark:bg-surface-card hover:bg-slate-100 dark:hover:bg-surface-hover text-xs font-mono text-sky-700 dark:text-cyan-400 border border-slate-200 dark:border-border hover:border-sky-500 transition-all shadow-sm"
           >
-            <span>Permanent DOI: 10.5281/zenodo.22806710</span>
+            <span>Permanent DOI: 10.5281/zenodo.22895173</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
@@ -65,6 +66,9 @@ export default function ResearchSpotlight() {
             </span>
             <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-border">
               WESAD Public Benchmark (N=15, 445 Windows)
+            </span>
+            <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-emerald-100 dark:bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/30">
+              STM32G474RE Bare-Metal Edge IoMT
             </span>
           </div>
 
@@ -191,6 +195,50 @@ export default function ResearchSpotlight() {
                   <span className="px-2.5 py-1 rounded bg-white dark:bg-surface border border-slate-200 dark:border-border">
                     Sympathetic Acceleration: <b className="text-rose-600 dark:text-ruby-400">ΔMeanHR (OR=1.34)</b>
                   </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bare-Metal Hardware & Telemetry Edge IoMT Showcase */}
+          <div className="p-5 rounded-xl bg-slate-50 dark:bg-[#090E1B] border border-slate-200 dark:border-border mb-8">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <div>
+                <h4 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <Cpu className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  <span>Bare-Metal STM32 Edge DSP &amp; Chaotic Telemetry Stream</span>
+                </h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  ARM Cortex-M4 (STM32G474RE) hardware validation with zero CRC drops across 15,000+ packets.
+                </p>
+              </div>
+              <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                1.87 μs DSP Latency (0.065% CPU @ 16 MHz)
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-border bg-black group/img">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/ecg/FIG_Hardware_Testbed_Composite.png"
+                  alt="STM32G474RE Hardware Testbed Composite"
+                  className="w-full h-48 sm:h-56 object-cover object-center group-hover/img:scale-105 transition-transform duration-300"
+                />
+                <div className="p-2.5 bg-slate-900/90 border-t border-white/10 text-xs font-mono text-slate-300">
+                  <span className="font-bold text-white">Hardware Testbed:</span> Nucleo-G474RE board running CMSIS-DSP 5-stage Biquad IIR filtering &amp; 32-bit chaotic scrambler with logic analyzer UART timing verification.
+                </div>
+              </div>
+
+              <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-border bg-black group/img">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/ecg/Physical_Usb_com_port_continuous_decrypted_telemetery.png"
+                  alt="Physical USB COM Port Continuous Decrypted Telemetry"
+                  className="w-full h-48 sm:h-56 object-cover object-center group-hover/img:scale-105 transition-transform duration-300"
+                />
+                <div className="p-2.5 bg-slate-900/90 border-t border-white/10 text-xs font-mono text-slate-300">
+                  <span className="font-bold text-white">Live Clinical Telemetry:</span> Authorized client terminal receiving encrypted packets over physical COM port, performing bit-exact (0.000000 V error) descrambling.
                 </div>
               </div>
             </div>

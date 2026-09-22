@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Mukesh Yadav | Biosignal Processing & Neuromorphic Hardware",
   description:
-    "Official research portfolio of Mukesh Yadav. Department of Electronics & Communication Engineering (ECE), JSSATEN. Author of WESAD ECG Stress Detection Benchmark (DOI: 10.5281/zenodo.22806710).",
+    "Official research portfolio of Mukesh Yadav. Department of Electronics & Communication Engineering (ECE), JSSATEN. Author of WESAD ECG Stress Detection Benchmark (DOI: 10.5281/zenodo.22895173).",
   keywords: [
     "Mukesh Yadav",
     "Biosignal Processing",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Mukesh Yadav | Biosignal Processing & Neuromorphic Hardware",
     description:
-      "Personalized ECG & HRV Dynamics for Acute Stress Detection (92.36% LOSO Accuracy, 0.9494 AUC, Zenodo Preprint DOI: 10.5281/zenodo.22806710).",
+      "Personalized ECG & HRV Dynamics for Acute Stress Detection (92.36% LOSO Accuracy, 0.9494 AUC, Zenodo Preprint DOI: 10.5281/zenodo.22895173).",
     url: "https://github.com/Mukesh-Yadav-4",
     siteName: "Mukesh Yadav Portfolio",
     locale: "en_US",

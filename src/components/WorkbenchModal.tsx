@@ -379,7 +379,7 @@ function EcgStressWorkbench() {
             <ExternalLink className="w-3 h-3" />
           </a>
           <a
-            href="https://doi.org/10.5281/zenodo.22806710"
+            href="https://doi.org/10.5281/zenodo.22895173"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-semibold rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-volt-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-all"
@@ -679,7 +679,7 @@ function EcgStressWorkbench() {
       {subView === "gallery" && (
         <div className="space-y-6">
           <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-xs font-mono text-slate-600 dark:text-slate-300">
-            High-resolution validation figures directly exported from our Python pipeline (`matplotlib` / `seaborn`). These plots validate the Leave-One-Subject-Out (LOSO) cross-validation results published in Zenodo Preprint (DOI: 10.5281/zenodo.22806710).
+            High-resolution validation figures directly exported from our Python pipeline (`matplotlib` / `seaborn`) and bare-metal STM32 hardware testbed. These plots validate the Leave-One-Subject-Out (LOSO) cross-validation and embedded DSP latency published in Zenodo Preprint (DOI: 10.5281/zenodo.22895173).
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -811,6 +811,94 @@ function EcgStressWorkbench() {
                 </div>
                 <p className="text-xs text-slate-500">
                   Continuous raw physiological data recorded from the RespiBAN chest band under standard laboratory protocol.
+                </p>
+              </div>
+            </div>
+
+            {/* Fig 7: STM32 Hardware Testbed */}
+            <div className="titanium-panel p-4 space-y-3 bg-white dark:bg-[#0E131F]">
+              <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/ecg/FIG_Hardware_Testbed_Composite.png"
+                  alt="STM32G474RE Hardware Testbed Composite"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto object-contain hover:scale-105 transition-transform"
+                />
+              </div>
+              <div className="space-y-1">
+                <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
+                  Fig. 7: Bare-Metal STM32G474RE Testbed & Logic Analyzer Setup
+                </div>
+                <p className="text-xs text-slate-500">
+                  ARM Cortex-M4 (STM32G474RE) executing CMSIS-DSP 5-stage Biquad IIR filtering in 1.87 μs (0.065% CPU load @ 16 MHz) with logic analyzer verification.
+                </p>
+              </div>
+            </div>
+
+            {/* Fig 8: Decrypted Telemetry Terminal */}
+            <div className="titanium-panel p-4 space-y-3 bg-white dark:bg-[#0E131F]">
+              <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/ecg/Physical_Usb_com_port_continuous_decrypted_telemetery.png"
+                  alt="Authorized Terminal View"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto object-contain hover:scale-105 transition-transform"
+                />
+              </div>
+              <div className="space-y-1">
+                <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
+                  Fig. 8: Physical USB-UART Telemetry (Authorized View)
+                </div>
+                <p className="text-xs text-slate-500">
+                  Continuous hardware streaming over physical USB COM port with zero CRC drops across 15,000+ packets and bit-exact (0.000000 V) descrambling.
+                </p>
+              </div>
+            </div>
+
+            {/* Fig 9: Eavesdropper Ciphertext Stream */}
+            <div className="titanium-panel p-4 space-y-3 bg-white dark:bg-[#0E131F]">
+              <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/ecg/Physical_Usb_com_port_continuous_eavesdropper_telemetery.png"
+                  alt="Eavesdropper Terminal View"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto object-contain hover:scale-105 transition-transform"
+                />
+              </div>
+              <div className="space-y-1">
+                <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
+                  Fig. 9: Eavesdropper Terminal View (Chaotic Scrambler)
+                </div>
+                <p className="text-xs text-slate-500">
+                  Adversarial capture of the scrambled telemetry stream (2.0 μs execution, Shannon entropy 7.25–7.98 b/B), demonstrating complete clinical obfuscation.
+                </p>
+              </div>
+            </div>
+
+            {/* Fig 10: Multi-Subject Clinical Detection */}
+            <div className="titanium-panel p-4 space-y-3 bg-white dark:bg-[#0E131F]">
+              <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/ecg/FINAL_Subject_Stress_Detection.png"
+                  alt="Multi-Subject Stress Detection"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto object-contain hover:scale-105 transition-transform"
+                />
+              </div>
+              <div className="space-y-1">
+                <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
+                  Fig. 10: Multi-Subject Benchmark Stress Detection
+                </div>
+                <p className="text-xs text-slate-500">
+                  Continuous multi-subject timeline validation demonstrating acute stress classification aligning with ground truth TSST stress exposure across subjects.
                 </p>
               </div>
             </div>

@@ -37,7 +37,7 @@ export const PROJECTS_DATA: Project[] = [
   // 1. ECG STRESS DETECTION (Flagship Paper)
   {
     id: "ecg-stress-detection-wesad",
-    title: "Personalized ECG & HRV Dynamics for Acute Stress Detection",
+    title: "Personalized Electrocardiographic and HRV Dynamics for Acute Stress Detection",
     subtitle: "A Leave-One-Subject-Out (LOSO) Benchmark and Bare-Metal Edge IoMT Implementation",
     category: "Research & Biosignals",
     featured: true,
@@ -47,8 +47,8 @@ export const PROJECTS_DATA: Project[] = [
     summary:
       "Mitigated inter-subject baseline variability across 15 WESAD benchmark subjects using relative baseline calibration: X* = (X - Bs) / |Bs|. Evaluated with Leave-One-Subject-Out (LOSO) validation, paired with a bare-metal STM32G474RE ARM Cortex-M4 edge DSP and real-time chaotic telemetry scrambler.",
     publication: {
-      doi: "10.5281/zenodo.22806710",
-      doiUrl: "https://doi.org/10.5281/zenodo.22806710",
+      doi: "10.5281/zenodo.22895173",
+      doiUrl: "https://doi.org/10.5281/zenodo.22895173",
       venue: "Zenodo (Preprint)",
       year: 2026,
       authors: "Mukesh Yadav (JSS Academy of Technical Education, Noida)",
@@ -58,8 +58,8 @@ export const PROJECTS_DATA: Project[] = [
   author    = {Yadav, Mukesh},
   journal   = {Zenodo},
   year      = {2026},
-  doi       = {10.5281/zenodo.22806710},
-  url       = {https://doi.org/10.5281/zenodo.22806710}
+  doi       = {10.5281/zenodo.22895173},
+  url       = {https://doi.org/10.5281/zenodo.22895173}
 }`,
     },
     metrics: [
@@ -72,12 +72,13 @@ export const PROJECTS_DATA: Project[] = [
     ],
     techStack: ["STM32G474RE", "ARM Cortex-M4", "CMSIS-DSP", "Chaotic Scrambler", "MATLAB", "Python", "SciPy", "Scikit-Learn", "Streamlit", "LaTeX"],
     githubUrl: "https://github.com/Mukesh-Yadav-4/ECG_STRESS_DETECTION",
-    demoUrl: "https://doi.org/10.5281/zenodo.22806710",
+    demoUrl: "https://doi.org/10.5281/zenodo.22895173",
     keyContributions: [
-      "Overcame cross-subject baseline drift via relative baseline normalization: X* = (X - Bs) / |Bs|.",
-      "Engineered 4th-order zero-phase Butterworth filter (0.5–40 Hz) and adaptive prominence R-peak detection.",
-      "Benchmarked 6 machine learning architectures (LR, MLP, SVM, RF, ET, HGB) with all achieving ROC-AUC > 0.937.",
-      "Identified autonomic interval compression (ΔMeanRR) and heart rate acceleration (ΔMeanHR) as primary decision drivers.",
+      "Mitigated cross-subject baseline drift via relative baseline normalization: X* = (X - Bs) / |Bs|, boosting LOSO accuracy to 92.36% (+10.79%) and F1 to 89.03% (+16.00%).",
+      "Deployed on bare-metal ARM Cortex-M4 (STM32G474RE) with CMSIS-DSP 5-stage Biquad IIR filtering executing in 1.87 μs (0.065% CPU load at 16 MHz).",
+      "Designed lightweight 32-bit discrete chaotic stream scrambler (2.0 μs execution, Shannon entropy 7.25–7.98 b/B) with bit-exact 0.000000 V descrambling.",
+      "Conducted physical hardware-in-the-loop (HIL) telemetry streaming over USB-UART with 0 CRC drops across 15,000+ packets.",
+      "Benchmarked 6 machine learning architectures (LR, MLP, SVM, RF, ET, HGB) with all achieving ROC-AUC > 0.937, identifying interval compression (ΔMeanRR) and heart rate acceleration (ΔMeanHR) as primary decision drivers.",
       "Built interactive Streamlit clinical telemetry web app with live ECG visualizer and dynamic threshold slider.",
     ],
   },
