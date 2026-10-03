@@ -63,10 +63,10 @@ export default function EducationSection() {
                 <span>Research Publication</span>
               </div>
               <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1">
-                Zenodo Preprint Benchmark
+                Edge Biosignal Computing Benchmark
               </h4>
               <p className="text-xs text-slate-600 dark:text-slate-400 mb-2">
-                Peer-citable international preprint with registered permanent DOI (<span className="text-sky-700 dark:text-cyan-300 font-semibold">10.5281/zenodo.22895173</span>).
+                Reproducible physiological benchmark with bare-metal STM32G474RE DSP and 10,000-packet zero-loss HIL validation.
               </p>
             </div>
 

@@ -6,12 +6,9 @@ export interface ProjectMetric {
 }
 
 export interface PublicationInfo {
-  doi: string;
-  doiUrl: string;
-  venue: string;
-  year: number;
+  venue?: string;
+  year?: number;
   authors: string;
-  bibtex: string;
   pdfUrl?: string;
 }
 
@@ -37,49 +34,39 @@ export const PROJECTS_DATA: Project[] = [
   // 1. ECG STRESS DETECTION (Flagship Paper)
   {
     id: "ecg-stress-detection-wesad",
-    title: "Personalized Electrocardiographic and HRV Dynamics for Acute Stress Detection",
-    subtitle: "A Leave-One-Subject-Out (LOSO) Benchmark and Bare-Metal Edge IoMT Implementation",
+    title: "Reproducible Edge-to-Cloud ECG Stress Detection with Embedded Telemetry and Hardware-in-the-Loop Validation",
+    subtitle: "A Leave-One-Subject-Out (LOSO) Benchmark with 4D Hyperchaotic Telemetry and Bare-Metal STM32 Edge Validation",
     category: "Research & Biosignals",
     featured: true,
-    statusBadge: "Zenodo Preprint",
+    statusBadge: "Research Paper",
     badgeColor: "cyan",
     date: "2026",
     summary:
-      "Mitigated inter-subject baseline variability across 15 WESAD benchmark subjects using relative baseline calibration: X* = (X - Bs) / |Bs|. Evaluated with Leave-One-Subject-Out (LOSO) validation, paired with a bare-metal STM32G474RE ARM Cortex-M4 edge DSP and real-time chaotic telemetry scrambler.",
+      "Mitigated inter-subject baseline variability across 15 WESAD benchmark subjects using relative baseline calibration: X* = (X - Bs) / (|Bs| + ε). Evaluated with 15-fold Leave-One-Subject-Out (LOSO) validation (92.13% primary accuracy, 0.9493 ROC-AUC), paired with a bare-metal STM32G474RE ARM Cortex-M4 edge DSP, experimental 4D memristive hyperchaotic stream cipher (M-4DCHS), and physical 10,000-packet HIL validation (0.0% packet loss).",
     publication: {
-      doi: "10.5281/zenodo.22895173",
-      doiUrl: "https://doi.org/10.5281/zenodo.22895173",
-      venue: "Zenodo (Preprint)",
-      year: 2026,
       authors: "Mukesh Yadav (JSS Academy of Technical Education, Noida)",
-      pdfUrl: "/Personalized_ECG_Stress_Detection_WESAD_Benchmark_and_STM32_Edge_IoMT.pdf",
-      bibtex: `@article{yadav2026personalized,
-  title     = {Personalized Electrocardiographic and HRV Dynamics for Acute Stress Detection: A Leave-One-Subject-Out Benchmark and Bare-Metal Edge IoMT Implementation},
-  author    = {Yadav, Mukesh},
-  journal   = {Zenodo},
-  year      = {2026},
-  doi       = {10.5281/zenodo.22895173},
-  url       = {https://doi.org/10.5281/zenodo.22895173}
-}`,
+      year: 2026,
+      venue: "Research Paper",
+      pdfUrl: "/Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation_v5.pdf",
     },
     metrics: [
-      { label: "LOSO Accuracy", value: "92.36%", subtext: "+10.79% vs uncalibrated", highlight: true },
-      { label: "Stress F1-Score", value: "89.03%", subtext: "+16.00% boost", highlight: true },
-      { label: "ROC-AUC", value: "0.9494", subtext: "Diagnostic separation" },
-      { label: "Clinical Sensitivity", value: "86.25%", subtext: "138 / 160 stress windows" },
-      { label: "Specificity", value: "95.79%", subtext: "273 / 285 calm windows" },
-      { label: "STM32 DSP Latency", value: "1.87 μs", subtext: "5-stage Biquad (<0.1% CPU)" },
+      { label: "Primary Accuracy (τ=0.50)", value: "92.13%", subtext: "410 / 445 windows (15 folds)", highlight: true },
+      { label: "Primary Specificity", value: "97.54%", subtext: "278 / 285 calm (only 7 false alarms)", highlight: true },
+      { label: "ROC-AUC", value: "0.9493", subtext: "PR-AUC = 0.9467 (unseen subjects)" },
+      { label: "Screening Sens (τ=0.35)", value: "86.88%", subtext: "139 / 160 stress episodes caught" },
+      { label: "Physical HIL Testbed", value: "10,000 Pkts", subtext: "200k wire bytes, 0.0% loss, 0 CRC err" },
+      { label: "STM32 DSP Latency", value: "1.87 μs", subtext: "5-stage Biquad (0.065% CPU @ 170MHz)" },
     ],
-    techStack: ["STM32G474RE", "ARM Cortex-M4", "CMSIS-DSP", "Chaotic Scrambler", "MATLAB", "Python", "SciPy", "Scikit-Learn", "Streamlit", "LaTeX"],
+    techStack: ["STM32G474RE", "ARM Cortex-M4", "CMSIS-DSP", "4D Hyperchaotic Cipher", "Hardware-in-the-Loop (HIL)", "WESAD Benchmark", "Python", "MATLAB", "Three.js WebGL", "LaTeX"],
     githubUrl: "https://github.com/Mukesh-Yadav-4/ECG_STRESS_DETECTION",
-    demoUrl: "https://doi.org/10.5281/zenodo.22895173",
+    demoUrl: "https://ecgstressdetection-2bremsry4npbmx9yn7whju.streamlit.app/",
     keyContributions: [
-      "Mitigated cross-subject baseline drift via relative baseline normalization: X* = (X - Bs) / |Bs|, boosting LOSO accuracy to 92.36% (+10.79%) and F1 to 89.03% (+16.00%).",
-      "Deployed on bare-metal ARM Cortex-M4 (STM32G474RE) with CMSIS-DSP 5-stage Biquad IIR filtering executing in 1.87 μs (0.065% CPU load at 16 MHz).",
-      "Designed lightweight 32-bit discrete chaotic stream scrambler (2.0 μs execution, Shannon entropy 7.25–7.98 b/B) with bit-exact 0.000000 V descrambling.",
-      "Conducted physical hardware-in-the-loop (HIL) telemetry streaming over USB-UART with 0 CRC drops across 15,000+ packets.",
-      "Benchmarked 6 machine learning architectures (LR, MLP, SVM, RF, ET, HGB) with all achieving ROC-AUC > 0.937, identifying interval compression (ΔMeanRR) and heart rate acceleration (ΔMeanHR) as primary decision drivers.",
-      "Built interactive Streamlit clinical telemetry web app with live ECG visualizer and dynamic threshold slider.",
+      "Mitigated cross-subject baseline drift via relative baseline normalization: X* = (X - Bs) / (|Bs| + ε), producing a +10.79% accuracy leap and +15.64% F1-score boost under strict 15-fold LOSO cross-validation.",
+      "Established authoritative primary benchmark at τ = 0.50 (92.13% accuracy, 88.29% F1, 97.54% specificity with only 7 false positive alarms across 445 windows) and exploratory screening point at τ = 0.35 (92.36% accuracy, 86.88% sensitivity).",
+      "Deployed on bare-metal ARM Cortex-M4 (STM32G474RE @ 170 MHz) with CMSIS-DSP 5-stage Biquad IIR filter cascade executing in 1.87 μs per sample (0.065% CPU load).",
+      "Integrated novel 4D memristive hyperchaotic stream cipher (HC1 M-4DCHS) via RK4 with 2 positive Lyapunov exponents (λ₁ ≈ +0.438, λ₂ ≈ +0.254) and wire Shannon entropy H = 7.9977 bits/byte.",
+      "Conducted physical Hardware-in-the-Loop (HIL) telemetry streaming over physical USB-UART at 350.02 Hz across 10,000 consecutive 20-byte packets (200,000 wire bytes) with 0 packet loss, 0 CRC errors, and 0.0 mV reconstruction error.",
+      "Benchmarked 6 machine learning architectures (LR, MLP, SVM, RF, ET, HGB) with explainability permutation importance confirming autonomic vagal withdrawal and sympathetic acceleration.",
     ],
   },
 

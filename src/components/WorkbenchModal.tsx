@@ -12,7 +12,8 @@ import {
   Image as ImageIcon,
   Terminal,
   CheckCircle2,
-  Info
+  Info,
+  Download
 } from "lucide-react";
 import wesadRawData from "@/data/wesad_ecg_samples.json";
 import mitbihFilterData from "@/data/mitbih_filter_samples.json";
@@ -361,10 +362,10 @@ function EcgStressWorkbench() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-            Personalized ECG & HRV Stress Telemetry
+            Reproducible Edge-to-Cloud ECG Stress Detection & Telemetry
           </h3>
           <p className="text-xs text-slate-500 font-mono mt-1">
-            WESAD Dataset • 700 Hz Lead-II Acquisition • Relative Baseline Transform: X* = (X - Bs) / |Bs|
+            WESAD Benchmark • 10k HIL Run (0% Loss) • 4D Hyperchaotic Cipher • Relative Baseline: X* = (X - Bs) / (|Bs| + ε)
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -379,13 +380,12 @@ function EcgStressWorkbench() {
             <ExternalLink className="w-3 h-3" />
           </a>
           <a
-            href="https://doi.org/10.5281/zenodo.22895173"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation_v5.pdf"
+            download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
             className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-semibold rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-volt-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-all"
           >
-            <span>Zenodo DOI</span>
-            <ExternalLink className="w-3 h-3" />
+            <span>Paper PDF</span>
+            <Download className="w-3 h-3" />
           </a>
           <a
             href="https://github.com/Mukesh-Yadav-4/ECG_STRESS_DETECTION/tree/main/demo"
@@ -456,7 +456,7 @@ function EcgStressWorkbench() {
                   : "bg-sky-500/15 text-sky-600 dark:text-sky-300 border border-sky-500/30"
               }`}
             >
-              6 Figures
+              12 Figures
             </span>
           </button>
 
@@ -679,7 +679,7 @@ function EcgStressWorkbench() {
       {subView === "gallery" && (
         <div className="space-y-6">
           <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-xs font-mono text-slate-600 dark:text-slate-300">
-            High-resolution validation figures directly exported from our Python pipeline (`matplotlib` / `seaborn`) and bare-metal STM32 hardware testbed. These plots validate the Leave-One-Subject-Out (LOSO) cross-validation and embedded DSP latency published in Zenodo Preprint (DOI: 10.5281/zenodo.22895173).
+            High-resolution validation figures directly exported from our Python pipeline (`matplotlib` / `seaborn`) and bare-metal STM32 hardware-in-the-loop testbed. These plots validate the Leave-One-Subject-Out (LOSO) cross-validation, 4D continuous hyperchaotic stream cipher, and 10,000-packet HIL zero-loss run presented in our research paper.
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -719,7 +719,7 @@ function EcgStressWorkbench() {
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 2: Stratified LOSO ROC Curve (AUC = 0.9494)
+                  Fig. 2: Stratified LOSO ROC & PR Curves (AUC = 0.9493, PR-AUC = 0.9467)
                 </div>
                 <p className="text-xs text-slate-500">
                   Receiver Operating Characteristic across 15 unseen subjects under strict Leave-One-Subject-Out cross-validation.
@@ -727,13 +727,13 @@ function EcgStressWorkbench() {
               </div>
             </div>
 
-            {/* Fig 3: Confusion Matrix */}
+            {/* Fig 3: Primary Confusion Matrix */}
             <div className="titanium-panel p-4 space-y-3 bg-white dark:bg-[#0E131F]">
               <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/images/ecg/FINAL_Confusion_Matrix.png"
-                  alt="Confusion Matrix"
+                  alt="Primary Confusion Matrix"
                   loading="lazy"
                   decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
@@ -741,21 +741,21 @@ function EcgStressWorkbench() {
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 3: Normalized Confusion Matrix (92.36% Accuracy)
+                  Fig. 3: Primary Confusion Matrix (τ = 0.50, 92.13% Acc, 97.54% Spec)
                 </div>
                 <p className="text-xs text-slate-500">
-                  High specificity between calm baseline and acute TSST stress condition, overcoming inter-individual autonomic baseline shifts.
+                  High specificity between calm baseline and acute TSST stress condition: 278/285 calm windows identified with only 7 false alarms.
                 </p>
               </div>
             </div>
 
-            {/* Fig 4: Full Pipeline Dashboard */}
+            {/* Fig 4: Exploratory Screening Confusion Matrix */}
             <div className="titanium-panel p-4 space-y-3 bg-white dark:bg-[#0E131F]">
               <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/images/ecg/FINAL_Project_Dashboard.png"
-                  alt="Full Pipeline Dashboard"
+                  src="/images/ecg/FINAL_Confusion_Matrix_Exploratory_tau035.png"
+                  alt="Exploratory Screening Matrix"
                   loading="lazy"
                   decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
@@ -763,21 +763,21 @@ function EcgStressWorkbench() {
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 4: Comprehensive Telemetry Architecture
+                  Fig. 4: Exploratory Screening Matrix (τ = 0.35, 86.88% Sens)
                 </div>
                 <p className="text-xs text-slate-500">
-                  End-to-end signal chain from 700 Hz acquisition, HRV feature extraction, to LightGBM / XGBoost inference in &lt;0.85 ms.
+                  Screening calibration tuning prioritizing stress capture (139/160 acute stress episodes caught) at 92.36% overall accuracy.
                 </p>
               </div>
             </div>
 
-            {/* Fig 5: Feature Ablation */}
+            {/* Fig 5: 10,000-Packet Physical HIL Validation */}
             <div className="titanium-panel p-4 space-y-3 bg-white dark:bg-[#0E131F]">
               <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/images/ecg/FINAL_Personalized_Feature_Ablation.png"
-                  alt="Personalized Feature Ablation Study"
+                  src="/images/ecg/FIG_Physical_HIL_10k_Validation.png"
+                  alt="10,000-Packet Physical HIL Validation"
                   loading="lazy"
                   decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
@@ -785,21 +785,21 @@ function EcgStressWorkbench() {
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 5: Personalized Feature Ablation Study
+                  Fig. 5: 10,000-Packet Physical HIL Validation (0% Loss, 0 CRC Err)
                 </div>
                 <p className="text-xs text-slate-500">
-                  Quantifying the +10.79% accuracy leap enabled by the relative baseline transform X* = (X - Bs)/|Bs|.
+                  Continuous hardware telemetry over physical USB-UART at 350.02 Hz across 200,000 wire bytes with bit-exact 0.0 mV reconstruction error.
                 </p>
               </div>
             </div>
 
-            {/* Fig 6: Raw Lead-II */}
+            {/* Fig 6: 4D Hyperchaotic Attractor */}
             <div className="titanium-panel p-4 space-y-3 bg-white dark:bg-[#0E131F]">
               <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/images/ecg/DEMO_Raw_ECG_LeadII.png"
-                  alt="Continuous Raw Lead-II ECG"
+                  src="/images/ecg/FIG_M4D_Attractor_3D.png"
+                  alt="4D Hyperchaotic Attractor"
                   loading="lazy"
                   decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
@@ -807,10 +807,10 @@ function EcgStressWorkbench() {
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 6: Raw Continuous Lead-II Telemetry
+                  Fig. 6: 4D Continuous Hyperchaotic Attractor (M-4DCHS)
                 </div>
                 <p className="text-xs text-slate-500">
-                  Continuous raw physiological data recorded from the RespiBAN chest band under standard laboratory protocol.
+                  Chaotic phase-space trajectory confirming 2 positive Lyapunov exponents (λ₁ ≈ +0.438, λ₂ ≈ +0.254) for unpredictable telemetry encryption.
                 </p>
               </div>
             </div>
@@ -832,18 +832,18 @@ function EcgStressWorkbench() {
                   Fig. 7: Bare-Metal STM32G474RE Testbed & Logic Analyzer Setup
                 </div>
                 <p className="text-xs text-slate-500">
-                  ARM Cortex-M4 (STM32G474RE) executing CMSIS-DSP 5-stage Biquad IIR filtering in 1.87 μs (0.065% CPU load @ 16 MHz) with logic analyzer verification.
+                  ARM Cortex-M4 @ 170 MHz executing CMSIS-DSP 5-stage Biquad IIR filtering in 1.87 μs (0.065% CPU load) with logic analyzer verification.
                 </p>
               </div>
             </div>
 
-            {/* Fig 8: Decrypted Telemetry Terminal */}
+            {/* Fig 8: Decrypted Single-Page Telemetry Dashboard */}
             <div className="titanium-panel p-4 space-y-3 bg-white dark:bg-[#0E131F]">
               <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/images/ecg/Physical_Usb_com_port_continuous_decrypted_telemetery.png"
-                  alt="Authorized Terminal View"
+                  src="/images/ecg/FIG_Dashboard_SinglePage_M4D_Decrypted.png"
+                  alt="Decrypted Clinical Dashboard"
                   loading="lazy"
                   decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
@@ -851,10 +851,10 @@ function EcgStressWorkbench() {
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 8: Physical USB-UART Telemetry (Authorized View)
+                  Fig. 8: Authorized Single-Page Clinical Dashboard
                 </div>
                 <p className="text-xs text-slate-500">
-                  Continuous hardware streaming over physical USB COM port with zero CRC drops across 15,000+ packets and bit-exact (0.000000 V) descrambling.
+                  Authorized clinician interface displaying synchronous real-time descrambled ECG waveforms, live detected R-peaks, and sympathetic stress score.
                 </p>
               </div>
             </div>
@@ -864,8 +864,8 @@ function EcgStressWorkbench() {
               <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/images/ecg/Physical_Usb_com_port_continuous_eavesdropper_telemetery.png"
-                  alt="Eavesdropper Terminal View"
+                  src="/images/ecg/FIG_Dashboard_M4D_Eavesdropper.png"
+                  alt="Eavesdropper Wiretap Intercept"
                   loading="lazy"
                   decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
@@ -873,15 +873,37 @@ function EcgStressWorkbench() {
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 9: Eavesdropper Terminal View (Chaotic Scrambler)
+                  Fig. 9: Wiretap Intercept View (Shannon Entropy H = 7.9977 b/B)
                 </div>
                 <p className="text-xs text-slate-500">
-                  Adversarial capture of the scrambled telemetry stream (2.0 μs execution, Shannon entropy 7.25–7.98 b/B), demonstrating complete clinical obfuscation.
+                  Adversarial capture of the scrambled telemetry stream, showing near-theoretical maximal entropy (7.9977 bits/byte) and complete clinical obfuscation.
                 </p>
               </div>
             </div>
 
-            {/* Fig 10: Multi-Subject Clinical Detection */}
+            {/* Fig 10: Feature Ablation */}
+            <div className="titanium-panel p-4 space-y-3 bg-white dark:bg-[#0E131F]">
+              <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/ecg/FINAL_Personalized_Feature_Ablation.png"
+                  alt="Personalized Feature Ablation Study"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto object-contain hover:scale-105 transition-transform"
+                />
+              </div>
+              <div className="space-y-1">
+                <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
+                  Fig. 10: Personalized Feature Ablation Study
+                </div>
+                <p className="text-xs text-slate-500">
+                  Quantifying the +10.79% accuracy leap enabled by the relative baseline transform X* = (X - Bs)/(|Bs| + ε).
+                </p>
+              </div>
+            </div>
+
+            {/* Fig 11: Multi-Subject Clinical Detection */}
             <div className="titanium-panel p-4 space-y-3 bg-white dark:bg-[#0E131F]">
               <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -895,10 +917,32 @@ function EcgStressWorkbench() {
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 10: Multi-Subject Benchmark Stress Detection
+                  Fig. 11: Multi-Subject Benchmark Stress Detection
                 </div>
                 <p className="text-xs text-slate-500">
                   Continuous multi-subject timeline validation demonstrating acute stress classification aligning with ground truth TSST stress exposure across subjects.
+                </p>
+              </div>
+            </div>
+
+            {/* Fig 12: Raw Lead-II */}
+            <div className="titanium-panel p-4 space-y-3 bg-white dark:bg-[#0E131F]">
+              <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-[#1F293D] bg-black">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/ecg/DEMO_Raw_ECG_LeadII.png"
+                  alt="Continuous Raw Lead-II ECG"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto object-contain hover:scale-105 transition-transform"
+                />
+              </div>
+              <div className="space-y-1">
+                <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
+                  Fig. 12: Raw Continuous Lead-II Telemetry
+                </div>
+                <p className="text-xs text-slate-500">
+                  Continuous raw physiological data recorded from the RespiBAN chest band under standard laboratory protocol.
                 </p>
               </div>
             </div>

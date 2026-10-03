@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { FolderGit2, ExternalLink, Github, PlusCircle } from "lucide-react";
+import { FolderGit2, ExternalLink, Github, PlusCircle, Download } from "lucide-react";
 import { PROJECTS_DATA, CATEGORIES } from "../data/projects";
 
 export default function ProjectsGallery() {
@@ -118,15 +118,14 @@ export default function ProjectsGallery() {
                     </a>
                   )}
 
-                  {proj.publication?.doiUrl ? (
+                  {proj.publication?.pdfUrl ? (
                     <a
-                      href={proj.publication.doiUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href={proj.publication.pdfUrl}
+                      download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
                       className="inline-flex items-center gap-1 text-xs font-mono font-medium text-sky-600 dark:text-cyan-400 hover:underline"
                     >
-                      <span>Zenodo Record</span>
-                      <ExternalLink className="w-3 h-3" />
+                      <span>Paper PDF</span>
+                      <Download className="w-3 h-3" />
                     </a>
                   ) : proj.demoUrl ? (
                     <a

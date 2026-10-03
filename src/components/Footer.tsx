@@ -61,12 +61,11 @@ export default function Footer() {
             <ul className="space-y-2 text-xs font-mono text-slate-600 dark:text-slate-400">
               <li>
                 <a
-                  href="https://doi.org/10.5281/zenodo.22895173"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation_v5.pdf"
+                  download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
                   className="hover:text-emerald-600 dark:hover:text-volt-400 flex items-center gap-1.5 transition-colors"
                 >
-                  <span>Zenodo Preprint (DOI: 10.5281/zenodo.22895173)</span>
+                  <span>Research Paper (PDF Download)</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </li>

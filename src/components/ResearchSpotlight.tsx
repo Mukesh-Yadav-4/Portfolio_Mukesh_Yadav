@@ -6,8 +6,6 @@ import {
   ExternalLink,
   Download,
   Github,
-  Check,
-  Copy,
   TrendingUp,
   ShieldCheck,
   Cpu,
@@ -17,14 +15,7 @@ import { PROJECTS_DATA } from "../data/projects";
 export default function ResearchSpotlight() {
   const paper = PROJECTS_DATA[0]; // Flagship paper
   const pub = paper.publication!;
-  const [copiedBibtex, setCopiedBibtex] = useState(false);
   const [activeTab, setActiveTab] = useState<"normalized" | "uncalibrated">("normalized");
-
-  const copyBibtex = () => {
-    navigator.clipboard.writeText(pub.bibtex);
-    setCopiedBibtex(true);
-    setTimeout(() => setCopiedBibtex(false), 2500);
-  };
 
   return (
     <section id="research" className="py-20 border-b border-slate-200 dark:border-border/60 bg-white dark:bg-background relative">
@@ -37,16 +28,16 @@ export default function ResearchSpotlight() {
               <span>Flagship Research & Publication</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Personalized Biosignal Computing Benchmark
+              Reproducible Edge-to-Cloud Biosignal Computing Benchmark
             </h2>
           </div>
           <a
-            href={pub.doiUrl}
+            href={paper.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-slate-50 dark:bg-surface-card hover:bg-slate-100 dark:hover:bg-surface-hover text-xs font-mono text-sky-700 dark:text-cyan-400 border border-slate-200 dark:border-border hover:border-sky-500 transition-all shadow-sm"
           >
-            <span>Permanent DOI: 10.5281/zenodo.22895173</span>
+            <span>GitHub: ECG_STRESS_DETECTION</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
@@ -56,19 +47,22 @@ export default function ResearchSpotlight() {
           {/* Top Metadata Badges */}
           <div className="flex flex-wrap items-center gap-2 mb-4">
             <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-sky-100 dark:bg-cyan-500/15 text-sky-800 dark:text-cyan-300 border border-sky-300 dark:border-cyan-500/30">
-              Zenodo Verified Preprint
+              Flagship Research Paper
             </span>
             <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-purple-100 dark:bg-purple-500/15 text-purple-800 dark:text-purple-300 border border-purple-300 dark:border-purple-500/30">
               15-Fold Leave-One-Subject-Out (LOSO-CV)
             </span>
             <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-emerald-100 dark:bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/30">
-              Open Source (MIT)
+              10k HIL Validation (0% Loss)
+            </span>
+            <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-amber-100 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-500/30">
+              4D Hyperchaotic Cipher (M-4DCHS)
             </span>
             <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-border">
               WESAD Public Benchmark (N=15, 445 Windows)
             </span>
             <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-emerald-100 dark:bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/30">
-              STM32G474RE Bare-Metal Edge IoMT
+              STM32G474RE Bare-Metal Edge DSP
             </span>
           </div>
 
@@ -206,14 +200,14 @@ export default function ResearchSpotlight() {
               <div>
                 <h4 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                   <Cpu className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span>Bare-Metal STM32 Edge DSP &amp; Chaotic Telemetry Stream</span>
+                  <span>Bare-Metal STM32 Edge DSP, 4D Hyperchaotic Cipher &amp; 10k HIL Testbed</span>
                 </h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  ARM Cortex-M4 (STM32G474RE) hardware validation with zero CRC drops across 15,000+ packets.
+                  ARM Cortex-M4 (STM32G474RE @ 170 MHz) physical Hardware-in-the-Loop (HIL) validation across 10,000 packets with 0% loss.
                 </p>
               </div>
               <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-                1.87 μs DSP Latency (0.065% CPU @ 16 MHz)
+                1.87 μs DSP Latency (0.065% CPU @ 170 MHz)
               </span>
             </div>
 
@@ -226,34 +220,34 @@ export default function ResearchSpotlight() {
                   className="w-full h-48 sm:h-56 object-cover object-center group-hover/img:scale-105 transition-transform duration-300"
                 />
                 <div className="p-2.5 bg-slate-900/90 border-t border-white/10 text-xs font-mono text-slate-300">
-                  <span className="font-bold text-white">Hardware Testbed:</span> Nucleo-G474RE board running CMSIS-DSP 5-stage Biquad IIR filtering &amp; 32-bit chaotic scrambler with logic analyzer UART timing verification.
+                  <span className="font-bold text-white">Hardware Testbed:</span> Nucleo-G474RE board running CMSIS-DSP 5-stage Biquad IIR filtering &amp; 4D continuous hyperchaotic stream cipher (M-4DCHS) with logic analyzer verification.
                 </div>
               </div>
 
               <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-border bg-black group/img">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/images/ecg/Physical_Usb_com_port_continuous_decrypted_telemetery.png"
-                  alt="Physical USB COM Port Continuous Decrypted Telemetry"
+                  src="/images/ecg/FIG_Physical_HIL_10k_Validation.png"
+                  alt="10,000-Packet Physical HIL Validation"
                   className="w-full h-48 sm:h-56 object-cover object-center group-hover/img:scale-105 transition-transform duration-300"
                 />
                 <div className="p-2.5 bg-slate-900/90 border-t border-white/10 text-xs font-mono text-slate-300">
-                  <span className="font-bold text-white">Live Clinical Telemetry:</span> Authorized client terminal receiving encrypted packets over physical COM port, performing bit-exact (0.000000 V error) descrambling.
+                  <span className="font-bold text-white">10,000-Packet Physical HIL Run:</span> 200,000 wire bytes streamed over physical USB-UART at 350.02 Hz with 0.0% packet drop, 0 CRC errors, and 0.0 mV reconstruction error.
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Action Row: PDF Download, BibTeX, Code */}
+          {/* Action Row: PDF Download & Code */}
           <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-200 dark:border-border/80">
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href={pub.pdfUrl}
-                download="Personalized_ECG_Stress_Detection_WESAD_Benchmark_and_STM32_Edge_IoMT.pdf"
+                download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs sm:text-sm transition-all shadow-sm"
               >
                 <Download className="w-4 h-4" />
-                <span>Download Full Preprint (9-Page PDF)</span>
+                <span>Download Research Paper (PDF)</span>
               </a>
               <a
                 href={paper.githubUrl}
@@ -264,34 +258,7 @@ export default function ResearchSpotlight() {
                 <Github className="w-4 h-4" />
                 <span>GitHub Repository</span>
               </a>
-              <a
-                href={pub.doiUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-2.5 text-xs font-mono text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-cyan-400 transition-colors"
-              >
-                <span>Zenodo Record</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
             </div>
-
-            {/* BibTeX Copy Button */}
-            <button
-              onClick={copyBibtex}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-surface border border-slate-200 dark:border-border hover:border-sky-500 text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all shadow-xs"
-            >
-              {copiedBibtex ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold">BibTeX Copied!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5 text-slate-500" />
-                  <span>Copy BibTeX Citation</span>
-                </>
-              )}
-            </button>
           </div>
         </div>
       </div>

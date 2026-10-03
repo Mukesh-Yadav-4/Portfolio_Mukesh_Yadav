@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Activity, Cpu, Sliders, ExternalLink, Download, Copy, Check, Sparkles, Award, Image as ImageIcon, Terminal } from "lucide-react";
+import { Activity, Cpu, Sliders, ExternalLink, Download, Sparkles, Award, Image as ImageIcon, Terminal } from "lucide-react";
 import WorkbenchModal from "./WorkbenchModal";
 import MiniButterflyWidget from "./MiniButterflyWidget";
 import MiniEcgWidget from "./MiniEcgWidget";
@@ -10,25 +10,10 @@ import MiniFilterWidget from "./MiniFilterWidget";
 export default function ResearchShowcase() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState<"ecg" | "memristor" | "filter">("ecg");
-  const [copiedBibtex, setCopiedBibtex] = useState(false);
 
   const openWorkbench = (tab: "ecg" | "memristor" | "filter") => {
     setSelectedTab(tab);
     setModalOpen(true);
-  };
-
-  const copyBibtex = () => {
-    const bibtex = `@article{yadav2026personalized,
-  title     = {Personalized Electrocardiographic and HRV Dynamics for Acute Stress Detection: A Leave-One-Subject-Out Benchmark and Bare-Metal Edge IoMT Implementation},
-  author    = {Yadav, Mukesh},
-  journal   = {Zenodo},
-  year      = {2026},
-  doi       = {10.5281/zenodo.22895173},
-  url       = {https://doi.org/10.5281/zenodo.22895173}
-}`;
-    navigator.clipboard.writeText(bibtex);
-    setCopiedBibtex(true);
-    setTimeout(() => setCopiedBibtex(false), 2000);
   };
 
   return (
@@ -57,10 +42,7 @@ export default function ResearchShowcase() {
             <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
               <div className="flex items-center gap-2">
                 <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-volt-400 border border-emerald-500/30 text-xs font-mono font-bold">
-                  ZENODO PREPRINT
-                </span>
-                <span className="text-xs font-mono text-slate-400 hidden sm:inline">
-                  DOI: 10.5281/zenodo.22895173
+                  FLAGSHIP BENCHMARK
                 </span>
                 <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-[10px] font-mono text-emerald-600 dark:text-volt-400">
                   ● Authentic WESAD Dataset
@@ -76,29 +58,13 @@ export default function ResearchShowcase() {
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <button
-                  onClick={copyBibtex}
-                  className="flex items-center gap-1.5 px-3 py-1 text-xs font-mono rounded-lg bg-slate-100 dark:bg-[#161E30] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-[#1F293D] transition-all"
-                >
-                  {copiedBibtex ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-500" />
-                      <span>BibTeX Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Copy BibTeX</span>
-                    </>
-                  )}
-                </button>
                 <a
-                  href="/Personalized_ECG_Stress_Detection_WESAD_Benchmark_and_STM32_Edge_IoMT.pdf"
-                  download
+                  href="/Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation_v5.pdf"
+                  download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
                   className="flex items-center gap-1.5 px-3 py-1 text-xs font-mono rounded-lg bg-slate-100 dark:bg-[#161E30] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-[#1F293D] transition-all"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>PDF (9-Page IEEE)</span>
+                  <span>Research Paper (PDF)</span>
                 </a>
               </div>
             </div>
@@ -107,17 +73,17 @@ export default function ResearchShowcase() {
               <div className="lg:col-span-2 space-y-4">
                 <div>
                   <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-snug">
-                    Personalized Electrocardiographic and HRV Dynamics for Acute Stress Detection
+                    Reproducible Edge-to-Cloud ECG Stress Detection with Embedded Telemetry and Hardware-in-the-Loop Validation
                   </h3>
                   <div className="text-xs font-mono font-semibold text-emerald-600 dark:text-volt-400 mt-1">
-                    A Leave-One-Subject-Out (LOSO) Benchmark and Bare-Metal Edge IoMT Implementation
+                    10,000-Packet Physical HIL Validation • 4D Hyperchaotic Stream Cipher • 15-Fold LOSO Benchmark
                   </div>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mt-1">
                     Mitigated inter-subject baseline variability across 15 WESAD benchmark subjects using relative baseline calibration:{" "}
                     <span className="font-mono text-emerald-600 dark:text-volt-400 font-semibold">
-                      X* = (X - Bs) / |Bs|
+                      X* = (X - Bs) / (|Bs| + ε)
                     </span>
-                    . Validated with bare-metal STM32G474RE ARM Cortex-M4 edge DSP and real-time chaotic telemetry scrambler.
+                    . Validated with bare-metal STM32G474RE ARM Cortex-M4 edge DSP, continuous 4D hyperchaotic stream cipher (M-4DCHS), and a physical 10,000-packet zero-loss HIL testbed.
                   </p>
                 </div>
 
@@ -143,35 +109,35 @@ export default function ResearchShowcase() {
                   <div
                     onClick={() => openWorkbench("ecg")}
                     className="group/fig cursor-pointer rounded-xl overflow-hidden border border-slate-200 dark:border-[#222E46] bg-slate-950 relative shadow-sm hover:border-emerald-500/60 dark:hover:border-volt-400/60 transition-all"
-                    title="Click to expand Live Decrypted Telemetry in Workbench"
+                    title="Click to expand 10,000-Packet Physical HIL Validation in Workbench"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src="/images/ecg/Physical_Usb_com_port_continuous_decrypted_telemetery.png"
-                      alt="Live Continuous Telemetry"
+                      src="/images/ecg/FIG_Physical_HIL_10k_Validation.png"
+                      alt="10k Packet Physical HIL Validation"
                       loading="lazy"
                       decoding="async"
                       className="w-full h-28 sm:h-36 md:h-44 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
-                      Live Telemetry (0 Drops)
+                      10k HIL Run (0% Loss)
                     </div>
                   </div>
                   <div
                     onClick={() => openWorkbench("ecg")}
                     className="group/fig cursor-pointer rounded-xl overflow-hidden border border-slate-200 dark:border-[#222E46] bg-slate-950 relative shadow-sm hover:border-emerald-500/60 dark:hover:border-volt-400/60 transition-all"
-                    title="Click to expand LOSO ROC Curve in Workbench"
+                    title="Click to expand 4D Hyperchaotic Attractor in Workbench"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src="/images/ecg/FINAL_ROC_Curve.png"
-                      alt="LOSO ROC Curve"
+                      src="/images/ecg/FIG_M4D_Attractor_3D.png"
+                      alt="4D Hyperchaotic Attractor"
                       loading="lazy"
                       decoding="async"
                       className="w-full h-28 sm:h-36 md:h-44 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
-                      ROC (AUC 0.949)
+                      4D Hyperchaotic Attractor
                     </div>
                   </div>
                   <div
@@ -182,13 +148,13 @@ export default function ResearchShowcase() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src="/images/ecg/FINAL_Confusion_Matrix.png"
-                      alt="Confusion Matrix"
+                      alt="LOSO Confusion Matrix"
                       loading="lazy"
                       decoding="async"
                       className="w-full h-28 sm:h-36 md:h-44 object-cover object-center group-hover/fig:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-black/85 backdrop-blur-xs p-1.5 text-[10px] sm:text-xs font-mono font-semibold text-slate-200 text-center truncate border-t border-white/10">
-                      Confusion Matrix
+                      LOSO Matrix (7 False Alarms)
                     </div>
                   </div>
                 </div>
@@ -196,36 +162,36 @@ export default function ResearchShowcase() {
                 {/* Giant Metric Readouts */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
-                    <div className="text-[10px] font-mono text-slate-400 uppercase">LOSO Accuracy</div>
+                    <div className="text-[10px] font-mono text-slate-400 uppercase">Primary Acc (τ=0.50)</div>
                     <div className="text-xl sm:text-2xl font-bold font-mono text-emerald-600 dark:text-volt-400 mt-0.5">
-                      92.36%
+                      92.13%
                     </div>
-                    <div className="text-[10px] font-mono text-slate-500">+10.79% boost</div>
+                    <div className="text-[10px] font-mono text-slate-500">410 / 445 windows</div>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
-                    <div className="text-[10px] font-mono text-slate-400 uppercase">Macro F1</div>
+                    <div className="text-[10px] font-mono text-slate-400 uppercase">Primary Specificity</div>
                     <div className="text-xl sm:text-2xl font-bold font-mono text-emerald-600 dark:text-volt-400 mt-0.5">
-                      89.03%
+                      97.54%
                     </div>
-                    <div className="text-[10px] font-mono text-slate-500">+16.00% boost</div>
+                    <div className="text-[10px] font-mono text-slate-500">Only 7 false alarms</div>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
-                    <div className="text-[10px] font-mono text-slate-400 uppercase">ROC-AUC</div>
+                    <div className="text-[10px] font-mono text-slate-400 uppercase">ROC-AUC / PR-AUC</div>
                     <div className="text-xl sm:text-2xl font-bold font-mono text-slate-900 dark:text-white mt-0.5">
-                      0.9494
+                      0.9493
                     </div>
-                    <div className="text-[10px] font-mono text-slate-500">Separation score</div>
+                    <div className="text-[10px] font-mono text-slate-500">PR-AUC = 0.9467</div>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
-                    <div className="text-[10px] font-mono text-slate-400 uppercase">STM32 DSP Latency</div>
+                    <div className="text-[10px] font-mono text-slate-400 uppercase">Physical HIL Testbed</div>
                     <div className="text-xl sm:text-2xl font-bold font-mono text-slate-900 dark:text-white mt-0.5">
-                      1.87 μs
+                      10,000 pkts
                     </div>
-                    <div className="text-[10px] font-mono text-slate-500">5-stage Biquad (&lt;0.1% CPU)</div>
+                    <div className="text-[10px] font-mono text-slate-500">0% loss • 0 CRC err</div>
                   </div>
                 </div>
                 <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 pt-1">
-                  *Validated on bare-metal ARM Cortex-M4 (STM32G474RE): 1.87 μs DSP latency (0.065% CPU load @ 16 MHz) &amp; 2.0 μs 32-bit chaotic scrambler.
+                  *Validated on bare-metal ARM Cortex-M4 (STM32G474RE @ 170 MHz): 1.87 μs DSP latency (0.065% CPU), continuous 4D hyperchaotic stream cipher (λ₁ ≈ +0.438, λ₂ ≈ +0.254), and 10,000-packet zero-loss physical HIL validation.
                 </div>
               </div>
 

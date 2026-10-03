@@ -218,17 +218,17 @@ export default function EcgHeroBanner() {
           <div className="lg:col-span-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-xs font-mono text-emerald-600 dark:text-volt-400 mb-6 shadow-sm">
               <Award className="w-3.5 h-3.5" />
-              <span>Zenodo Preprint (DOI: 10.5281/zenodo.22895173)</span>
+              <span>Edge IoMT &amp; Biosignal Research Systems</span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-3">
               Mukesh Yadav
             </h1>
             <p className="text-xl sm:text-2xl font-bold text-emerald-600 dark:text-volt-400 tracking-tight mb-4">
-              Biosignal Processing & Neuromorphic Hardware
+              Biosignal Processing &amp; Neuromorphic Hardware
             </p>
             <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl">
-              Electronics & Communication Engineering undergraduate at JSSATEN, Noida. Developing physiological signal-processing pipelines, relative baseline methods for stress detection, and analog memristor circuit emulators.
+              Electronics &amp; Communication Engineering undergraduate at JSSATEN, Noida. Developing physiological signal-processing pipelines, relative baseline methods for stress detection, and analog memristor circuit emulators.
             </p>
 
             {/* Action CTAs */}
@@ -248,12 +248,11 @@ export default function EcgHeroBanner() {
                 <span>Play Games (Arcade)</span>
               </a>
               <a
-                href="https://doi.org/10.5281/zenodo.22895173"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation_v5.pdf"
+                download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
                 className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-[#111726] text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white text-sm font-medium transition-all"
               >
-                <span>DOI Citation</span>
+                <span>Research Paper (PDF)</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>
