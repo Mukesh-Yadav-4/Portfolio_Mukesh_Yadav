@@ -151,7 +151,7 @@ export const PROJECTS_DATA: Project[] = [
       { label: "Numba JIT Throughput", value: "2.1 s / run", subtext: "3,000 asynchronous resets" },
     ],
     techStack: ["Python 3.12", "Numba JIT", "NumPy", "Hopfield Networks", "Hebbian Plasticity", "WESAD HRV", "Matplotlib"],
-    githubUrl: "https://github.com/Mukesh-Yadav-4",
+    githubUrl: "https://github.com/Mukesh-Yadav-4/hopfield-self-optimization-dynamics",
     demoUrl: "https://doi.org/10.1162/artl.a.10",
     keyContributions: [
       "Faithfully reproduced all 4 qualitative convergence regimes (A: Flat, B: Novel/Inappropriate, C: Appropriate, D: Creative) from Weber et al. (2025) using a Numba JIT-compiled inner loop.",
