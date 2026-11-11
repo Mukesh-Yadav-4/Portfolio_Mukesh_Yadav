@@ -152,7 +152,7 @@ export const PROJECTS_DATA: Project[] = [
     ],
     techStack: ["Python 3.12", "Numba JIT", "NumPy", "Hopfield Networks", "Hebbian Plasticity", "WESAD HRV", "Matplotlib"],
     githubUrl: "https://github.com/Mukesh-Yadav-4/hopfield-self-optimization-dynamics",
-    demoUrl: "https://doi.org/10.1162/artl.a.10",
+    demoUrl: "/images/hopfield/hopfield_synthesis.png",
     keyContributions: [
       "Faithfully reproduced all 4 qualitative convergence regimes (A: Flat, B: Novel/Inappropriate, C: Appropriate, D: Creative) from Weber et al. (2025) using a Numba JIT-compiled inner loop.",
       "Identified and ablated the partial-reset confound via a paired 2×2 factorial design across 10 random W0 matrix instances, proving that 25% partial reset operates as iterated local search (ΔE = -6.61, p = 0.002) independently of Hebbian learning.",
