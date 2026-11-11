@@ -71,6 +71,17 @@ export default function Footer() {
               </li>
               <li>
                 <a
+                  href="https://www.linkedin.com/in/mukesh-yadav-4131563ba/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-600 dark:hover:text-volt-400 flex items-center gap-1.5 transition-colors"
+                >
+                  <span>LinkedIn Profile</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://github.com/Mukesh-Yadav-4"
                   target="_blank"
                   rel="noopener noreferrer"
