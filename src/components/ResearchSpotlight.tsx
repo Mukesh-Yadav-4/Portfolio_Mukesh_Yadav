@@ -9,6 +9,8 @@ import {
   TrendingUp,
   ShieldCheck,
   Cpu,
+  Copy,
+  Check,
 } from "lucide-react";
 import { PROJECTS_DATA } from "../data/projects";
 
@@ -16,6 +18,20 @@ export default function ResearchSpotlight() {
   const paper = PROJECTS_DATA[0]; // Flagship paper
   const pub = paper.publication!;
   const [activeTab, setActiveTab] = useState<"normalized" | "uncalibrated">("normalized");
+  const [copiedBib, setCopiedBib] = useState(false);
+
+  const bibtexCode = `@article{yadav2026edge,
+  title={Reproducible Edge-to-Cloud ECG Stress Detection with Embedded Telemetry and Hardware-in-the-Loop Validation},
+  author={Yadav, Mukesh},
+  journal={TechRxiv Preprint},
+  year={2026}
+}`;
+
+  const handleCopyBib = () => {
+    navigator.clipboard.writeText(bibtexCode);
+    setCopiedBib(true);
+    setTimeout(() => setCopiedBib(false), 2000);
+  };
 
   return (
     <section id="research" className="py-20 border-b border-slate-200 dark:border-border/60 bg-white dark:bg-background relative">
@@ -258,6 +274,18 @@ export default function ResearchSpotlight() {
                 <Github className="w-4 h-4" />
                 <span>GitHub Repository</span>
               </a>
+              <button
+                type="button"
+                onClick={handleCopyBib}
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border text-xs sm:text-sm font-semibold transition-all shadow-xs ${
+                  copiedBib
+                    ? "bg-emerald-50 dark:bg-emerald-950/40 border-emerald-400 text-emerald-600 dark:text-emerald-400"
+                    : "bg-white dark:bg-surface-card hover:bg-slate-50 dark:hover:bg-surface-hover text-slate-800 dark:text-white border-slate-200 dark:border-border hover:border-sky-500"
+                }`}
+              >
+                {copiedBib ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-slate-400" />}
+                <span>{copiedBib ? "BibTeX Copied!" : "Cite (BibTeX)"}</span>
+              </button>
             </div>
           </div>
         </div>
