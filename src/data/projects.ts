@@ -126,7 +126,42 @@ export const PROJECTS_DATA: Project[] = [
     ],
   },
 
-  // 4. CUSTOMER SEGMENTATION & RFM
+  // 4. HOPFIELD NETWORK SELF-OPTIMIZATION & BIOLOGICAL TIMING DYNAMICS
+  {
+    id: "hopfield-self-optimization-dynamics",
+    title: "Hopfield Self-Optimization & Biological Dwell Dynamics",
+    subtitle: "In-Silico Reproduction & Factorial Ablation of Weber, Guckelsberger & Froese (Artificial Life 2025)",
+    category: "Research & Biosignals",
+    featured: true,
+    statusBadge: "Dynamical Systems Study",
+    badgeColor: "violet",
+    date: "2026",
+    summary:
+      "High-performance Numba JIT reproduction and factorial ablation of unsupervised Hebbian self-optimization across Hopfield energy landscapes. Ablated the partial-reset confound across 10 random W0 weight instances (n = 10, p = 0.002) and benchmarked empirical cardiac HRV intervals against exponential dwell-time distributions.",
+    publication: {
+      authors: "Mukesh Yadav (Independent Reproduction & Extension Study)",
+      year: 2026,
+      venue: "Artificial Life Dynamics Benchmark",
+      pdfUrl: "https://doi.org/10.1162/artl.a.10",
+    },
+    metrics: [
+      { label: "Hebbian Learning Gain", value: "ΔE = -11.08", subtext: "p = 0.002 (10/10 seeds negative)", highlight: true },
+      { label: "Local Search Effect", value: "ΔE = -6.61", subtext: "Partial reset without learning (α = 0)", highlight: true },
+      { label: "Cardiac HRV Timing", value: "ΔE = +0.58", subtext: "p = 0.60 (physiologically stable)" },
+      { label: "Numba JIT Throughput", value: "2.1 s / run", subtext: "3,000 asynchronous resets" },
+    ],
+    techStack: ["Python 3.12", "Numba JIT", "NumPy", "Hopfield Networks", "Hebbian Plasticity", "WESAD HRV", "Matplotlib"],
+    githubUrl: "https://github.com/Mukesh-Yadav-4",
+    demoUrl: "https://doi.org/10.1162/artl.a.10",
+    keyContributions: [
+      "Faithfully reproduced all 4 qualitative convergence regimes (A: Flat, B: Novel/Inappropriate, C: Appropriate, D: Creative) from Weber et al. (2025) using a Numba JIT-compiled inner loop.",
+      "Identified and ablated the partial-reset confound via a paired 2×2 factorial design across 10 random W0 matrix instances, proving that 25% partial reset operates as iterated local search (ΔE = -6.61, p = 0.002) independently of Hebbian learning.",
+      "Confirmed genuine Hebbian optimization under full random resets (ΔE = -11.08, p = 0.002, 10/10 instances negative).",
+      "Demonstrated that variable dwell times drawn from exponential distributions degrade attractor consolidation (ΔE = +6.12, p = 0.0003), whereas bounded human cardiac RR intervals maintain robust stability (p = 0.60).",
+    ],
+  },
+
+  // 5. CUSTOMER SEGMENTATION & RFM
   {
     id: "customer-segmentation-rfm",
     title: "Customer Lifetime Value & RFM Segmentation Pipeline",
