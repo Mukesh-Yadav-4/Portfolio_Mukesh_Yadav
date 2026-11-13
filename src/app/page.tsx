@@ -14,8 +14,8 @@ export default function HomePage() {
       <EcgHeroBanner />
       <ResearchShowcase />
       <HardwareDataSection />
-      <PlayableArcade />
       <DeployedPlatforms />
+      <PlayableArcade />
       <Footer />
     </main>
   );

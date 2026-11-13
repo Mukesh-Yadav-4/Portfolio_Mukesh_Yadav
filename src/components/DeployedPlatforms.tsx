@@ -12,14 +12,14 @@ export default function DeployedPlatforms() {
           <div>
             <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-wider text-emerald-600 dark:text-volt-400 uppercase mb-2">
               <Globe className="w-4 h-4" />
-              <span>04 // FULL-STACK PLATFORMS</span>
+              <span>03 // FULL-STACK PLATFORMS</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Live Deployed Web Applications
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-slate-500 max-w-md">
-            Production-ready web systems running globally on Vercel with responsive micro-architectures.
+            Web apps deployed on Vercel with responsive micro-architectures.
           </p>
         </div>
 
@@ -113,8 +113,8 @@ export default function DeployedPlatforms() {
                   <div className="font-bold text-slate-900 dark:text-white mt-0.5">Mobile Performance</div>
                 </div>
                 <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
-                  <div className="text-slate-400 text-[10px] uppercase">Lighthouse</div>
-                  <div className="font-bold text-emerald-500 mt-0.5">High Performance</div>
+                  <div className="text-slate-400 text-[10px] uppercase">Deployment</div>
+                  <div className="font-bold text-emerald-500 mt-0.5">Vercel Production</div>
                 </div>
               </div>
             </div>

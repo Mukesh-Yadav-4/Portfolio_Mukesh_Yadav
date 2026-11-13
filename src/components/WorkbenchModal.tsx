@@ -384,7 +384,7 @@ function EcgStressWorkbench() {
             download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
             className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-semibold rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-volt-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-all"
           >
-            <span>Paper PDF</span>
+            <span>Manuscript (in preparation)</span>
             <Download className="w-3 h-3" />
           </a>
           <a
@@ -494,7 +494,7 @@ function EcgStressWorkbench() {
             <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
             <div className="space-y-0.5">
               <div>
-                <strong className="text-emerald-600 dark:text-volt-400">AUTHENTIC CLINICAL RECORDING:</strong> Rendering actual 700 Hz Lead-II RespiBAN chest telemetry from the WESAD benchmark (Subject {subject}, 10-second continuous cyclic window).
+                <strong className="text-emerald-600 dark:text-volt-400">RECORDED CLINICAL TELEMETRY:</strong> Rendering actual 700 Hz Lead-II RespiBAN chest telemetry from the WESAD benchmark (Subject {subject}, 10-second continuous cyclic window).
               </div>
               <div className="text-[11px] text-slate-500 dark:text-slate-400">
                 Peak labels (▼ R) show Detected R-Peaks. To inspect the full raw continuous NumPy arrays, run LOSO scripts, or test with your own signals, switch to Tab 2 (Figures) or launch the Python Streamlit Studio.
@@ -744,7 +744,7 @@ function EcgStressWorkbench() {
                   Fig. 3: Primary Confusion Matrix (τ = 0.50, 92.13% Acc, 97.54% Spec)
                 </div>
                 <p className="text-xs text-slate-500">
-                  High specificity between calm baseline and acute TSST stress condition: 278/285 calm windows identified with only 7 false alarms.
+                  High specificity between calm baseline and acute TSST stress condition: 278/285 calm windows identified with 7 false alarms.
                 </p>
               </div>
             </div>
@@ -1212,7 +1212,7 @@ function MemristorWorkbench() {
           <div className="flex items-start gap-2.5 p-3 rounded-xl bg-blue-500/10 border border-blue-500/25 text-xs font-mono text-slate-700 dark:text-slate-300">
             <CheckCircle2 className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
             <div>
-              <strong className="text-blue-500 dark:text-blue-400">CIRCUIT EMULATOR BENCHMARK:</strong> The interactive Lissajous plot below computes the authentic pinched hysteresis loop passing strictly through (0V, 0mA). As frequency increases toward 80 kHz, the loop degenerates into a single-valued resistor. Switch to Tab 2 to inspect circuit emulation figures and multi-butterfly attractors.
+              <strong className="text-blue-500 dark:text-blue-400">CIRCUIT EMULATOR BENCHMARK:</strong> The interactive Lissajous plot below computes the simulated pinched hysteresis loop passing strictly through (0V, 0mA). As frequency increases toward 80 kHz, the loop degenerates into a single-valued resistor. Switch to Tab 2 to inspect circuit emulation figures and multi-butterfly attractors.
             </div>
           </div>
 
@@ -1332,7 +1332,7 @@ function MemristorWorkbench() {
                     />
                   </div>
                   <div className="text-xs font-mono text-slate-500 mt-2">
-                    Fig. 9(c): Authentic MATLAB ode23 steady-state simulation (k = 0.4, M = 2, φ₂ vs φ₁) showcasing 4 distinct dual-lobe chaotic butterfly wings.
+                    Fig. 9(c): MATLAB ode23 steady-state simulation (k = 0.4, M = 2, φ₂ vs φ₁) showcasing 4 distinct dual-lobe chaotic butterfly wings.
                   </div>
                 </div>
               )}
@@ -1865,7 +1865,7 @@ function FilterWorkbench() {
       {subView === "gallery" && (
         <div className="space-y-6">
           <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] text-xs font-mono text-slate-600 dark:text-slate-300">
-            Validation figures computed directly from PhysioNet MIT-BIH Arrhythmia Database Record 100 (Lead-MLII, 2,274 clinical beats).
+            Validation figures computed directly from PhysioNet MIT-BIH Arrhythmia Database Record 100 (Lead-MLII, 2,274 beats).
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1908,7 +1908,7 @@ function FilterWorkbench() {
                   Fig. 2: R-Peak Temporal Alignment & Group Delay
                 </div>
                 <p className="text-xs text-slate-500">
-                  Proving zero group-delay distortion across 2,274 clinical beats with the 100-tap equiripple FIR filter.
+                  Proving zero group-delay distortion across 2,274 beats with the 100-tap equiripple FIR filter.
                 </p>
               </div>
             </div>

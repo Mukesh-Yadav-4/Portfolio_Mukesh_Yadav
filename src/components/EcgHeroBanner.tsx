@@ -228,7 +228,7 @@ export default function EcgHeroBanner() {
               Biosignal Processing &amp; Neuromorphic Hardware
             </p>
             <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl">
-              Electronics &amp; Communication Engineering undergraduate at JSSATEN, Noida. Developing physiological signal-processing pipelines, relative baseline methods for stress detection, and analog memristor circuit emulators.
+              Electronics &amp; Communication Engineering undergraduate at JSSATEN, Noida, working on biosignal processing, computational neuroscience and neuromorphic hardware.
             </p>
 
             {/* Action CTAs */}
@@ -237,7 +237,7 @@ export default function EcgHeroBanner() {
                 href="#research"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-volt-400 dark:hover:bg-emerald-400 text-white dark:text-slate-950 font-bold text-sm transition-all shadow-md"
               >
-                <span>Explore 3 Research Benchmarks</span>
+                <span>Explore 5 Research Projects</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
               <a
@@ -246,14 +246,6 @@ export default function EcgHeroBanner() {
               >
                 <Gamepad2 className="w-4 h-4 text-emerald-500" />
                 <span>Play Games (Arcade)</span>
-              </a>
-              <a
-                href="/Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation_v5.pdf"
-                download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-transparent dark:hover:bg-[#111726] text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white text-sm font-medium transition-all"
-              >
-                <span>Research Paper (PDF)</span>
-                <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>

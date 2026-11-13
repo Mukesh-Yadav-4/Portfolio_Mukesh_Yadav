@@ -56,7 +56,7 @@ export default function Navbar() {
               download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
               className="hover:text-emerald-400 transition-colors"
             >
-              Paper PDF (Download) ↗
+              Manuscript (in preparation) ↗
             </a>
           </div>
         </div>
@@ -87,18 +87,18 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-6 text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-300">
+          <div className="hidden md:flex items-center gap-5 text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-300">
             <a href="#research" className="hover:text-emerald-600 dark:hover:text-volt-400 transition-colors font-semibold">
               Research
             </a>
             <a href="#systems" className="hover:text-emerald-600 dark:hover:text-volt-400 transition-colors font-semibold">
-              Systems
-            </a>
-            <a href="#games" className="hover:text-emerald-600 dark:hover:text-volt-400 transition-colors font-semibold">
-              Playable Games
+              Hardware
             </a>
             <a href="#platforms" className="hover:text-emerald-600 dark:hover:text-volt-400 transition-colors font-semibold">
               Platforms
+            </a>
+            <a href="#games" className="hover:text-emerald-600 dark:hover:text-volt-400 transition-colors font-semibold">
+              Arcade
             </a>
             <a href="#contact" className="hover:text-emerald-600 dark:hover:text-volt-400 transition-colors font-semibold">
               Contact
@@ -155,35 +155,35 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               className="block hover:text-emerald-600 dark:hover:text-volt-400 py-1"
             >
-              01 // Research Benchmarks
+              01 // Research Projects
             </a>
             <a
               href="#systems"
               onClick={() => setMobileMenuOpen(false)}
               className="block hover:text-emerald-600 dark:hover:text-volt-400 py-1"
             >
-              02 // Hardware & Systems
-            </a>
-            <a
-              href="#games"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block hover:text-emerald-600 dark:hover:text-volt-400 py-1"
-            >
-              03 // Playable Games
+              02 // Hardware &amp; Systems
             </a>
             <a
               href="#platforms"
               onClick={() => setMobileMenuOpen(false)}
               className="block hover:text-emerald-600 dark:hover:text-volt-400 py-1"
             >
-              04 // Full-Stack Platforms
+              03 // Full-Stack Platforms
+            </a>
+            <a
+              href="#games"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block hover:text-emerald-600 dark:hover:text-volt-400 py-1"
+            >
+              04 // Playable Arcade
             </a>
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
               className="block hover:text-emerald-600 dark:hover:text-volt-400 py-1"
             >
-              05 // Contact
+              05 // Contact &amp; Links
             </a>
             <div className="pt-2 flex flex-col gap-2">
               <a

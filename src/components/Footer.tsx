@@ -65,7 +65,7 @@ export default function Footer() {
                   download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
                   className="hover:text-emerald-600 dark:hover:text-volt-400 flex items-center gap-1.5 transition-colors"
                 >
-                  <span>Research Paper (PDF Download)</span>
+                  <span>Manuscript (in preparation)</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
@@ -99,6 +99,28 @@ export default function Footer() {
                   className="hover:text-emerald-600 dark:hover:text-volt-400 flex items-center gap-1.5 transition-colors"
                 >
                   <span>ECG Stress Detection Repository</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/Mukesh-Yadav-4/Hopfield-self-optimization-replication"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-600 dark:hover:text-volt-400 flex items-center gap-1.5 transition-colors"
+                >
+                  <span>Hopfield Replication Repository</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/Mukesh-Yadav-4/Memristive-hyperchaotic-medical-image-encryption"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-600 dark:hover:text-volt-400 flex items-center gap-1.5 transition-colors"
+                >
+                  <span>Memristive Image HIL Encryption Repository</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </li>

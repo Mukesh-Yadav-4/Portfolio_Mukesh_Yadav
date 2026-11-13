@@ -126,11 +126,11 @@ export default function HardwareDataSection() {
               <div className="grid grid-cols-2 gap-3 text-xs font-mono mb-4">
                 <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
                   <div className="text-slate-400 text-[10px] uppercase">Sampling Loop</div>
-                  <div className="font-bold text-slate-900 dark:text-white mt-0.5">&lt; 10 ms Latency</div>
+                  <div className="font-bold text-slate-900 dark:text-white mt-0.5">&lt; 10 ms Latency (datasheet)</div>
                 </div>
                 <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
                   <div className="text-slate-400 text-[10px] uppercase">Resolution</div>
-                  <div className="font-bold text-emerald-500 mt-0.5">±0.3 cm Accuracy</div>
+                  <div className="font-bold text-emerald-500 mt-0.5">±0.3 cm Accuracy (datasheet)</div>
                 </div>
               </div>
             </div>
@@ -153,7 +153,7 @@ export default function HardwareDataSection() {
                 <span className="px-2.5 py-1 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30 text-[11px] font-mono font-bold">
                   UNSUPERVISED ML / ANALYTICS
                 </span>
-                <span className="text-xs font-mono text-slate-400">540k+ Transactions</span>
+                <span className="text-xs font-mono text-slate-400">TODO: [540k+ Transactions - pending user verification]</span>
               </div>
 
               <h3 className="text-xl font-bold text-slate-900 dark:text-white">
