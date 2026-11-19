@@ -83,12 +83,12 @@ export default function ResearchShowcase() {
               </div>
               <div className="flex items-center gap-2">
                 <a
-                  href="/Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation_v5.pdf"
-                  download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
+                  href="/Yadav_2026_Leak-Free_Baseline_Calibration_ECG_Stress_WESAD.pdf"
+                  download="Yadav_2026_Leak-Free_Baseline_Calibration_ECG_Stress_WESAD.pdf"
                   className="flex items-center gap-1.5 px-3 py-1 text-xs font-mono rounded-lg bg-slate-100 dark:bg-[#161E30] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-[#1F293D] transition-all"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>Manuscript (in preparation)</span>
+                  <span>Manuscript (DOI 10.5281/zenodo.24223910)</span>
                 </a>
               </div>
             </div>
@@ -97,17 +97,17 @@ export default function ResearchShowcase() {
               <div className="lg:col-span-2 space-y-4">
                 <div>
                   <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-snug">
-                    Reproducible Edge-to-Cloud ECG Stress Detection with Embedded Telemetry and Hardware-in-the-Loop Validation
+                    How Much Labelled Rest is Needed? Leak-Free Baseline Calibration for Single-Lead ECG Stress Detection on WESAD
                   </h3>
                   <div className="text-xs font-mono font-semibold text-emerald-600 dark:text-volt-400 mt-1">
-                    10,000-Packet Physical HIL Validation • 4D Hyperchaotic Stream Cipher (no formal cryptanalysis) • 15-Fold LOSO Benchmark
+                    10,000-Packet Physical HIL Validation • 4D Hyperchaotic Stream Obfuscation (no formal cryptanalysis) • 15-Fold Leak-Free LOSO Benchmark
                   </div>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mt-1">
                     Mitigated inter-subject baseline variability across 15 WESAD benchmark subjects using relative baseline calibration:{" "}
                     <span className="font-mono text-emerald-600 dark:text-volt-400 font-semibold">
                       X* = (X - Bs) / (|Bs| + ε)
                     </span>
-                    . Evaluated on bare-metal STM32G474RE ARM Cortex-M4 edge DSP, continuous 4D hyperchaotic stream cipher (M-4DCHS; no formal cryptanalysis), and a physical 10,000-packet zero-loss HIL testbed.
+                    . Evaluated on bare-metal STM32G474RE ARM Cortex-M4 edge DSP, continuous 4D hyperchaotic stream obfuscation (M-4DCHS; no formal cryptanalysis), and a physical 10,000-packet zero-loss HIL testbed with replayed WESAD data.
                   </p>
                 </div>
 
@@ -188,24 +188,24 @@ export default function ResearchShowcase() {
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
                     <div className="text-[10px] font-mono text-slate-400 uppercase">Primary Acc (τ=0.50)</div>
                     <div className="text-xl sm:text-2xl font-bold font-mono text-emerald-600 dark:text-volt-400 mt-0.5">
-                      92.13%
+                      90.17%
                     </div>
-                    <div className="text-[10px] font-mono text-slate-500">410 / 445 windows</div>
-                    <div className="text-[9px] font-mono text-slate-400 dark:text-slate-500 mt-1">Best of six classifiers; requires a test-time baseline recording.</div>
+                    <div className="text-[10px] font-mono text-slate-500">[82.7, 95.9] (295 win)</div>
+                    <div className="text-[9px] font-mono text-slate-400 dark:text-slate-500 mt-1">Leak-free N=10; legacy 445-window: 92.13%.</div>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
                     <div className="text-[10px] font-mono text-slate-400 uppercase">Primary Specificity</div>
                     <div className="text-xl sm:text-2xl font-bold font-mono text-emerald-600 dark:text-volt-400 mt-0.5">
-                      97.54%
+                      94.81%
                     </div>
-                    <div className="text-[10px] font-mono text-slate-500">7 false alarms</div>
+                    <div className="text-[10px] font-mono text-slate-500">128/135 calm (7 alarms)</div>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
                     <div className="text-[10px] font-mono text-slate-400 uppercase">ROC-AUC / PR-AUC</div>
                     <div className="text-xl sm:text-2xl font-bold font-mono text-slate-900 dark:text-white mt-0.5">
-                      0.9493
+                      0.9361
                     </div>
-                    <div className="text-[10px] font-mono text-slate-500">PR-AUC = 0.9467</div>
+                    <div className="text-[10px] font-mono text-slate-500">Leak-free LOSO (295 win)</div>
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D]">
                     <div className="text-[10px] font-mono text-slate-400 uppercase">Physical HIL Testbed</div>
@@ -216,7 +216,7 @@ export default function ResearchShowcase() {
                   </div>
                 </div>
                 <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 pt-1">
-                  *Evaluated on bare-metal ARM Cortex-M4 (STM32G474RE @ 170 MHz): 1.87 μs DSP latency (0.065% CPU), continuous 4D hyperchaotic stream cipher (λ₁ ≈ +0.438, λ₂ ≈ +0.254; no formal cryptanalysis), and 10,000-packet zero-loss physical HIL validation.
+                  *Evaluated on bare-metal ARM Cortex-M4 (STM32G474RE @ 170 MHz): 1.48 μs mean DSP latency (249/251/281 cycles), continuous 4D hyperchaotic stream obfuscation (λ₁ = +0.4199, λ₂ = +0.2639; dt=0.0025, T=500s; no formal cryptanalysis), and 10,000-packet zero-loss physical HIL validation on replayed WESAD data.
                 </div>
               </div>
 
@@ -227,10 +227,10 @@ export default function ResearchShowcase() {
 
                 <div>
                   <div className="font-bold text-sm text-slate-900 dark:text-white">
-                    Live ECG Stress Telemetry
+                    Replayed WESAD ECG Telemetry
                   </div>
                   <div className="text-xs text-slate-500 mt-0.5">
-                    Stream recorded WESAD subjects S2, S3, and S17 with detected R-peak visualization.
+                    Stream replayed WESAD subjects S2, S3, and S17 with detected R-peak visualization.
                   </div>
                 </div>
 

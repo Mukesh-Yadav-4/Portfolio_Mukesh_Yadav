@@ -10,6 +10,8 @@ export interface PublicationInfo {
   year?: number;
   authors: string;
   pdfUrl?: string;
+  doi?: string;
+  doiUrl?: string;
 }
 
 export interface Project {
@@ -34,38 +36,40 @@ export const PROJECTS_DATA: Project[] = [
   // 1. ECG STRESS DETECTION (Flagship Paper)
   {
     id: "ecg-stress-detection-wesad",
-    title: "Reproducible Edge-to-Cloud ECG Stress Detection with Embedded Telemetry and Hardware-in-the-Loop Validation",
-    subtitle: "A Leave-One-Subject-Out (LOSO) Benchmark with 4D Hyperchaotic Telemetry and Bare-Metal STM32 Edge Validation",
+    title: "How Much Labelled Rest is Needed? Leak-Free Baseline Calibration for Single-Lead ECG Stress Detection on WESAD",
+    subtitle: "A Leak-Free Leave-One-Subject-Out (LOSO) Benchmark with 4D Hyperchaotic Telemetry and Bare-Metal STM32 Edge Validation",
     category: "Research & Biosignals",
     featured: true,
     statusBadge: "Research Paper",
     badgeColor: "cyan",
     date: "2026",
     summary:
-      "Mitigated inter-subject baseline variability across 15 WESAD benchmark subjects using relative baseline calibration: X* = (X - Bs) / (|Bs| + ε). Evaluated with 15-fold Leave-One-Subject-Out (LOSO) validation (92.13% primary accuracy, 0.9493 ROC-AUC), paired with a bare-metal STM32G474RE ARM Cortex-M4 edge DSP, experimental 4D memristive hyperchaotic stream cipher (M-4DCHS), and physical 10,000-packet HIL validation (0.0% packet loss).",
+      "Mitigated inter-subject baseline variability across 15 WESAD benchmark subjects using relative baseline calibration: X* = (X - Bs) / (|Bs| + ε). Evaluated with 15-fold Leave-One-Subject-Out (LOSO) validation (90.17% [82.7, 95.9] primary accuracy, 0.9361 ROC-AUC), paired with a bare-metal STM32G474RE ARM Cortex-M4 edge DSP, experimental 4D memristive hyperchaotic stream obfuscation (M-4DCHS), and physical 10,000-packet HIL validation (0.0% packet loss).",
     publication: {
       authors: "Mukesh Yadav (JSS Academy of Technical Education, Noida)",
       year: 2026,
       venue: "Research Paper",
-      pdfUrl: "/Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation_v5.pdf",
+      pdfUrl: "/Yadav_2026_Leak-Free_Baseline_Calibration_ECG_Stress_WESAD.pdf",
+      doiUrl: "https://doi.org/10.5281/zenodo.24223910",
+      doi: "10.5281/zenodo.24223910",
     },
     metrics: [
-      { label: "Primary Accuracy (τ=0.50)", value: "92.13%", subtext: "410 / 445 windows (15 folds)", highlight: true },
-      { label: "Primary Specificity", value: "97.54%", subtext: "278 / 285 calm (only 7 false alarms)", highlight: true },
-      { label: "ROC-AUC", value: "0.9493", subtext: "PR-AUC = 0.9467 (unseen subjects)" },
-      { label: "Screening Sens (τ=0.35)", value: "86.88%", subtext: "139 / 160 stress episodes caught" },
+      { label: "Primary Accuracy (τ=0.50)", value: "90.17%", subtext: "[82.7, 95.9] (295 windows, N=10)", highlight: true },
+      { label: "Primary Specificity", value: "94.81%", subtext: "128 / 135 calm (7 false alarms)", highlight: true },
+      { label: "ROC-AUC", value: "0.9361", subtext: "Leak-free LOSO (295 windows)" },
+      { label: "Sensitivity (τ=0.50)", value: "86.25%", subtext: "138 / 160 stress episodes caught" },
       { label: "Physical HIL Testbed", value: "10,000 Pkts", subtext: "200k wire bytes, 0.0% loss, 0 CRC err" },
-      { label: "STM32 DSP Latency", value: "1.87 μs", subtext: "5-stage Biquad (0.065% CPU @ 170MHz)" },
+      { label: "STM32 DSP Latency", value: "1.48 μs", subtext: "251 cycles mean (CMSIS-DSP @ 170MHz)" },
     ],
-    techStack: ["STM32G474RE", "ARM Cortex-M4", "CMSIS-DSP", "4D Hyperchaotic Cipher", "Hardware-in-the-Loop (HIL)", "WESAD Benchmark", "Python", "MATLAB", "Three.js WebGL", "LaTeX"],
+    techStack: ["STM32G474RE", "ARM Cortex-M4", "CMSIS-DSP", "4D Hyperchaotic Obfuscation", "Hardware-in-the-Loop (HIL)", "WESAD Benchmark", "Python", "MATLAB", "Three.js WebGL", "LaTeX"],
     githubUrl: "https://github.com/Mukesh-Yadav-4/ECG_STRESS_DETECTION",
     demoUrl: "https://ecgstressdetection-2bremsry4npbmx9yn7whju.streamlit.app/",
     keyContributions: [
-      "Mitigated cross-subject baseline drift via relative baseline normalization: X* = (X - Bs) / (|Bs| + ε), producing a +10.79% accuracy leap and +15.64% F1-score boost under strict 15-fold LOSO cross-validation.",
-      "Established authoritative primary benchmark at τ = 0.50 (92.13% accuracy, 88.29% F1, 97.54% specificity with only 7 false positive alarms across 445 windows) and exploratory screening point at τ = 0.35 (92.36% accuracy, 86.88% sensitivity).",
-      "Deployed on bare-metal ARM Cortex-M4 (STM32G474RE @ 170 MHz) with CMSIS-DSP 5-stage Biquad IIR filter cascade executing in 1.87 μs per sample (0.065% CPU load).",
-      "Integrated novel 4D memristive hyperchaotic stream cipher (HC1 M-4DCHS) via RK4 with 2 positive Lyapunov exponents (λ₁ ≈ +0.438, λ₂ ≈ +0.254) and wire Shannon entropy H = 7.9977 bits/byte.",
-      "Conducted physical Hardware-in-the-Loop (HIL) telemetry streaming over physical USB-UART at 350.02 Hz across 10,000 consecutive 20-byte packets (200,000 wire bytes) with 0 packet loss, 0 CRC errors, and 0.0 mV reconstruction error.",
+      "Mitigated cross-subject baseline drift via relative baseline normalization: X* = (X - Bs) / (|Bs| + ε), achieving 90.17% [82.7, 95.9] accuracy and 0.9361 ROC-AUC under strict 15-fold leak-free LOSO cross-validation (legacy 445-window: 92.13%).",
+      "Established leak-free benchmark at τ = 0.50 (90.17% accuracy, 90.49% F1, 94.81% specificity with only 7 false alarms across 295 common evaluation windows) and legacy reference at τ = 0.50 (legacy 92.13% across 445 windows).",
+      "Deployed on bare-metal ARM Cortex-M4 (STM32G474RE @ 170 MHz) with CMSIS-DSP 5-stage Biquad IIR filter cascade executing in 1.48 μs mean (249/251/281 cycles from biquad_dwt_benchmark.c).",
+      "Integrated novel 4D memristive hyperchaotic stream obfuscation (HC1 M-4DCHS) via RK4 with 2 positive Lyapunov exponents (λ₁ = +0.4199, λ₂ = +0.2639; dt=0.0025, T=500s) and wire Shannon entropy H = 7.9977 bits/byte.",
+      "Conducted physical Hardware-in-the-Loop (HIL) telemetry streaming of replayed WESAD ECG data over physical USB-UART at 350.02 Hz across 10,000 consecutive 20-byte packets (200,000 wire bytes) with 0 packet loss, 0 CRC errors, and 0.0 mV reconstruction error.",
       "Benchmarked 6 machine learning architectures (LR, MLP, SVM, RF, ET, HGB) with explainability permutation importance confirming autonomic vagal withdrawal and sympathetic acceleration.",
     ],
   },

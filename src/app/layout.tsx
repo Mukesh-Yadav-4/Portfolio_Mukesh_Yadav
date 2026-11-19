@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Mukesh Yadav | Biosignal Processing & Neuromorphic Hardware",
     description:
-      "Reproducible Edge-to-Cloud ECG Stress Detection with Embedded Telemetry and Hardware-in-the-Loop Validation (92.13% LOSO Accuracy, 0.9493 AUC, 10,000-Packet HIL Run).",
+      "How Much Labelled Rest is Needed? Leak-Free Baseline Calibration for Single-Lead ECG Stress Detection on WESAD (90.17% [82.7, 95.9] Accuracy, 0.9361 ROC-AUC, 10,000-Packet HIL Run).",
     url: "https://github.com/Mukesh-Yadav-4",
     siteName: "Mukesh Yadav Portfolio",
     locale: "en_US",

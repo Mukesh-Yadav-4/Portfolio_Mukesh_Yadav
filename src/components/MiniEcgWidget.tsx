@@ -208,7 +208,7 @@ export default function MiniEcgWidget({ onClick }: MiniEcgWidgetProps) {
       {/* Top Left: Pulsing Red Live Badge */}
       <div className="absolute top-2 left-2 flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/75 backdrop-blur border border-white/10 text-[10px] font-mono font-bold text-red-400">
         <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
-        <span>LIVE ECG • LEAD-II</span>
+        <span>REPLAY ECG • WESAD S2</span>
       </div>
 
       {/* Top Right: Acute Stress Rate Badge */}

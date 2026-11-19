@@ -380,11 +380,11 @@ function EcgStressWorkbench() {
             <ExternalLink className="w-3 h-3" />
           </a>
           <a
-            href="/Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation_v5.pdf"
-            download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
+            href="/Yadav_2026_Leak-Free_Baseline_Calibration_ECG_Stress_WESAD.pdf"
+            download="Yadav_2026_Leak-Free_Baseline_Calibration_ECG_Stress_WESAD.pdf"
             className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-semibold rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-volt-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-all"
           >
-            <span>Manuscript (in preparation)</span>
+            <span>Manuscript (DOI 10.5281/zenodo.24223910)</span>
             <Download className="w-3 h-3" />
           </a>
           <a
@@ -486,7 +486,7 @@ function EcgStressWorkbench() {
         </div>
       </div>
 
-      {/* SUBVIEW 1: LIVE RECORDED WAVEFORM STREAM */}
+      {/* SUBVIEW 1: REPLAYED WESAD WAVEFORM STREAM */}
       {subView === "simulator" && (
         <div className="space-y-5">
           {/* Authentic Signal Notice Banner */}
@@ -494,7 +494,7 @@ function EcgStressWorkbench() {
             <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
             <div className="space-y-0.5">
               <div>
-                <strong className="text-emerald-600 dark:text-volt-400">RECORDED CLINICAL TELEMETRY:</strong> Rendering actual 700 Hz Lead-II RespiBAN chest telemetry from the WESAD benchmark (Subject {subject}, 10-second continuous cyclic window).
+                <strong className="text-emerald-600 dark:text-volt-400">REPLAYED WESAD TELEMETRY:</strong> Rendering actual 700 Hz Lead-II RespiBAN chest telemetry from the WESAD benchmark (Subject {subject}, 10-second continuous cyclic window, no live sensor).
               </div>
               <div className="text-[11px] text-slate-500 dark:text-slate-400">
                 Peak labels (▼ R) show Detected R-Peaks. To inspect the full raw continuous NumPy arrays, run LOSO scripts, or test with your own signals, switch to Tab 2 (Figures) or launch the Python Streamlit Studio.
@@ -719,7 +719,7 @@ function EcgStressWorkbench() {
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 2: Stratified LOSO ROC & PR Curves (AUC = 0.9493, PR-AUC = 0.9467)
+                  Fig. 2: Stratified LOSO ROC & PR Curves (Leak-Free AUC = 0.9361; Legacy AUC = 0.9493)
                 </div>
                 <p className="text-xs text-slate-500">
                   Receiver Operating Characteristic across 15 unseen subjects under strict Leave-One-Subject-Out cross-validation.
@@ -741,10 +741,10 @@ function EcgStressWorkbench() {
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 3: Primary Confusion Matrix (τ = 0.50, 92.13% Acc, 97.54% Spec)
+                  Fig. 3: Primary Confusion Matrix (Legacy τ = 0.50, 92.13% Acc on 445 windows; superseded by leak-free 90.17% [82.7, 95.9] on 295 windows)
                 </div>
                 <p className="text-xs text-slate-500">
-                  High specificity between calm baseline and acute TSST stress condition: 278/285 calm windows identified with 7 false alarms.
+                  Legacy 445-window run: 278/285 calm windows identified with 7 false alarms; leak-free N=10 benchmark establishes 90.17% accuracy and 94.81% specificity (128/135 calm, 7 alarms).
                 </p>
               </div>
             </div>
@@ -763,7 +763,7 @@ function EcgStressWorkbench() {
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 4: Exploratory Screening Matrix (τ = 0.35, 86.88% Sens)
+                  Fig. 4: Exploratory Screening Matrix (Legacy τ = 0.35, 86.88% Sens on 445 windows)
                 </div>
                 <p className="text-xs text-slate-500">
                   Screening calibration tuning prioritizing stress capture (139/160 acute stress episodes caught) at 92.36% overall accuracy.
@@ -810,7 +810,7 @@ function EcgStressWorkbench() {
                   Fig. 6: 4D Continuous Hyperchaotic Attractor (M-4DCHS)
                 </div>
                 <p className="text-xs text-slate-500">
-                  Chaotic phase-space trajectory confirming 2 positive Lyapunov exponents (λ₁ ≈ +0.438, λ₂ ≈ +0.254) for unpredictable telemetry encryption.
+                  Chaotic phase-space trajectory confirming 2 positive Lyapunov exponents (λ₁ = +0.4199, λ₂ = +0.2639; dt=0.0025, T=500s) for unpredictable telemetry obfuscation.
                 </p>
               </div>
             </div>
@@ -843,7 +843,7 @@ function EcgStressWorkbench() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/images/ecg/FIG_Dashboard_SinglePage_M4D_Decrypted.png"
-                  alt="Decrypted Clinical Dashboard"
+                  alt="Descrambled Telemetry Dashboard (Replay)"
                   loading="lazy"
                   decoding="async"
                   className="w-full h-auto object-contain hover:scale-105 transition-transform"
@@ -851,10 +851,10 @@ function EcgStressWorkbench() {
               </div>
               <div className="space-y-1">
                 <div className="font-bold text-sm text-slate-900 dark:text-white font-mono">
-                  Fig. 8: Authorized Single-Page Clinical Dashboard
+                  Fig. 8: Authorized Single-Page Telemetry Dashboard (Replay)
                 </div>
                 <p className="text-xs text-slate-500">
-                  Authorized clinician interface displaying synchronous real-time descrambled ECG waveforms, live detected R-peaks, and sympathetic stress score.
+                  Authorized clinician interface displaying synchronous descrambled ECG waveforms replayed from WESAD flash replay, detected R-peaks, and sympathetic stress score.
                 </p>
               </div>
             </div>
@@ -876,7 +876,7 @@ function EcgStressWorkbench() {
                   Fig. 9: Wiretap Intercept View (Shannon Entropy H = 7.9977 b/B)
                 </div>
                 <p className="text-xs text-slate-500">
-                  Adversarial capture of the scrambled telemetry stream, showing near-theoretical maximal entropy (7.9977 bits/byte) and complete clinical obfuscation.
+                  Adversarial capture of the scrambled telemetry stream, showing near-theoretical maximal entropy (7.9977 bits/byte) and complete telemetry obfuscation.
                 </p>
               </div>
             </div>

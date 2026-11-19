@@ -32,7 +32,7 @@ export default function SkillsMatrix() {
         "Clinical Operating Threshold Sweeps (τ Optimization)",
         "Class Imbalance Calibration & Balanced Accuracy",
         "Classifiers: Logistic Regression, MLP, SVM, Random Forest",
-        "Diagnostic ROC-AUC (0.9494) & Precision-Recall Analysis",
+        "Diagnostic ROC-AUC (0.9361 leak-free; 0.9494 legacy) & Precision-Recall Analysis",
       ],
     },
     {

@@ -61,11 +61,11 @@ export default function Footer() {
             <ul className="space-y-2 text-xs font-mono text-slate-600 dark:text-slate-400">
               <li>
                 <a
-                  href="/Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation_v5.pdf"
-                  download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
+                  href="/Yadav_2026_Leak-Free_Baseline_Calibration_ECG_Stress_WESAD.pdf"
+                  download="Yadav_2026_Leak-Free_Baseline_Calibration_ECG_Stress_WESAD.pdf"
                   className="hover:text-emerald-600 dark:hover:text-volt-400 flex items-center gap-1.5 transition-colors"
                 >
-                  <span>Manuscript (in preparation)</span>
+                  <span>Manuscript (DOI 10.5281/zenodo.24223910)</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </li>

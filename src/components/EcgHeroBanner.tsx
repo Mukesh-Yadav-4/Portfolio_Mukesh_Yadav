@@ -332,7 +332,7 @@ export default function EcgHeroBanner() {
             <div className="absolute bottom-2 left-3 text-[11px] font-mono text-slate-500 pointer-events-none flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
               <span>
-                Recorded WESAD Lead-II Telemetry (Subject S2, 700 Hz RespiBAN, 350 Hz playback • {sweepSpeed === "25" ? "25 mm/s Standard Clinical Window (6.0s)" : "50 mm/s Morphology Zoom Window (3.0s)"})
+                Replayed WESAD Lead-II Telemetry (Subject S2, 700 Hz RespiBAN, 350 Hz playback • {sweepSpeed === "25" ? "25 mm/s Standard Window (6.0s)" : "50 mm/s Morphology Zoom Window (3.0s)"})
               </span>
             </div>
           </div>

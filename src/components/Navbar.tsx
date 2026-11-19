@@ -52,11 +52,11 @@ export default function Navbar() {
           </div>
           <div className="flex items-center gap-3 text-slate-400 text-[10px] sm:text-[11px]">
             <a
-              href="/Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation_v5.pdf"
-              download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
+              href="/Yadav_2026_Leak-Free_Baseline_Calibration_ECG_Stress_WESAD.pdf"
+              download="Yadav_2026_Leak-Free_Baseline_Calibration_ECG_Stress_WESAD.pdf"
               className="hover:text-emerald-400 transition-colors"
             >
-              Manuscript (in preparation) ↗
+              Manuscript (DOI 10.5281/zenodo.24223910) ↗
             </a>
           </div>
         </div>

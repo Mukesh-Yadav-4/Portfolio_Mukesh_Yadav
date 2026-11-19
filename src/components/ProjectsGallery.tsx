@@ -121,7 +121,7 @@ export default function ProjectsGallery() {
                   {proj.publication?.pdfUrl ? (
                     <a
                       href={proj.publication.pdfUrl}
-                      download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
+                      download="Yadav_2026_Leak-Free_Baseline_Calibration_ECG_Stress_WESAD.pdf"
                       className="inline-flex items-center gap-1 text-xs font-mono font-medium text-sky-600 dark:text-cyan-400 hover:underline"
                     >
                       <span>Paper PDF</span>

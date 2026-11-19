@@ -20,11 +20,12 @@ export default function ResearchSpotlight() {
   const [activeTab, setActiveTab] = useState<"normalized" | "uncalibrated">("normalized");
   const [copiedBib, setCopiedBib] = useState(false);
 
-  const bibtexCode = `@article{yadav2026edge,
-  title={Reproducible Edge-to-Cloud ECG Stress Detection with Embedded Telemetry and Hardware-in-the-Loop Validation},
-  author={Yadav, Mukesh},
-  journal={TechRxiv Preprint},
-  year={2026}
+  const bibtexCode = `@misc{yadav2026leakfree,
+  author = {Yadav, Mukesh},
+  title  = {How Much Labelled Rest is Needed? Leak-Free Baseline Calibration for Single-Lead ECG Stress Detection on WESAD},
+  year   = {2026},
+  doi    = {10.5281/zenodo.24223910},
+  version = {4.0}
 }`;
 
   const handleCopyBib = () => {
@@ -72,10 +73,10 @@ export default function ResearchSpotlight() {
               10k HIL Validation (0% Loss)
             </span>
             <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-amber-100 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-500/30">
-              4D Hyperchaotic Cipher (M-4DCHS)
+              4D Hyperchaotic Obfuscation (M-4DCHS)
             </span>
             <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-border">
-              WESAD Public Benchmark (N=15, 445 Windows)
+              WESAD Public Benchmark (N=15, 295 Common Windows; 445 Legacy)
             </span>
             <span className="px-2.5 py-1 rounded text-xs font-mono font-semibold bg-emerald-100 dark:bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/30">
               STM32G474RE Bare-Metal Edge DSP
@@ -145,7 +146,7 @@ export default function ResearchSpotlight() {
                       : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                   }`}
                 >
-                  Normalized (Ours: 92.36%)
+                  Normalized (Ours: 90.17%)
                 </button>
                 <button
                   onClick={() => setActiveTab("uncalibrated")}
@@ -181,9 +182,9 @@ export default function ResearchSpotlight() {
                       <span>Calibrated Baseline-Relative Pipeline</span>
                     </div>
                     <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-                      Anchors each subject to their own basal physiology before classification. Improves accuracy from 81.57% to{" "}
-                      <b className="text-slate-900 dark:text-white">92.36% (+10.79%)</b> and stress recall from 73.03% to{" "}
-                      <b className="text-slate-900 dark:text-white">89.03% (+16.00%)</b> with <b>0.9494 ROC-AUC</b>.
+                      Anchors each subject to their own basal physiology before classification. Under leak-free N=10 evaluation (295 common evaluation windows), achieves{" "}
+                      <b className="text-slate-900 dark:text-white">90.17% [82.7, 95.9]</b> accuracy and{" "}
+                      <b className="text-slate-900 dark:text-white">0.9361 ROC-AUC</b> (legacy 445-window: 92.13% / 0.9494).
                     </p>
                   </div>
                 ) : (
@@ -259,7 +260,7 @@ export default function ResearchSpotlight() {
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href={pub.pdfUrl}
-                download="Reproducible_Edge_to_Cloud_ECG_Stress_Detection_with_Embedded_Telemetry_and_Hardware_in_the_Loop_Validation v5.pdf"
+                download="Yadav_2026_Leak-Free_Baseline_Calibration_ECG_Stress_WESAD.pdf"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs sm:text-sm transition-all shadow-sm"
               >
                 <Download className="w-4 h-4" />
