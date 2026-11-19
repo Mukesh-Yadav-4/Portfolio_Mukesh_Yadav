@@ -52,11 +52,12 @@ export default function Navbar() {
           </div>
           <div className="flex items-center gap-3 text-slate-400 text-[10px] sm:text-[11px]">
             <a
-              href="/Yadav_2026_Leak-Free_Baseline_Calibration_ECG_Stress_WESAD.pdf"
-              download="Yadav_2026_Leak-Free_Baseline_Calibration_ECG_Stress_WESAD.pdf"
+              href="https://zenodo.org/records/24223910"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-emerald-400 transition-colors"
             >
-              Manuscript (DOI 10.5281/zenodo.24223910) ↗
+              Zenodo Record ↗
             </a>
           </div>
         </div>
