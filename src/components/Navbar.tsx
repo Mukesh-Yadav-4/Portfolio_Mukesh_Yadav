@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Github, ExternalLink, Menu, X, Activity, Sun, Moon } from "lucide-react";
+import { Github, Linkedin, ExternalLink, Menu, X, Activity, Sun, Moon } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -122,10 +122,22 @@ export default function Navbar() {
               href="https://github.com/Mukesh-Yadav-4"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-100 text-white dark:text-slate-900 transition-all shadow-sm"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-100 text-white dark:text-slate-900 transition-all shadow-sm"
+              title="GitHub Profile"
             >
               <Github className="w-3.5 h-3.5" />
               <span>GitHub</span>
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/mukesh-yadav-4131563ba/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-[#0A66C2] hover:bg-[#004182] text-white transition-all shadow-sm"
+              title="LinkedIn Profile"
+            >
+              <Linkedin className="w-3.5 h-3.5" />
+              <span>LinkedIn</span>
             </a>
           </div>
 
@@ -195,6 +207,15 @@ export default function Navbar() {
               >
                 <Github className="w-4 h-4" />
                 <span>Visit GitHub Profile</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/mukesh-yadav-4131563ba/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-3 py-2 text-xs font-semibold rounded bg-[#0A66C2] hover:bg-[#004182] text-white transition-all"
+              >
+                <Linkedin className="w-4 h-4" />
+                <span>Connect on LinkedIn</span>
               </a>
             </div>
           </div>

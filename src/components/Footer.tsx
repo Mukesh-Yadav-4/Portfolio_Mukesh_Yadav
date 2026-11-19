@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, Github, ExternalLink, Check, Copy, Heart } from "lucide-react";
+import { Mail, Github, Linkedin, ExternalLink, Check, Copy, Heart } from "lucide-react";
 
 export default function Footer() {
   const [copiedEmail, setCopiedEmail] = useState(false);
@@ -37,7 +37,7 @@ export default function Footer() {
             <p className="text-xs text-slate-700 dark:text-slate-300">
               Open to research collaborations, graduate study opportunities, and wearable health tech engineering roles.
             </p>
-            <div className="pt-2">
+            <div className="pt-2 flex flex-wrap items-center gap-2">
               <button
                 onClick={copyEmail}
                 className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] hover:border-emerald-500/50 text-xs font-mono text-emerald-600 dark:text-volt-400 shadow-sm transition-all"
@@ -50,6 +50,16 @@ export default function Footer() {
                   <Copy className="w-3.5 h-3.5 text-slate-400 ml-1" />
                 )}
               </button>
+              <a
+                href="https://www.linkedin.com/in/mukesh-yadav-4131563ba/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white dark:bg-[#111726] border border-slate-200 dark:border-[#1F293D] hover:border-blue-500/50 text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-[#0A66C2] dark:hover:text-[#70B5F9] shadow-sm transition-all"
+              >
+                <Linkedin className="w-3.5 h-3.5 text-[#0A66C2]" />
+                <span>LinkedIn</span>
+                <ExternalLink className="w-3 h-3 text-slate-400" />
+              </a>
             </div>
           </div>
 
@@ -76,6 +86,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-emerald-600 dark:hover:text-volt-400 flex items-center gap-1.5 transition-colors"
                 >
+                  <Linkedin className="w-3.5 h-3.5 text-[#0A66C2]" />
                   <span>LinkedIn Profile</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>

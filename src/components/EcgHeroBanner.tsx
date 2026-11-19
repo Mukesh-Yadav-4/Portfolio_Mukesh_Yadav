@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { ArrowRight, Download, Github, Award, Activity, Gamepad2, ExternalLink, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Download, Github, Linkedin, Award, Activity, Gamepad2, ExternalLink, CheckCircle2 } from "lucide-react";
 import wesadRawData from "@/data/wesad_ecg_samples.json";
 
 export default function EcgHeroBanner() {
@@ -246,6 +246,16 @@ export default function EcgHeroBanner() {
               >
                 <Gamepad2 className="w-4 h-4 text-emerald-500" />
                 <span>Play Games (Arcade)</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/mukesh-yadav-4131563ba/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white dark:bg-[#111726] hover:bg-blue-50 dark:hover:bg-blue-900/20 text-slate-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 border border-slate-200 dark:border-[#1F293D] hover:border-blue-400/40 text-sm font-semibold transition-all shadow-sm"
+                title="Connect on LinkedIn"
+              >
+                <Linkedin className="w-4 h-4 text-[#0A66C2]" />
+                <span>LinkedIn</span>
               </a>
             </div>
           </div>
